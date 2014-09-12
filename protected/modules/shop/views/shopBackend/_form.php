@@ -335,7 +335,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             )
         ); ?>
 
-        <?php //TODO Временное решение. Переписать?>
+        <?php // TODO Временное решение. Переписать?>
         <?php if($model->goodAttributes) {
             $is_output = array();
             foreach($model->goodAttributes as $m) {

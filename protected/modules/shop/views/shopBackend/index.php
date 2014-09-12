@@ -29,11 +29,13 @@ $this->breadcrumbs = array(
     </h1>
 </div>
 
-<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-    <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('ShopModule.shop', 'Find products'), '#', array('class' => 'search-button')); ?>
-    <span class="caret">&nbsp;</span>
-</button>
+<p>
+    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <?php echo Yii::t('ShopModule.catalog', 'Find products'); ?>
+        <span class="caret">&nbsp;</span>
+    </a>
+</p>
 
 <div id="search-toggle" class="collapse out search-form">
 <?php
@@ -129,7 +131,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'is_special',
             'type'  => 'raw',
-            'value'  => '$this->grid->returnBootstrapStatusHtml($data, "is_special", "Special", array("minus", "star"))',
+            'value'  => '{is_special}',
             'filter' => Yii::app()->getModule('shop')->getChoice()
         ),
         array(

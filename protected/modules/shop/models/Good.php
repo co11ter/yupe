@@ -135,7 +135,7 @@ class Good extends yupe\models\YModel
             'update_time'       => Yii::t('ShopModule.shop', 'Updated'),
             'user_id'           => Yii::t('ShopModule.shop', 'User'),
             'change_user_id'    => Yii::t('ShopModule.shop', 'Editor'),
-            'is_special'        => Yii::t('ShopModule.shop', 'Special'),
+            'is_special'        => Yii::t('ShopModule.shop', 'On home page'),
             'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
         );
     }
@@ -161,7 +161,7 @@ class Good extends yupe\models\YModel
             'update_time'       => Yii::t('ShopModule.shop', 'Edited'),
             'user_id'           => Yii::t('ShopModule.shop', 'User'),
             'change_user_id'    => Yii::t('ShopModule.shop', 'Editor'),
-            'is_special'        => Yii::t('ShopModule.shop', 'Special'),
+            'is_special'        => Yii::t('ShopModule.shop', 'On home page'),
             'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
         );
     }

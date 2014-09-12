@@ -86,7 +86,7 @@ return array (
   'Save product and close' => 'Сохранить товар и закрыть',
   'Save product and continue' => 'Сохранить товар и продолжить',
   'Short description' => 'Короткое описание',
-  'Special' => 'Спецпредложение',
+  'On home page' => 'На главной',
   'Status' => 'Статус',
   'This section describes products manager' => 'В данном разделе представлены средства управления товарами',
   'Title' => 'Заголовок',

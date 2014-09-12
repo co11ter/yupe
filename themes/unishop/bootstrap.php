@@ -14,8 +14,9 @@ $assetPath = Yii::app()->getTheme()->getAssetsUrl();
 
 // Styles
 $styles = array(
-    'main.css',
-    'flags.css'
+    'styles.css',
+//    'main.css',
+//    'flags.css'
 );
 
 foreach ($styles as $style) {

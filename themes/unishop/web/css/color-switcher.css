@@ -1,0 +1,85 @@
+
+.color-switcher {
+    background-color: #2F343B;
+    border-radius: 0 0 5px 0;
+    left: -110px;
+    margin-top: -152px;
+    padding: 10px;
+    position: fixed;
+    top: 50%;
+    transition: left 300ms ease-out 0s;
+    width: 110px;
+    z-index: 100;
+}
+.color-switcher.open {
+    left: 0;
+}
+.color-switcher .color {
+    margin: 4px auto 2px;
+    text-align: center;
+}
+.color-switcher .color a {
+    background-repeat: no-repeat;
+    border: 2px solid rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 42px;
+    margin-bottom: 3px;
+    transition: all 300ms ease 0s;
+    width: 67px;
+}
+.color-switcher .color span {
+    color: #FFFFFF;
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: center;
+    width: 100%;
+}
+.color-switcher .color a:hover {
+    opacity: 0.7;
+}
+.color-switcher .color a.current {
+    border: 2px solid #FFFFFF;
+    opacity: 1;
+}
+.color-switcher .toggle {
+    background-color: #2F343B;
+    border-radius: 0 4px 4px 0;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 1.9em;
+    padding: 7px 0;
+    position: absolute;
+    right: -60px;
+    text-align: center;
+    top: 0;
+    transition: all 300ms ease 0s;
+    width: 60px;
+}
+.color-switcher .toggle:hover {
+    background-color: #4F555E;
+}
+.color-switcher .toggle i {
+    animation: 4s linear 0s normal none infinite spin;
+}
+@-moz-keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@media screen and (max-width: 991px) {
+    .color-switcher {
+        display: none;
+    }
+}

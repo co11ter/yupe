@@ -1,0 +1,343 @@
+
+.master-slider {
+    position: relative;
+    transform: translate3d(0px, 0px, 0px);
+    visibility: hidden;
+}
+.master-slider.ms-fullheight {
+    height: 100%;
+}
+.ms-layout-partialview .ms-view {
+    background-color: rgba(0, 0, 0, 0);
+    overflow: visible;
+}
+.ms-layout-partialview {
+    overflow: hidden;
+}
+.master-slider.before-init {
+}
+.master-slider img {
+    max-width: none;
+}
+.ms-ie img {
+    border: medium none;
+}
+.ms-ie8 * {
+    filter: inherit;
+    opacity: inherit;
+}
+.ms-ie7 {
+}
+.ms-loading-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.ms-loading-container .ms-loading, .ms-slide .ms-slide-loading {
+    background: url("loading-2.gif") no-repeat scroll center center #FFFFFF;
+    border-radius: 60px 60px 60px 60px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    height: 36px;
+    left: 50%;
+    margin: -18px;
+    opacity: 0.9;
+    position: absolute;
+    top: 50%;
+    width: 36px;
+}
+.ms-def-cursor {
+    cursor: auto !important;
+}
+.ms-grab-cursor {
+    cursor: url("grab.png"), move;
+}
+.ms-grabbing-cursor {
+    cursor: url("grabbing.png"), move;
+}
+.ms-ie .ms-grab-cursor {
+    cursor: url("../masterslider/style/grab.cur"), move;
+}
+.ms-ie .ms-grabbing-cursor {
+    cursor: url("../masterslider/style/grabbing.cur"), move;
+}
+.ms-view {
+    background: none repeat scroll 0 0 #000000;
+    margin: 0 auto;
+    overflow: hidden;
+    perspective: 2000px;
+    position: relative;
+}
+.ms-view .ms-slide-container {
+    position: relative;
+}
+.ms-slide {
+    height: 100%;
+    position: absolute;
+    transform: translateZ(0px);
+    transform-style: preserve-3d;
+}
+.ms-slide.selected {
+}
+.ms-slide .ms-slide-bgcont, .ms-slide .ms-slide-bgvideocont {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+}
+.ms-slide .ms-slide-bgvideocont {
+    height: 100%;
+    z-index: 5;
+}
+.ms-slide .ms-slide-bgvideocont, .ms-slide-bgvideocont > video {
+    transform: translateZ(0.3px);
+}
+.ms-slide .ms-slide-bgvideo {
+    position: absolute;
+    top: 0;
+}
+.ms-container {
+    margin: 0 auto;
+    position: relative;
+}
+.ms-slide .ms-slide-bgcont img, .ms-container {
+    -moz-user-select: none;
+}
+.ms-slide .ms-layer {
+    position: absolute;
+}
+.ms-slide .ms-slide-layers {
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+.ms-slide .ms-slide-video {
+    background: none repeat scroll 0 0 #000000;
+    border: medium none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    z-index: 11;
+}
+.ms-layer.video-box {
+    background: none repeat scroll 0 0 #000000;
+}
+.ms-layer.video-box iframe {
+    border: medium none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 10;
+}
+.ms-slide .ms-slide-vpbtn, .ms-slide .ms-video-btn {
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
+}
+.ms-slide .ms-slide-vcbtn {
+    cursor: pointer;
+    position: absolute;
+    z-index: 13;
+}
+.ms-slide-vcbtn-mobile {
+    background-color: #000000;
+    bottom: 0;
+    color: #FFFFFF;
+    cursor: pointer;
+    height: 28px;
+    left: 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    z-index: 13;
+}
+.ms-slide-vcbtn-mobile .ms-vcbtn-txt {
+    background: url("video-close-btn.png") no-repeat scroll 0 3px rgba(0, 0, 0, 0);
+    color: #DBDBDB;
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 0.75em;
+    height: 15px;
+    margin-top: 7px;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+.ms-slide .ms-slide-vcbtn, .ms-slide .ms-slide-layers, .ms-slide .ms-slide-vpbtn, .ms-slide .ms-slide-video {
+    transform: translateZ(0.44px);
+}
+.ms-video-img {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.ms-mask-frame {
+    float: left;
+    overflow: hidden;
+    position: absolute;
+}
+.ms-thumb-list {
+    overflow: hidden;
+    position: absolute;
+}
+.ms-thumb-list.ms-dir-h {
+    width: 100%;
+}
+.ms-thumb-list.ms-dir-v {
+    height: 100%;
+    top: 0;
+}
+.ms-thumbs-cont {
+    position: relative;
+}
+.ms-thumb-frame img {
+    height: auto;
+    width: 100%;
+}
+.ms-thumb-frame {
+    cursor: pointer;
+    float: left;
+    opacity: 0.5;
+    overflow: hidden;
+    transition: opacity 300ms ease 0s;
+}
+.ms-thumb-frame-selected {
+    opacity: 1;
+}
+.ms-tabs .ms-thumb-frame {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #F6F6F6;
+    border-color: #FFFFFF;
+    border-image: none;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #222222;
+    opacity: 1;
+    overflow: visible;
+    position: relative;
+    text-shadow: 0 1px 1px #FFFFFF;
+    transition: all 300ms ease-out 0s;
+}
+.ms-tabs.ms-dir-h .ms-thumb-frame {
+    margin-top: 12px;
+}
+.ms-tabs.ms-dir-v .ms-thumb-frame {
+    margin-left: 12px;
+}
+.ms-tabs .ms-thumb {
+    padding: 20px;
+}
+.ms-tabs .ms-thumb-frame-selected {
+    background: none repeat scroll 0 0 #EDEDED;
+    opacity: 1;
+}
+.ms-tabs .ms-thumb-frame .ms-thumb-ol {
+    opacity: 0;
+    position: absolute;
+    transition: all 300ms ease-out 0s;
+}
+.ms-tabs.ms-dir-h .ms-thumb-frame .ms-thumb-ol {
+    border-bottom: 12px solid #F6F6F6;
+    border-left: 12px solid rgba(0, 0, 0, 0);
+    border-right: 12px solid rgba(0, 0, 0, 0);
+    left: 50%;
+    margin-left: -12px;
+    top: 0;
+}
+.ms-tabs.ms-dir-h .ms-thumb-frame-selected .ms-thumb-ol {
+    border-bottom-color: #EDEDED;
+    opacity: 1;
+    top: -12px;
+}
+.ms-tabs.ms-dir-v .ms-thumb-frame .ms-thumb-ol {
+    border-bottom: 12px solid rgba(0, 0, 0, 0);
+    border-right: 12px solid #EDEDED;
+    border-top: 12px solid rgba(0, 0, 0, 0);
+    left: 0;
+    margin-top: -12px;
+    top: 50%;
+}
+.ms-tabs.ms-dir-v .ms-thumb-frame-selected .ms-thumb-ol {
+    border-right-color: #FFFFFF;
+    left: -12px;
+    opacity: 1;
+}
+.ms-bullet {
+    cursor: pointer;
+    float: left;
+}
+.ms-bullets.ms-dir-h {
+    bottom: 20px;
+    position: absolute;
+    right: 50%;
+    width: 100px;
+}
+.ms-sbar {
+    position: absolute;
+}
+.ms-sbar.ms-dir-h {
+    left: 10px;
+    right: 10px;
+    top: 5px;
+}
+.ms-sbar.ms-dir-v {
+    bottom: 10px;
+    right: 5px;
+    top: 10px;
+}
+.ms-sbar .ms-bar {
+    background: none repeat scroll 0 0 #333333;
+    border-radius: 4px 4px 4px 4px;
+    height: 4px;
+}
+.ms-sbar.ms-dir-v .ms-bar {
+    width: 4px;
+}
+.ms-sbar .ms-bar {
+    position: relative;
+    transition: opacity 300ms ease 0s;
+}
+.ms-timerbar {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+.ms-ctimer {
+    cursor: pointer;
+    left: 30px;
+    position: absolute;
+    top: 30px;
+}
+.ms-ctimer-bullet {
+}
+.ms-time-bar {
+    transition: width 120ms linear 0s;
+}
+.ms-ie7 .ms-tooltip-arrow {
+    height: 0;
+}
+.ms-slide-info {
+    position: absolute;
+}
+.ms-slide-info.ms-dir-v {
+    top: 0;
+}
+@-moz-keyframes point-anim {
+    0% {
+        opacity: 1;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+.ms-android .ms-tooltip-point .ms-point-border {
+    animation: 0s ease 0s normal none 1 none;
+}

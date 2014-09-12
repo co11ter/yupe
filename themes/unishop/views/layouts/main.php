@@ -12,11 +12,26 @@
     <?php
     $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
-    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
+//    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
+//    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
+//    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
-    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/comments.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/modernizr.custom.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.easing.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/smoothscroll.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.validate.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/icheck.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.placeholder.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.stellar.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.touchSwipe.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.shuffle.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/lightGallery.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/owl.carousel.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/masterslider.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.nouislider.min.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/script.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/color-switcher.js');
+
     ?>
     <script type="text/javascript">
         var yupeTokenName = '<?php echo Yii::app()->getRequest()->csrfTokenName;?>';
@@ -29,11 +44,12 @@
 </head>
 
 <body>
-<?php if (Yii::app()->hasModule('menu')): { ?>
-    <?php $this->widget('application.modules.menu.widgets.MenuWidget', array('name' => 'top-menu')); ?>
-<?php } endif; ?>
+<!-- header -->
+<?php $this->renderPartial('//layouts/_header'); ?>
+<!-- header end -->
+
 <!-- container -->
-<div class='container'>
+<div class='page-content'>
     <!-- flashMessages -->
     <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
     <!-- breadcrumbs -->
@@ -43,95 +59,44 @@
             'links' => $this->breadcrumbs,
         )
     );?>
-    <div class="row">
+    <div class="content">
         <!-- content -->
-        <section class="col-sm-9 content">
             <?php echo $content; ?>
-        </section>
         <!-- content end-->
-
-        <!-- sidebar -->
-        <aside class="col-sm-3 sidebar">
-
-            <div class="widget blogs-widget">
-                <?php $this->widget(
-                    'yupe\widgets\RandomDataWidget',
-                    array(
-                        'data' => array(
-                            CHtml::link(
-                                CHtml::image(
-                                    $mainAssets . '/images/amyLabs.jpg',
-                                    'amylabs - разработка на Юпи! и Yii !',
-                                    array('style' => 'width: 100%')
-                                ),
-                                'http://amylabs.ru?from=yupe-rb',
-                                array('title' => 'amylabs - разработка на Юпи! и Yii !', 'target' => '_blank')
-                            ),
-                            CHtml::link(
-                                CHtml::image(
-                                    $mainAssets . '/images/yupe-logo.jpg',
-                                    'Юпи! - cms на Yii !',
-                                    array('style' => 'width: 100%')
-                                ),
-                                'http://yupe.ru?from=yupe-rb',
-                                array('title' => 'Юпи! - cms на Yii !', 'target' => '_blank')
-                            ),
-                        )
-                    )
-                ); ?>
-            </div>
-
-            <?php if (Yii::app()->user->isAuthenticated()): ?>
-                <div class="widget last-login-users-widget">
-                    <?php $this->widget('application.modules.user.widgets.ProfileWidget'); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if (Yii::app()->hasModule('blog')): ?>
-                <div class="widget stream-widget">
-                    <?php $this->widget('application.modules.blog.widgets.StreamWidget', array('cacheTime' => 300)); ?>
-                </div>
-
-                <div class="widget last-posts-widget">
-                    <?php $this->widget(
-                        'application.modules.blog.widgets.LastPostsWidget',
-                        array('cacheTime' => $this->yupe->coreCacheTime)
-                    ); ?>
-                </div>
-
-                <div class="widget blogs-widget">
-                    <?php $this->widget(
-                        'application.modules.blog.widgets.BlogsWidget',
-                        array('cacheTime' => $this->yupe->coreCacheTime)
-                    ); ?>
-                </div>
-
-                <div class="widget tags-cloud-widget">
-                    <?php $this->widget(
-                        'application.modules.blog.widgets.TagCloudWidget',
-                        array('cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post', 'count' => 50)
-                    ); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if (Yii::app()->hasModule('feedback')): ?>
-                <div class="widget last-questions-widget">
-                    <?php $this->widget(
-                        'application.modules.feedback.widgets.FaqWidget',
-                        array('cacheTime' => $this->yupe->coreCacheTime)
-                    ); ?>
-                </div>
-            <?php endif; ?>
-
-        </aside>
-        <!-- sidebar end -->
     </div>
-    <!-- footer -->
-    <?php $this->renderPartial('//layouts/_footer'); ?>
-    <!-- footer end -->
+
+    <!-- template buttons -->
+    <div class="sticky-btns scrolled">
+        <form name="quick-contact" method="post" class="quick-contact" novalidate="novalidate">
+            <h3>Contact us</h3>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
+            <div class="form-group">
+                <label for="qc-name">Full name</label>
+                <input type="text" required="" placeholder="Enter full name" id="qc-name" name="qc-name" class="form-control input-sm">
+            </div>
+            <div class="form-group">
+                <label for="qc-email">Email</label>
+                <input type="email" required="" placeholder="Enter email" id="qc-email" name="qc-email" class="form-control input-sm">
+            </div>
+            <div class="form-group">
+                <label for="qc-message">Your message</label>
+                <textarea required="" placeholder="Enter your message" id="qc-message" name="qc-message" class="form-control input-sm"></textarea>
+            </div>
+            <input type="submit" value="Send" class="btn btn-success btn-sm btn-block">
+        </form>
+        <span id="qcf-btn" class=""><i class="fa fa-envelope"></i></span>
+        <span id="scrollTop-btn"><i class="fa fa-chevron-up"></i></span>
+    </div>
+    <!-- template buttons end -->
+
+
 </div>
 <div class='notifications top-right' id="notifications"></div>
 <!-- container end -->
+
+<!-- footer -->
+<?php $this->renderPartial('//layouts/_footer'); ?>
+<!-- footer end -->
 <?php if (Yii::app()->hasModule('contentblock')): { ?>
     <?php $this->widget(
         "application.modules.contentblock.widgets.ContentBlockWidget",

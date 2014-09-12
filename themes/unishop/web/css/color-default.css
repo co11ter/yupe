@@ -1,0 +1,420 @@
+
+a {
+    color: #2BA8DB;
+}
+a:hover {
+    color: #2BA8DB;
+}
+.primary-color, .text-primary {
+    color: #2BA8DB !important;
+}
+.text-success {
+    color: #A3C756 !important;
+}
+.btn-primary {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.btn-primary:hover {
+    background: none repeat scroll 0 0 #1F89B4;
+}
+.btn-success {
+    background: none repeat scroll 0 0 #A3C756;
+}
+.btn-success:hover {
+    background: none repeat scroll 0 0 #8AB03A;
+}
+.btn-outlined.btn-primary {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #2BA8DB;
+    color: #2BA8DB;
+}
+.btn-outlined.btn-primary:hover {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.btn-outlined.btn-success {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #A3C756;
+    color: #A3C756;
+}
+.btn-outlined.btn-success:hover {
+    background: none repeat scroll 0 0 #A3C756;
+}
+.btn-outlined-invert.btn-primary:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #2BA8DB;
+}
+.btn-outlined-invert.btn-success:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #A3C756;
+}
+.form-control {
+    border-color: #2BA8DB;
+}
+.form-control:focus {
+    border-color: #2BA8DB;
+    box-shadow: 0 0 0 1px #2BA8DB;
+    outline: 0 none;
+}
+.select-style {
+    border-color: #2BA8DB;
+}
+.select-style:after {
+    color: #2BA8DB;
+}
+header .right-bg {
+    background: none repeat scroll 0 0 #2BA8DB !important;
+}
+header .search-form {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.toolbar {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.toolbar button:hover, .toolbar a:hover {
+    color: #2BA8DB !important;
+}
+.toolbar button:hover i, .toolbar a:hover i, .toolbar .cart-btn:hover > .btn, .toolbar .cart-btn:hover > .btn i {
+    color: #2BA8DB;
+}
+.small-header .toolbar .search-btn:hover i {
+    color: #FFFFFF;
+}
+.cart-dropdown {
+    border-color: #2BA8DB;
+}
+.cart-dropdown table td input {
+    border-color: #2BA8DB;
+}
+.cart-dropdown .footer {
+    background: none repeat scroll 0 0 #A3C756;
+}
+.cart-dropdown .footer .btn:hover {
+    color: #A3C756 !important;
+}
+.cart-dropdown .footer .btn:hover i {
+    color: #A3C756;
+}
+@media only screen and (max-width: 991px) {
+    header .mobile-border span {
+        background: none repeat scroll 0 0 #A3C756;
+    }
+}
+.menu .main {
+    border-color: #A3C756;
+}
+.menu .main li.has-submenu:hover {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.menu .main .submenu {
+    border-color: #2BA8DB;
+}
+.menu .main .submenu li {
+    border-top-color: #2BA8DB;
+}
+.menu .main .submenu li:hover {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.menu .catalog li:hover, .menu .catalog li.has-submenu:hover {
+    background: none repeat scroll 0 0 #A3C756 !important;
+}
+.menu .catalog .submenu li {
+    border-top-color: #A3C756 !important;
+}
+.menu .catalog .submenu li:hover {
+    background: none repeat scroll 0 0 #A3C756;
+}
+.menu .catalog .submenu .sub-submenu li {
+    border-top-color: #2BA8DB !important;
+}
+.menu .catalog .submenu .sub-submenu li a:hover {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.menu .catalog .submenu .offer:hover {
+    background: none repeat scroll 0 0 #FFFFFF !important;
+}
+.menu .catalog .submenu .offer .btn {
+    background: none repeat scroll 0 0 #2BA8DB !important;
+}
+.menu .catalog .submenu .offer .btn:hover {
+    background: none repeat scroll 0 0 #1F89B4 !important;
+}
+.menu-toggle:hover {
+    background: none repeat scroll 0 0 #A3C756;
+}
+@media only screen and (max-width: 991px) {
+    .menu .catalog li a, .small-header .menu .catalog li a {
+        border-bottom-color: #A3C756;
+    }
+    .menu .catalog li a:hover, .small-header .menu .catalog li a:hover {
+        background: none repeat scroll 0 0 #A3C756;
+    }
+    .menu .main li a, .small-header .menu .main li a {
+        border-bottom-color: #2BA8DB;
+    }
+    .menu .main li a:hover, .small-header .menu .main li a:hover {
+        background: none repeat scroll 0 0 #2BA8DB;
+    }
+    .menu .submenu li:hover, .small-header .menu .submenu li:hover, .menu .submenu li:hover a, .small-header .menu .submenu li:hover a {
+        color: #2BA8DB !important;
+    }
+    .menu .catalog li a, .small-header .menu .catalog li a {
+        border-bottom-color: #A3C756 !important;
+    }
+    .menu .catalog li .submenu li:hover, .small-header .menu .catalog li .submenu li:hover, .menu .catalog li .submenu li:hover a, .small-header .menu .catalog li .submenu li:hover a {
+        color: #A3C756 !important;
+    }
+}
+.log-reg .registr-form {
+    border-left-color: #A3C756;
+}
+.about .hero-static .content .inner h1 span {
+    color: #A3C756;
+}
+.about .team .member .mask {
+    border-color: #2BA8DB;
+}
+.about .team .member .social a:hover {
+    color: #1F89B4;
+}
+.cat-tiles a:hover {
+    border-color: #2BA8DB;
+    color: #2F343B;
+}
+.info-block-image .color-box .tiles div {
+    border-color: #2BA8DB;
+}
+.info-block-image .color-box .tiles div i {
+    color: #2BA8DB;
+}
+.feature-tabs .tab {
+    color: #2BA8DB;
+}
+.feature-tabs .tab.active {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.catalog-grid .tile .price-label {
+    background: none repeat scroll 0 0 #A3C756;
+}
+.catalog-grid .tile .footer a:hover {
+    color: #2BA8DB;
+}
+.catalog-grid .tile .footer .tools .rate span.active {
+    color: #2BA8DB;
+}
+.catalog-grid .tile .footer .tools .add-cart-btn {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.catalog-grid .tile .footer .tools .share-btn, .catalog-grid .tile .footer .tools .wishlist-btn {
+    color: #2BA8DB;
+}
+.catalog-grid .tile .footer .tools .share-btn .hover-state {
+    border-color: #2BA8DB;
+}
+.catalog-grid .tile .footer .tools .share-btn .hover-state a {
+    color: #2BA8DB;
+}
+.catalog-grid .tile .footer .tools .wishlist-btn .hover-state {
+    border-color: #2BA8DB;
+}
+.catalog-single .rate span.active {
+    color: #2BA8DB;
+}
+.catalog-single .buttons .qnt-count .incr-btn {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.catalog-single .buttons .qnt-count .incr-btn:hover {
+    background: none repeat scroll 0 0 #1F89B4;
+}
+.catalog-single .social-links a {
+    color: #2BA8DB;
+}
+.catalog-single .social-links a:hover {
+    color: #1F89B4;
+}
+.catalog-single .promo-labels div {
+    border-color: #2BA8DB;
+}
+.catalog-single .promo-labels div i {
+    color: #2BA8DB;
+}
+.catalog-single .promo-labels div:hover {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.tech-specs .item {
+    border-bottom-color: #A3C756;
+}
+.tech-specs .item span {
+    color: #2BA8DB;
+}
+.tech-specs .item i {
+    color: #2BA8DB;
+}
+.tech-specs .item:hover {
+    background: none repeat scroll 0 0 #A3C756;
+}
+.shop-filters .filter-section {
+    border-bottom-color: #A3C756;
+}
+.shop-filters .filter-section .clear {
+    color: #2BA8DB;
+}
+.shop-filters .filter-section .clear:hover {
+    border-bottom-color: #2BA8DB;
+}
+.shop-filters .filter-section .categories li:hover > a {
+    color: #2BA8DB;
+}
+.shop-filters .filter-section .categories li.has-subcategory .subcategory li:hover a {
+    color: #2BA8DB;
+}
+.special-offer .tile .price-label {
+    background: none repeat scroll 0 0 #A3C756;
+}
+.special-offer .tile .footer a:hover {
+    color: #2BA8DB;
+}
+.special-offer .sign {
+    color: #2BA8DB;
+}
+.cart-message {
+    background: none repeat scroll 0 0 #A3C756;
+}
+.shopping-cart table td.name a:hover, .wishlist table td.name a:hover {
+    border-bottom-color: #2BA8DB;
+}
+.shopping-cart table td.delete i, .wishlist table td.delete i {
+    color: #2BA8DB;
+}
+.shopping-cart table td.qnt-count .incr-btn, .wishlist table td.qnt-count .incr-btn {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.shopping-cart table td.qnt-count .incr-btn:hover, .wishlist table td.qnt-count .incr-btn:hover {
+    background: none repeat scroll 0 0 #1F89B4;
+}
+.checkout table th, .checkout table .th {
+    color: #2BA8DB;
+}
+.checkout .payment-method {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.top-item .price-label {
+    background: none repeat scroll 0 0 #A3C756;
+}
+.top-item .footer a:hover {
+    color: #2BA8DB;
+}
+.modal-header {
+    border-bottom-color: #A3C756;
+}
+.modal-header a:hover {
+    border-bottom: 1px dashed #1F89B4;
+    color: #1F89B4;
+}
+.modal-header .close {
+    color: #2BA8DB;
+}
+.blog .post .title:hover a {
+    border-color: #2BA8DB;
+}
+.blog .post footer .share a:hover {
+    color: #1F89B4;
+}
+.tags {
+    color: #2BA8DB;
+}
+.coming-soon .social-bar {
+    background-color: #2BA8DB;
+}
+.footer .logo, .footer .copyright {
+    border-color: #A3C756;
+}
+.tabs-widget .nav-tabs {
+    border-bottom-color: #2BA8DB;
+}
+.tabs-widget .nav-tabs li a:hover {
+    background: none repeat scroll 0 0 #2BA8DB;
+    border-color: #2BA8DB;
+}
+.tabs-widget .nav-tabs li.active a {
+    border-color: #2BA8DB #2BA8DB #FFFFFF;
+}
+.media-link .overlay .descr > div {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.subscr-widget {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.gallery-widget .gallery-grid .gallery-item a .overlay span {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+#lightGallery-action a {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+#lightGallery-action a.disabled {
+    background: none repeat scroll 0 0 #2BA8DB !important;
+}
+#lightGallery-action a:hover, #lightGallery-action a:focus {
+    color: #2BA8DB;
+}
+#lightGallery-Gallery .thumb_cont .thumb_info {
+    background-color: #2BA8DB;
+}
+#lightGallery-close {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+#lightGallery-close:hover {
+    color: #2BA8DB;
+}
+.noUi-connect {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.noUi-handle {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.brand-carousel .owl-prev, .brand-carousel .owl-next {
+    color: #2BA8DB !important;
+}
+.testmns-widget .carousel blockquote footer {
+    color: #2BA8DB;
+}
+.testmns-widget .carousel .carousel-indicators li.active {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.sticky-btns span {
+    background: none repeat scroll 0 0 #2BA8DB;
+}
+.sticky-btns span:hover {
+    background: none repeat scroll 0 0 #1F89B4;
+}
+.panel-toggle h1, .panel-toggle .h1, .panel-toggle .h2, .panel-toggle h2, .panel-toggle .h3, .panel-toggle h3, .panel-toggle .h4, .panel-toggle h4, .panel-toggle .h5, .panel-toggle h5, .panel-toggle .h6, .panel-toggle h6 {
+    color: #2BA8DB;
+}
+.panel-toggle:hover {
+    border-bottom-color: #1F89B4;
+    color: #1F89B4 !important;
+}
+.panel-toggle:hover h1, .panel-toggle:hover .h1, .panel-toggle:hover .h2, .panel-toggle:hover h2, .panel-toggle:hover .h3, .panel-toggle:hover h3, .panel-toggle:hover .h4, .panel-toggle:hover h4, .panel-toggle:hover .h5, .panel-toggle:hover h5, .panel-toggle:hover .h6, .panel-toggle:hover h6 {
+    color: #1F89B4;
+}
+.accordion .panel-heading a {
+    color: #2BA8DB;
+}
+.accordion .panel-heading a h1, .accordion .panel-heading a .h1, .accordion .panel-heading a .h2, .accordion .panel-heading a h2, .accordion .panel-heading a .h3, .accordion .panel-heading a h3, .accordion .panel-heading a .h4, .accordion .panel-heading a h4, .accordion .panel-heading a .h5, .accordion .panel-heading a h5, .accordion .panel-heading a .h6, .accordion .panel-heading a h6 {
+    color: #2BA8DB;
+}
+.accordion .panel-heading a:hover {
+    border-bottom-color: #1F89B4;
+    color: #1F89B4 !important;
+}
+.accordion .panel-heading a:hover h1, .accordion .panel-heading a:hover .h1, .accordion .panel-heading a:hover .h2, .accordion .panel-heading a:hover h2, .accordion .panel-heading a:hover .h3, .accordion .panel-heading a:hover h3, .accordion .panel-heading a:hover .h4, .accordion .panel-heading a:hover h4, .accordion .panel-heading a:hover .h5, .accordion .panel-heading a:hover h5, .accordion .panel-heading a:hover .h6, .accordion .panel-heading a:hover h6 {
+    color: #1F89B4;
+}
+.pagination li a {
+    color: #2BA8DB;
+}
+.sidebar-search button[type="submit"]:hover {
+    color: #2BA8DB;
+}
+.countdown #timer {
+    background: none repeat scroll 0 0 #2BA8DB;
+}

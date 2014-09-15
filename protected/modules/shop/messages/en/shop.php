@@ -102,4 +102,5 @@ return array (    'Shop' => '',
   'Attribute' => '',
   'Attribute list' => '',
   'Add a attribute' => '',
+  'RUB' => ''
 );

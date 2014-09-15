@@ -59,11 +59,13 @@
             'links' => $this->breadcrumbs,
         )
     );?>
-    <div class="content">
-        <!-- content -->
+    <section class="catalog-grid">
+        <div class="container">
+            <!-- content -->
             <?php echo $content; ?>
-        <!-- content end-->
-    </div>
+            <!-- content end-->
+        </div>
+    </section>
 
     <!-- template buttons -->
     <div class="sticky-btns scrolled">

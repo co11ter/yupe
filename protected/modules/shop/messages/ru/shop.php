@@ -107,4 +107,5 @@ return array (
   'Attribute' => 'Атрибуты',
   'Attribute list' => 'Список атрибутов',
   'Add a attribute' => 'Добавить атрибут',
+  'RUB' => 'РУБ'
 );

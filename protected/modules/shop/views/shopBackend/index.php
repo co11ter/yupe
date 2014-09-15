@@ -131,7 +131,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'is_special',
             'type'  => 'raw',
-            'value'  => '{is_special}',
+            'value'  => '{\'is_special\'}',
             'filter' => Yii::app()->getModule('shop')->getChoice()
         ),
         array(

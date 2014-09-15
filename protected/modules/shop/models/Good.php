@@ -111,6 +111,10 @@ class Good extends yupe\models\YModel
                 'condition' => 't.status = :status',
                 'params'    => array(':status' => self::STATUS_ACTIVE),
             ),
+            'onHomePage' => array(
+                'condition' => 't.is_special = :is_special',
+                'params'    => array(':is_special' => self::SPECIAL_ACTIVE)
+            )
         );
     }
 
@@ -285,15 +289,11 @@ class Good extends yupe\models\YModel
         return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('ShopModule.shop', '*unknown*');
     }
 
-    public function getImageUrl($width = 75, $height = 75)
+    public function getImageUrl()
     {
-        if (false !== $this->image) {
-
-            $module = Yii::app()->getModule('shop');
-
-            return Yii::app()->image->makeThumbnail(
-                $this->image, $module->uploadPath, $width, $height, \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
-            );
+        if ($this->image) {
+            return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
+            Yii::app()->getModule('shop')->uploadPath . '/' . $this->image;
         }
 
         return false;

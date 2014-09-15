@@ -20,7 +20,7 @@ class m000000_000000_good_base extends yupe\components\DbMigration
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'name' => 'varchar(250) NOT NULL',
-                'price' => "decimal(19,3) NOT NULL DEFAULT '0'",
+                'price' => "decimal(19,2) NOT NULL DEFAULT '0'",
                 'article' => 'varchar(100) DEFAULT NULL',
                 'image' => 'varchar(250) DEFAULT NULL',
                 'short_description' => 'text',

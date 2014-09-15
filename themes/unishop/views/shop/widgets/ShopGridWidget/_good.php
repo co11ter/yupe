@@ -19,7 +19,7 @@
                 $data->getImageUrl(),
                 $data->name
             ),
-            '#'
+            '/shop/'.$data->category->alias.'/'.$data->alias
         );?>
 
         <?php

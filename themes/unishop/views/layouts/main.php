@@ -12,9 +12,9 @@
     <?php
     $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
-//    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
-//    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
-//    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
+    //    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
+    //    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
+    //    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/modernizr.custom.js');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.easing.min.js');
@@ -59,30 +59,32 @@
             'links' => $this->breadcrumbs,
         )
     );?>
-    <section class="catalog-grid">
-        <div class="container">
-            <!-- content -->
-            <?php echo $content; ?>
-            <!-- content end-->
-        </div>
-    </section>
+
+    <!-- content -->
+    <?php echo $content; ?>
+    <!-- content end-->
 
     <!-- template buttons -->
     <div class="sticky-btns scrolled">
         <form name="quick-contact" method="post" class="quick-contact" novalidate="novalidate">
             <h3>Contact us</h3>
+
             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
+
             <div class="form-group">
                 <label for="qc-name">Full name</label>
-                <input type="text" required="" placeholder="Enter full name" id="qc-name" name="qc-name" class="form-control input-sm">
+                <input type="text" required="" placeholder="Enter full name" id="qc-name" name="qc-name"
+                       class="form-control input-sm">
             </div>
             <div class="form-group">
                 <label for="qc-email">Email</label>
-                <input type="email" required="" placeholder="Enter email" id="qc-email" name="qc-email" class="form-control input-sm">
+                <input type="email" required="" placeholder="Enter email" id="qc-email" name="qc-email"
+                       class="form-control input-sm">
             </div>
             <div class="form-group">
                 <label for="qc-message">Your message</label>
-                <textarea required="" placeholder="Enter your message" id="qc-message" name="qc-message" class="form-control input-sm"></textarea>
+                <textarea required="" placeholder="Enter your message" id="qc-message" name="qc-message"
+                          class="form-control input-sm"></textarea>
             </div>
             <input type="submit" value="Send" class="btn btn-success btn-sm btn-block">
         </form>

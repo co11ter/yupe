@@ -102,5 +102,9 @@ return array (    'Shop' => '',
   'Attribute' => '',
   'Attribute list' => '',
   'Add a attribute' => '',
-  'RUB' => ''
+  'RUB' => '',
+  'Add to cart' => '',
+  'Add to wishlist' => '',
+  'Reviews' => '',
+  'Related goods' => '',
 );

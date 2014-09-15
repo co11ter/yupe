@@ -299,6 +299,24 @@ class Good extends yupe\models\YModel
         return false;
     }
 
+    public function getImageThumbnail($width = 137, $height = 130)
+    {
+        if (false !== $this->image) {
+
+            $module = Yii::app()->getModule('shop');
+
+            return Yii::app()->image->makeThumbnail(
+                $this->image,
+                $module->uploadPath,
+                $width,
+                $height,
+                \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
+            );
+        }
+
+        return false;
+    }
+
     /**
      * category link
      *

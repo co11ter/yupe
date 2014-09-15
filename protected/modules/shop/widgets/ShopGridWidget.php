@@ -11,9 +11,14 @@ class ShopGridWidget extends yupe\widgets\YWidget
 {
     public $view = 'shopgridwidget';
 
+    public $dataProvider = '';
+
     public function run()
     {
-        $model = Good::model()->published()->onHomePage();
-        $this->render($this->view, array('model' => $model));
+        // По умолчанию те товары, которые для главной страницы
+        if(!$this->dataProvider) {
+            $this->dataProvider = new CActiveDataProvider(Good::model()->published()->onHomePage());
+        }
+        $this->render($this->view, array('dataProvider' => $this->dataProvider));
     }
 }

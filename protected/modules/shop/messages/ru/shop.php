@@ -107,5 +107,9 @@ return array (
   'Attribute' => 'Атрибуты',
   'Attribute list' => 'Список атрибутов',
   'Add a attribute' => 'Добавить атрибут',
-  'RUB' => 'РУБ'
+  'RUB' => 'РУБ',
+  'Add to cart' => 'В корзину',
+  'Add to wishlist' => 'К сравнению',
+  'Reviews' => 'Отзывы',
+  'Related goods' => 'Похожие товары',
 );

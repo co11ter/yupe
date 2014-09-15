@@ -11,7 +11,7 @@
 
 <div class="row">
     <?php $this->widget('bootstrap.widgets.TbListView',array(
-        'dataProvider' => Good::model()->search(),
+        'dataProvider' => $dataProvider,
         'itemView'     => '_good',
         'template'     => "{items}\n",
     )); ?>

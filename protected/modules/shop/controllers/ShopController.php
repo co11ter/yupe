@@ -33,18 +33,18 @@ class ShopController extends yupe\components\controllers\FrontController
 
         $goodsProvider = $model->published()->search();
 
-        $goodsProvider->getCriteria()->mergeWith(array(
-            'limit' => self::GOOD_PER_PAGE,
-            'order' => 't.create_time DESC',
-        ));
-
         if($cid) {
+            $goodsProvider->getCriteria()->mergeWith(array(
+                'limit' => self::GOOD_PER_PAGE,
+                'order' => 't.create_time DESC',
+            ));
             $goodsProvider->getCriteria()->mergeWith(
                 array(
                     'with' => array(
                         'category' => array(
-                            'condition' => 'category.alias = :alias',
-                            'params' => array(':alias' => $cid),
+                            'condition' => 'category.alias = :calias',
+                            'params' => array(':calias' => $cid),
+//                            'together' => true
                         )
                     )
                 )
@@ -53,10 +53,16 @@ class ShopController extends yupe\components\controllers\FrontController
         if($name) {
             $goodsProvider->getCriteria()->mergeWith(
                 array(
-                    'condition' => 't.alias = :alias',
-                    'params' => array(':alias' => $name),
+                    'condition' => 't.alias = :galias',
+                    'params' => array(':galias' => $name),
                 )
             );
+
+            // Если ищем по алиасу, то выводим страницу для одного товара
+            $this->render('good', array(
+                'good' => reset($goodsProvider->getData())
+            ));
+            return true;
         }
 
         $this->render('index', array(
@@ -64,5 +70,6 @@ class ShopController extends yupe\components\controllers\FrontController
             'model' => $model,
             'attributes' => $attrs
         ));
+        return true;
     }
 }

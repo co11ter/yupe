@@ -28,7 +28,7 @@ $form = $this->beginWidget(
                 )
             ); ?>
         </div>
-        <div class="col-sm-3">
+        <div class="c">
             <?php echo $form->dropDownListGroup(
                 $model,
                 'status',

@@ -9,31 +9,37 @@ $form = $this->beginWidget(
     )
 ); ?>
 
-<fieldset class="inline">
-    <div class="row-fluid control-group">
-        <div class="span3">
-            <?php echo $form->textFieldRow(
+<fieldset>
+    <div class="row">
+        <div class="col-sm-3">
+            <?php echo $form->textFieldGroup(
                 $model,
                 'name',
                 array(
-                    'class' => ' popover-help',
-                    'size' => 60,
-                    'maxlength' => 60,
-                    'data-original-title' => $model->getAttributeLabel('name'),
-                    'data-content' => $model->getAttributeDescription('name')
+                    'widgetOptions' => array(
+                        'htmlOptions' => array(
+                            'class' => ' popover-help',
+                            'data-original-title' => $model->getAttributeLabel('name'),
+                            'data-content' => $model->getAttributeDescription('name')
+                        )
+                    ),
                 )
             ); ?>
         </div>
-        <div class="span3">
-            <?php echo $form->dropDownListRow(
+        <div class="col-sm-3">
+            <?php echo $form->dropDownListGroup(
                 $model,
                 'type_id',
-                $model->getTypeList(),
                 array(
-                    'class' => 'popover-help',
-                    'data-original-title' => $model->getAttributeLabel('type_id'),
-                    'data-content' => $model->getAttributeDescription('type_id'),
-                    'empty' => Yii::t('AttributeModule.attribute', '--choose--'),
+                    'widgetOptions' => array(
+                        'data' => $model->getTypeList(),
+                        'htmlOptions' => array(
+                            'class' => 'popover-help',
+                            'data-original-title' => $model->getAttributeLabel('type_id'),
+                            'data-content' => $model->getAttributeDescription('type_id'),
+                            'empty' => Yii::t('AttributeModule.attribute', '--choose--'),
+                        ),
+                    ),
                 )
             ); ?>
         </div>
@@ -43,7 +49,7 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(
-        'type' => 'primary',
+        'context' => 'primary',
         'encodeLabel' => false,
         'buttonType' => 'submit',
         'label' => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('AttributeModule.attribute', 'Find a attribute'),

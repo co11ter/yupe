@@ -51,18 +51,23 @@ class ShopModule extends WebModule
 
     public function getIcon()
     {
-        return 'shopping-cart';
+        return 'glyphicon glyphicon-shopping-cart';
+    }
+
+    public function getAdminPageLink()
+    {
+        return '/shop/shopBackend/index';
     }
 
     public function getNavigation()
     {
         return array(
             array('label' => Yii::t('ShopModule.shop', 'Products')),
-            array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.shop', 'Shop manage'), 'url' => array('/shop/shopBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a product'), 'url' => array('/shop/shopBackend/create')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ShopModule.shop', 'Shop manage'), 'url' => array('/shop/shopBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a product'), 'url' => array('/shop/shopBackend/create')),
             array('label' => Yii::t('ShopModule.shop', 'Attribute')),
-            array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.shop', 'Attribute list'), 'url' => array('/attribute/attributeBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a attribute'), 'url' => array('/attribute/attributeBackend/create')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ShopModule.shop', 'Attribute list'), 'url' => array('/attribute/attributeBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a attribute'), 'url' => array('/attribute/attributeBackend/create')),
         );
     }
 	public function init()

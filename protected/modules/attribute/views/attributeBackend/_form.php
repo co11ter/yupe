@@ -28,8 +28,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'enableAjaxValidation' => false,
     'enableClientValidation' => true,
     'type' => 'vertical',
-    'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-    'inlineErrors' => true,
+    'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data')
 )); ?>
 
     <div class="alert alert-info">
@@ -40,78 +39,103 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow(
+    <div class="row">
+        <div class="col-sm-6">
+
+        <?php echo $form->textFieldGroup(
             $model,
             'name',
             array(
-                'class' => 'span7 popover-help',
-                'size' => 60, 'maxlength' => 250,
-                'data-original-title' => $model->getAttributeLabel('name'),
-                'data-content' => $model->getAttributeDescription('name')
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('name'),
+                        'data-content' => $model->getAttributeDescription('name')
+                    ),
+                ),
             )
         );?>
+            </div>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-        <div class="span3">
-            <?php echo $form->checkBoxListRow(
+    <div class="row">
+        <div class="col-sm-3">
+            <?php echo $form->checkBoxListGroup(
                 $model,
                 'categoryIds',
-                $model->getCategoryList(),
                 array(
-                    'class' => 'span3 popover-help',
-                    'data-original-title' => $model->getAttributeLabel('category_id'),
-                    'data-content' => $model->getAttributeDescription('category_id'),
-                    'encode' => false
+                    'widgetOptions' => array(
+                        'data'        => $model->getCategoryList(),
+                        'htmlOptions' => array(
+                            'class' => 'popover-help',
+                            'data-original-title' => $model->getAttributeLabel('category_id'),
+                            'data-content' => $model->getAttributeDescription('category_id'),
+                            'encode' => false
+                        ),
+                    ),
                 )
             );?>
         </div>
-        <div class="span3">
-            <?php echo $form->checkBoxListRow(
+        <div class="col-sm-3">
+            <?php echo $form->checkBoxListGroup(
                 $model,
                 'filtering',
-                $model->getCategoryList(),
                 array(
-                    'class' => 'span3 popover-help',
-                    'data-original-title' => $model->getAttributeLabel('filtering'),
-                    'data-content' => $model->getAttributeDescription('filtering'),
-                    'encode' => false
+                    'widgetOptions' => array(
+                        'data'        => $model->getCategoryList(),
+                        'htmlOptions' => array(
+                            'class' => 'popover-help',
+                            'data-original-title' => $model->getAttributeLabel('filtering'),
+                            'data-content' => $model->getAttributeDescription('filtering'),
+                            'encode' => false
+                        ),
+                    ),
                 )
             );?>
         </div>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('type_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow(
+    <div class="row">
+        <div class="col-sm-6">
+        <?php echo $form->dropDownListGroup(
             $model,
             'type_id',
-            $model->getTypeList(),
             array(
-                'empty' => Yii::t('AttributeModule.attribute', '--choose--'),
-                'class' => 'span7 popover-help',
-                'data-original-title' => $model->getAttributeLabel('type_id'),
-                'data-content' => $model->getAttributeDescription('type_id'),
-                'encode' => false
+                'widgetOptions' => array(
+                    'data'        => $model->getTypeList(),
+                    'htmlOptions' => array(
+                        'empty' => Yii::t('AttributeModule.attribute', '--choose--'),
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('type_id'),
+                        'data-content' => $model->getAttributeDescription('type_id'),
+                        'encode' => false
+                    ),
+                ),
             )
         );?>
+        </div>
     </div>
-    <div class="row-fluid control-group value_list hidden <?php echo $model->hasErrors('value_list') ? 'error' : ''; ?>">
+    <div class="row value_list hidden">
+        <div class="col-sm-6">
         <?php
         if($model->value_list)
             $model->value_list = implode(PHP_EOL, $model->value_list);
-        echo $form->textAreaRow(
+        echo $form->textAreaGroup(
             $model,
             'value_list',
             array(
-                'class' => 'span7 popover-help',
-                'size' => 60, 'maxlength' => 250,
-                'data-original-title' => $model->getAttributeLabel('value_list'),
-                'data-content' => $model->getAttributeDescription('value_list')
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('value_list'),
+                        'data-content' => $model->getAttributeDescription('value_list')
+                    ),
+                ),
             )
         );?>
+            </div>
     </div>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
-        'type' => 'primary',
+        'context' => 'primary',
         'label' => $model->isNewRecord
                 ? Yii::t('AttributeModule.attribute', 'Add attribute and continue')
                 : Yii::t('AttributeModule.attribute', 'Save attribute and continue'),

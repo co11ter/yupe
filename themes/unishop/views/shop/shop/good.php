@@ -51,6 +51,11 @@ $this->breadcrumbs = array(
                         <?php echo Yii::t('ShopModule.shop', 'Add to wishlist'); ?>
                     </a>
                 </div>
+                <div>
+                    <?php foreach($good->goodAttributes as $attr) {
+                        echo CHtml::tag('b', array(), CHtml::encode($attr->attribute->name)).': '.CHtml::encode($attr->value).'<br/>';
+                    }?>
+                </div>
                 <p class="p-style2">
                     <?php echo $good->description;?>
                 </p>

@@ -42,14 +42,19 @@ class AttributeModule extends WebModule
 
     public function getIcon()
     {
-        return 'flag';
+        return 'glyphicon glyphicon-flag';
+    }
+
+    public function getAdminPageLink()
+    {
+        return '/attribute/attributeBackend/index';
     }
 
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('AttributeModule.attribute', 'Attribute list'), 'url' => array('/attribute/attributeBackend/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('AttributeModule.attribute', 'Add a attribute'), 'url' => array('/attribute/attributeBackend/create')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('AttributeModule.attribute', 'Attribute list'), 'url' => array('/attribute/attributeBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('AttributeModule.attribute', 'Add a attribute'), 'url' => array('/attribute/attributeBackend/create')),
         );
     }
 

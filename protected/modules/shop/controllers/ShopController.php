@@ -19,6 +19,7 @@ class ShopController extends yupe\components\controllers\FrontController
      * @param string $cid
      * @param string $name
      * @throws CHttpException
+     * @return bool
      */
     public function actionIndex($cid = '', $name = '')
     {

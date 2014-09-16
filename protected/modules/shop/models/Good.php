@@ -37,7 +37,7 @@
  * @property Category $category
  * @property User $user
  */
-class Good extends yupe\models\YModel
+class Good extends yupe\models\YModel implements IECartPosition
 {
     const SPECIAL_NOT_ACTIVE = 0;
     const SPECIAL_ACTIVE     = 1;
@@ -233,6 +233,16 @@ class Good extends yupe\models\YModel
                 'fileName' => array($this, 'generateFileName'),
             ),
         );
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
     }
 
     public function generateFileName()

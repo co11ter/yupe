@@ -15,7 +15,8 @@ class ShopModule extends WebModule
     {
         return array(
             'category',
-            'attribute'
+            'attribute',
+            'shoppingcart'
         );
     }
 

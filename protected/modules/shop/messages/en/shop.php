@@ -107,4 +107,11 @@ return array (    'Shop' => '',
   'Add to wishlist' => '',
   'Reviews' => '',
   'Related goods' => '',
+  'Checkout' => '',
+  'To cart' => '',
+  'Items' => '',
+  'Quantity' => '',
+  'Cart is empty!' => '',
+  'was successfully added to your cart' => '',
+  'View cart' => ''
 );

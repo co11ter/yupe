@@ -43,6 +43,7 @@ $(document).ready(function(e) {
 	var $scrollTopBtn = $('#scrollTop-btn');
 	var $qcfBtn = $('#qcf-btn');
 	var $addToCartBtn = $('#addItemToCart');
+	var $clearCartBtn = $('#clearCart');
 	var $addedToCartMessage = $('.cart-message');
 	var $promoLabels = $('.promo-labels div');
 	var $panelToggle = $('.panel-toggle');
@@ -103,8 +104,42 @@ $(document).ready(function(e) {
 	/*Shopping Cart Dropdown 
 	*******************************************/
 	//Deleting Items
+
 	$(document).on('click', '.cart-dropdown .delete', function(){
-		var $target = $(this).parent().parent();
+        var $itemId   = $(this).parent().parent().find('#itemIdCart').val();
+        $.post(
+            '/shoppingcart/delete',
+            'id='+$itemId+'&'+yupeTokenName+'='+yupeToken,
+            function(response, status) {
+                response = JSON.parse(response);
+                var data = (response.data);
+
+                $('.cart-btn a span').text(response.count);
+                $('.cart-dropdown div.total').text(response.cost + ' ' + response.currency);
+
+                if(data.length){
+                    $('.cart-dropdown h3').addClass('hidden');
+                    $('.cart-dropdown table').removeClass('hidden');
+                } else {
+                    $('.cart-dropdown table').addClass('hidden');
+                    $('.cart-dropdown h3').removeClass('hidden');
+                }
+
+                $('.cart-dropdown tr.item').remove();
+                for(var i = 0; data.length>i; i++) {
+                    $('.cart-dropdown table').append(
+                        '<tr class="item"><td><div class="delete"></div><a href="#">' + data[i].name +
+                            '<td><input type="text" value="' + data[i].quantity +
+                            '"></td><td class="price">' + data[i].price + '&nbsp;' +  response.currency + '</td>'
+                    );
+                }
+                $addedToCartMessage.addClass('visible');
+            }
+        );
+        return false;
+
+
+		/*var $target = $(this).parent().parent();
 		var $positions = $('.cart-dropdown .item');
 		var $positionQty = parseInt($('.cart-btn a span').text());
 		$target.hide(300, function(){
@@ -115,7 +150,7 @@ $(document).ready(function(e) {
 					$('.cart-dropdown .body').html('<h3>Cart is empty!</h3>');
 				}
 			});
-		});
+		});*/
 	});
 	
 	/*Shopping Cart Page
@@ -468,22 +503,61 @@ $(document).ready(function(e) {
 	
 	/*Added To Cart Message + Action (For Demo Purpose)
 	**************************************************/
-	$addToCartBtn.click(function(){
-		$addedToCartMessage.removeClass('visible');
-		var $itemName = $(this).parent().parent().find('h1').text();
-		var $itemPrice = $(this).parent().parent().find('.price').text();
-		var $itemQnty = $(this).parent().find('#quantity').val();
-		var $cartTotalItems = parseInt($('.cart-btn a span').text()) +1;
-		$addedToCartMessage.find('p').text('"' + $itemName + '"' + '  ' + 'was successfully added to your cart.');
-		$('.cart-dropdown table').append(
-			'<tr class="item"><td><div class="delete"></div><a href="#">' + $itemName + 
-			'<td><input type="text" value="' + $itemQnty +
-			'"></td><td class="price">' + $itemPrice + '</td>' 
-		);
-		$('.cart-btn a span').text($cartTotalItems);
-		$addedToCartMessage.addClass('visible');
+	$addToCartBtn.on('click', function(){
+        var $itemQnty = $(this).parent().find('#quantity').val();
+        var $itemId   = $(this).parent().parent().find('#itemId').val();
+        $.post(
+            '/shoppingcart/put',
+            'id='+$itemId+'&quantity='+$itemQnty+'&'+yupeTokenName+'='+yupeToken,
+            function(response, status) {
+                response = JSON.parse(response);
+                var data = (response.data);
+
+                $('.cart-btn a span').text(response.count);
+                $('.cart-dropdown div.total').text(response.cost + ' ' + response.currency);
+
+                if(data.length){
+                    $('.cart-dropdown h3').addClass('hidden');
+                    $('.cart-dropdown table').removeClass('hidden');
+                } else {
+                    $('.cart-dropdown table').addClass('hidden');
+                    $('.cart-dropdown h3').removeClass('hidden');
+                }
+
+                $('.cart-dropdown tr.item').remove();
+                for(var i = 0; data.length>i; i++) {
+                    $('.cart-dropdown table').append(
+                        '<tr class="item"><input type="hidden" name="itemIdCart" value="' + data[i].id + '" id="itemIdCart">' +
+                            '<td><div class="delete"></div><a href="#">' + data[i].name +
+                            '<td><input type="text" value="' + data[i].quantity +
+                            '"></td><td class="price">' + data[i].price + '&nbsp;' +  response.currency + '</td>'
+                    );
+                }
+                $addedToCartMessage.addClass('visible');
+            }
+        );
+        return false;
 	});
-	
+
+    /*Clear cart
+    *************************************/
+    $clearCartBtn.on('click', function(){
+        $.post(
+            this.href,
+            yupeTokenName+'='+yupeToken,
+            function(response) {
+                response = JSON.parse(response);
+
+                $('.cart-dropdown tr.item').remove();
+                $('.cart-dropdown table').addClass('hidden');
+                $('.cart-dropdown h3').removeClass('hidden');
+                $('.cart-btn a span').text(response.count);
+                $('.cart-dropdown div.total').text(response.cost + ' ' + response.currency);
+            }
+        );
+        return false;
+    });
+
 	/*Promo Labels Popovers
 	*******************************************/
 	$promoLabels.popover({

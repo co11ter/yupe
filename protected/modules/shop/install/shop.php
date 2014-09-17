@@ -17,9 +17,16 @@ return array(
     ),
     'import'    => array(
         'application.modules.shop.models.*',
+        'application.modules.shop.components.*',
     ),
-    'component' => array(),
-    'rules'     => array(
+    'component' => array(
+        'shoppingCart' => array(
+            'class' => 'application.modules.shop.components.EShoppingCart',
+        ),
+    ),
+    'rules' => array(
+        '/shoppingcart/<action:\w+>' => 'shop/shoppingcart/<action>',
+        '/shoppingcart' => 'shop/shoppingcart/index',
         '/shop/<cid>/<name>' => 'shop/shop/index',
         '/shop/<cid>' => 'shop/shop/index',
         '/shop' => 'shop/shop/index'

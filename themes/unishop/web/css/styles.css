@@ -10177,11 +10177,11 @@ label {
 }
 
 .checkbox .icheckbox, .radio .icheckbox {
-    background: url(../img/forms/checkbox.png) no-repeat 0 0
+    background: url(../images/checkbox.png) no-repeat 0 0
 }
 
 .checkbox .iradio, .radio .iradio {
-    background: url(../img/forms/radio.png) no-repeat 0 0
+    background: url(../images/radio.png) no-repeat 0 0
 }
 
 .checkbox .icheckbox.checked, .radio .icheckbox.checked, .checkbox .iradio.checked, .radio .iradio.checked {
@@ -10212,11 +10212,11 @@ label {
 }
 
 .checkbox.light .icheckbox, .radio.light .icheckbox {
-    background: url(../img/forms/checkbox-light.png) no-repeat 0 0
+    background: url(../images/checkbox-light.png) no-repeat 0 0
 }
 
 .checkbox.light .iradio, .radio.light .iradio {
-    background: url(../img/forms/radio-light.png) no-repeat 0 0
+    background: url(../images/radio-light.png) no-repeat 0 0
 }
 
 .checkbox.light .icheckbox.checked, .radio.light .icheckbox.checked, .checkbox.light .iradio.checked, .radio.light .iradio.checked {
@@ -10739,7 +10739,7 @@ header .search-form .close-search:hover {
     display: inline-block;
     width: 10px;
     height: 10px;
-    background: url(../img/forms/delete.png) no-repeat;
+    background: url(../images/delete.png) no-repeat;
     margin-right: 10px;
     cursor: pointer;
     opacity: 1;
@@ -11105,7 +11105,7 @@ header .search-form .close-search:hover {
     width: 100%;
     min-height: 100%;
     z-index: 2;
-    background: url(../img/overlays/overlay-success.png) repeat
+    background: url(../images/overlay-success.png) repeat
 }
 
 .hero-slider h2 {
@@ -11263,7 +11263,7 @@ header .search-form .close-search:hover {
     position: absolute;
     width: 100%;
     min-height: 100%;
-    background: url(../img/overlays/overlay-success.png) repeat;
+    background: url(../images/overlay-success.png) repeat;
     top: 0;
     left: 0;
     z-index: 2
@@ -11554,7 +11554,7 @@ header .search-form .close-search:hover {
     position: absolute;
     width: 33px;
     height: 17px;
-    background: url(../img/arrow-down.png) no-repeat;
+    background: url(../images/arrow-down.png) no-repeat;
     bottom: 0;
     left: 50%;
     margin-left: -16px;
@@ -11674,7 +11674,7 @@ header .search-form .close-search:hover {
     position: absolute;
     width: 100%;
     min-height: 100%;
-    background: url(../img/overlays/overlay-primary.png) repeat;
+    background: url(../images/overlay-primary.png) repeat;
     top: 0;
     left: 0;
     z-index: 1
@@ -12691,7 +12691,7 @@ header .search-form .close-search:hover {
     margin-right: 2px;
     width: 55px;
     height: 55px;
-    background: url(../img/catalog/badges.png) no-repeat
+    background: url(../images/badges.png) no-repeat
 }
 
 .catalog-grid .tile .badges .sale {
@@ -13316,11 +13316,11 @@ header .search-form .close-search:hover {
 }
 
 .shop-filters .filter-section label .icheckbox {
-    background: url(../img/forms/checkbox.png) no-repeat 0 0
+    background: url(../images/checkbox.png) no-repeat 0 0
 }
 
 .shop-filters .filter-section label .iradio {
-    background: url(../img/forms/radio.png) no-repeat 0 0
+    background: url(../images/radio.png) no-repeat 0 0
 }
 
 .shop-filters .filter-section label .icheckbox.checked, .shop-filters .filter-section label .iradio.checked {
@@ -13543,7 +13543,7 @@ header .search-form .close-search:hover {
     width: 100%;
     margin: 16px auto 28.799999999999997px auto;
     padding: 24px 15px 48px 15px;
-    background: url(../img/offers/special-offer-bg.png) repeat;
+    background: url(../images/special-offer-bg.png) repeat;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -13979,7 +13979,7 @@ header .search-form .close-search:hover {
     margin-left: 10px;
     width: 68px;
     height: 24px;
-    background: url(../img/forms/paypal-label.png) no-repeat
+    background: url(../images/paypal-label.png) no-repeat
 }
 
 .top-item {
@@ -14599,7 +14599,7 @@ header .search-form .close-search:hover {
     width: 100%;
     min-height: 100%;
     text-align: center;
-    background: url(../img/overlays/overlay-primary.png) repeat;
+    background: url(../images/overlay-primary.png) repeat;
     opacity: 0;
     filter: alpha(opacity=0);
     -webkit-transition: opacity .3s ease;
@@ -15076,7 +15076,7 @@ header .search-form .close-search:hover {
     min-height: 100%;
     top: 0;
     left: 0;
-    background: url(../img/overlays/overlay-primary.png) repeat;
+    background: url(../images/overlay-primary.png) repeat;
     opacity: 0;
     filter: alpha(opacity=0);
     -webkit-transition: opacity .3s ease;
@@ -15593,11 +15593,11 @@ header .search-form .close-search:hover {
     border: none;
     bottom: -36px;
     margin-left: -16px;
-    background: url(../img/arrow-down.png) no-repeat
+    background: url(../images/arrow-down.png) no-repeat
 }
 
 .popover.top > .arrow:hover {
-    background: transparent url(../img/arrow-down.png) no-repeat
+    background: transparent url(../images/arrow-down.png) no-repeat
 }
 
 .popover.top > .arrow:after {

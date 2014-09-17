@@ -8,7 +8,19 @@ $this->breadcrumbs = array(
     Yii::t('ShopModule.shop','Products') => array('/shop/shop/index/'),
     CHtml::encode($good->name)
 ); ?>
-
+<section class="cart-message">
+    <i class="fa fa-check-square"></i>
+    <?php
+    echo CHtml::tag('p',
+        array('class' => 'p-style3'),
+        CHtml::encode($good->name) . '&nbsp;' . Yii::t('ShopModule.shop', 'was successfully added to your cart')
+    );
+    echo CHtml::link(Yii::t('ShopModule.shop', 'View cart'),
+        '/shoppingcart',
+        array('class' => 'btn-outlined-invert btn-success btn-sm')
+    );
+    ?>
+</section>
 <section class="catalog-single">
     <div class="container">
         <div class="row">
@@ -37,6 +49,7 @@ $this->breadcrumbs = array(
 
                 <div class="price"><?php echo $good->price?> <?php echo Yii::t('ShopModule.shop', 'RUB')?></div>
                 <div class="buttons group">
+                    <input type="hidden" value="<?php echo $good->id;?>" id="itemId">
                     <div class="qnt-count">
                         <a href="#" class="incr-btn">-</a>
                         <input type="text" value="1" class="form-control" id="quantity">

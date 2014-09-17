@@ -112,4 +112,11 @@ return array (
   'Add to wishlist' => 'К сравнению',
   'Reviews' => 'Отзывы',
   'Related goods' => 'Похожие товары',
+  'Checkout' => 'Очистить',
+  'To cart' => 'В корзину',
+  'Items' => 'Товары',
+  'Quantity' => 'Количество',
+  'Cart is empty!' => 'Корзина пуста!',
+  'was successfully added to your cart' => 'был добавлен в корзину.',
+  'View cart' => 'В корзину'
 );

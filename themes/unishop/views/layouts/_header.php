@@ -56,43 +56,7 @@
                 <a data-target="#loginModal" data-toggle="modal" href="#" class="login-btn btn-outlined-invert"><i class="icon-profile"></i> <span>Login</span></a>
             </div>
             <div class="cart-btn">
-                <a href="shopping-cart.html" class="btn btn-outlined-invert"><i class="icon-shopping-cart-content"></i><span>3</span></a>
-
-                <!--Cart Dropdown-->
-                <div class="cart-dropdown">
-                    <span></span><!--Small rectangle to overlap Cart button-->
-                    <div class="body">
-                        <table>
-                            <tbody><tr>
-                                <th>Items</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                            </tr>
-                            <tr class="item">
-                                <td><div class="delete"></div><a href="#">Good Joo-Joo Surfb</a></td>
-                                <td><input type="text" value="1"></td>
-                                <td class="price">89 005 $</td>
-                            </tr>
-                            <tr class="item">
-                                <td><div class="delete"></div><a href="#">Good Joo-Joo Item</a></td>
-                                <td><input type="text" value="2"></td>
-                                <td class="price">4 300 $</td>
-                            </tr>
-                            <tr class="item">
-                                <td><div class="delete"></div><a href="#">Good Joo-Joo</a></td>
-                                <td><input type="text" value="5"></td>
-                                <td class="price">84 $</td>
-                            </tr>
-                            </tbody></table>
-                    </div>
-                    <div class="footer group">
-                        <div class="buttons">
-                            <a href="checkout.html" class="btn btn-outlined-invert"><i class="icon-download"></i>Checkout</a>
-                            <a href="shopping-cart.html" class="btn btn-outlined-invert"><i class="icon-shopping-cart-content"></i>To cart</a>
-                        </div>
-                        <div class="total">93 389 $</div>
-                    </div>
-                </div><!--Cart Dropdown Close-->
+                <?php $this->widget('application.modules.shop.widgets.ShoppingCartWidget'); ?>
             </div>
         </div><!--Toolbar Close-->
     </div>

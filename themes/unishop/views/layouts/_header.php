@@ -38,7 +38,7 @@
         <nav class="menu">
             <?php if (Yii::app()->hasModule('menu')): { ?>
                 <?php $this->widget('application.modules.menu.widgets.MenuWidget', array(
-                    'name' => 'main',
+                    'name' => 'top-menu',
                     'layoutParams' => array('class' => 'main')
                 )); ?>
                 <?php $this->widget('application.modules.menu.widgets.MenuWidget', array(

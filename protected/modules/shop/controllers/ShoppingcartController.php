@@ -10,8 +10,14 @@ class ShoppingcartController extends yupe\components\controllers\FrontController
 {
     public function actionIndex()
     {
-        echo CJSON::encode($this->getCart());
-        Yii::app()->end();
+        $cart = $this->getCart();
+        if(Yii::app()->getRequest()->getIsAjaxRequest()) {
+            echo CJSON::encode($cart);
+            Yii::app()->end();
+        } else {
+            $this->render('index', array('cart' => $cart));
+        }
+
     }
 
     /**
@@ -58,10 +64,11 @@ class ShoppingcartController extends yupe\components\controllers\FrontController
     }
 
     /**
-     * Получение товаров в корзине
+     * Получаем товары в корзине
+     * @param bool $full - если true, то вернет массив товаров с фото и ценой
      * @return array
      */
-    protected function getCart() {
+    protected function getCart($full = false) {
         $data = array();
 
         $positions = Yii::app()->shoppingCart->getPositions();
@@ -69,8 +76,11 @@ class ShoppingcartController extends yupe\components\controllers\FrontController
             $data[] = array(
                 'id'        => $position->id,
                 'name'      => $position->name,
+                'itemPrice' => $position->price,
+                'totalPrice'=> $position->getSumPrice(),
                 'quantity'  => $position->getQuantity(),
-                'price'     => $position->getSumPrice()
+                'photo'     => $position->getImageThumbnail(152, 119),
+                'url'       => $position->getUrl()
             );
         }
         return array(

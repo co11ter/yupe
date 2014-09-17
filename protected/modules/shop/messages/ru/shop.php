@@ -118,5 +118,15 @@ return array (
   'Quantity' => 'Количество',
   'Cart is empty!' => 'Корзина пуста!',
   'was successfully added to your cart' => 'был добавлен в корзину.',
-  'View cart' => 'В корзину'
+  'View cart' => 'В корзину',
+  'Shopping cart' => 'Корзина',
+  'Product name' => 'Наименование',
+  'Product price' => 'Цена',
+  'Total' => 'Всего',
+  'Cart totals' => 'Итого',
+  'Cart subtotal' => 'Цена товаров',
+  'Shipping' => 'Доставка',
+  'Free shipping' => 'Бесплатно',
+  'Order total' => 'Итоговая цена',
+  'Proceed to checkout' => 'Оформить покупку'
 );

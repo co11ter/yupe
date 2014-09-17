@@ -23,7 +23,7 @@ class ShoppingCartWidget extends yupe\widgets\YWidget
                 'id'        => $position->id,
                 'name'      => $position->name,
                 'quantity'  => $position->getQuantity(),
-                'price'     => $position->getSumPrice()
+                'totalPrice'=> $position->getSumPrice()
             );
         }
 

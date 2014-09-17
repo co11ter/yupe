@@ -100,75 +100,7 @@ $(document).ready(function(e) {
 	/*Adding Placeholder Support in Older Browsers
 	************************************************/
 	$('input, textarea').placeholder();
-		
-	/*Shopping Cart Dropdown 
-	*******************************************/
-	//Deleting Items
 
-	$(document).on('click', '.cart-dropdown .delete', function(){
-        var $itemId   = $(this).parent().parent().find('#itemIdCart').val();
-        $.post(
-            '/shoppingcart/delete',
-            'id='+$itemId+'&'+yupeTokenName+'='+yupeToken,
-            function(response, status) {
-                response = JSON.parse(response);
-                var data = (response.data);
-
-                $('.cart-btn a span').text(response.count);
-                $('.cart-dropdown div.total').text(response.cost + ' ' + response.currency);
-
-                if(data.length){
-                    $('.cart-dropdown h3').addClass('hidden');
-                    $('.cart-dropdown table').removeClass('hidden');
-                } else {
-                    $('.cart-dropdown table').addClass('hidden');
-                    $('.cart-dropdown h3').removeClass('hidden');
-                }
-
-                $('.cart-dropdown tr.item').remove();
-                for(var i = 0; data.length>i; i++) {
-                    $('.cart-dropdown table').append(
-                        '<tr class="item"><td><div class="delete"></div><a href="#">' + data[i].name +
-                            '<td><input type="text" value="' + data[i].quantity +
-                            '"></td><td class="price">' + data[i].price + '&nbsp;' +  response.currency + '</td>'
-                    );
-                }
-                $addedToCartMessage.addClass('visible');
-            }
-        );
-        return false;
-
-
-		/*var $target = $(this).parent().parent();
-		var $positions = $('.cart-dropdown .item');
-		var $positionQty = parseInt($('.cart-btn a span').text());
-		$target.hide(300, function(){
-			$.when($target.remove()).then( function(){
-				$positionQty = $positionQty -1;
-				$('.cart-btn a span').text($positionQty);
-				if($positions.length === 1) {
-					$('.cart-dropdown .body').html('<h3>Cart is empty!</h3>');
-				}
-			});
-		});*/
-	});
-	
-	/*Shopping Cart Page
-	*******************************************/
-	//Deleting Items
-	$(document).on('click', '.shopping-cart .delete i', function(){
-		var $target = $(this).parent().parent();
-		var $positions = $('.shopping-cart .item');
-		$target.hide(300, function(){
-			$.when($target.remove()).then( function(){
-				if($positions.length === 1) {
-					$('.shopping-cart .items-list').remove();
-					$('.shopping-cart .title').text('Shopping cart is empty!');
-				}
-			});
-		});
-	});
-	
 	/*Wishlist Deleting Items
 	*******************************************/
 	$(document).on('click', '.wishlist .delete i', function(){
@@ -511,27 +443,8 @@ $(document).ready(function(e) {
             'id='+$itemId+'&quantity='+$itemQnty+'&'+yupeTokenName+'='+yupeToken,
             function(response, status) {
                 response = JSON.parse(response);
-                var data = (response.data);
-
-                $('.cart-btn a span').text(response.count);
-                $('.cart-dropdown div.total').text(response.cost + ' ' + response.currency);
-
-                if(data.length){
-                    $('.cart-dropdown h3').addClass('hidden');
-                    $('.cart-dropdown table').removeClass('hidden');
-                } else {
-                    $('.cart-dropdown table').addClass('hidden');
-                    $('.cart-dropdown h3').removeClass('hidden');
-                }
-
-                $('.cart-dropdown tr.item').remove();
-                for(var i = 0; data.length>i; i++) {
-                    $('.cart-dropdown table').append(
-                        '<tr class="item"><input type="hidden" name="itemIdCart" value="' + data[i].id + '" id="itemIdCart">' +
-                            '<td><div class="delete"></div><a href="#">' + data[i].name +
-                            '<td><input type="text" value="' + data[i].quantity +
-                            '"></td><td class="price">' + data[i].price + '&nbsp;' +  response.currency + '</td>'
-                    );
+                if(typeof updateCartWidget == 'function') {
+                    updateCartWidget(response);
                 }
                 $addedToCartMessage.addClass('visible');
             }
@@ -547,12 +460,61 @@ $(document).ready(function(e) {
             yupeTokenName+'='+yupeToken,
             function(response) {
                 response = JSON.parse(response);
+                if(typeof updateCartWidget == 'function') {
+                    updateCartWidget(response);
+                }
+            }
+        );
+        return false;
+    });
 
-                $('.cart-dropdown tr.item').remove();
-                $('.cart-dropdown table').addClass('hidden');
-                $('.cart-dropdown h3').removeClass('hidden');
-                $('.cart-btn a span').text(response.count);
-                $('.cart-dropdown div.total').text(response.cost + ' ' + response.currency);
+    /*Shopping Cart Dropdown
+     *******************************************/
+    //Deleting Items
+    $(document).on('click', '.cart-dropdown .delete', function(){
+        var $itemId   = $(this).parent().parent().find('.itemIdCart').val();
+        $.post(
+            '/shoppingcart/delete',
+            'id='+$itemId+'&'+yupeTokenName+'='+yupeToken,
+            function(response, status) {
+                response = JSON.parse(response);
+                if(typeof updateCartWidget == 'function') {
+                    updateCartWidget(response);
+                }
+                $addedToCartMessage.addClass('visible');
+            }
+        );
+        return false;
+    });
+
+    /*Shopping Cart Page
+     *******************************************/
+    //Deleting Items
+    $(document).on('click', '.shopping-cart .delete i', function(){
+        var $itemId   = $(this).parent().parent().find('.itemIdCart').val();
+        var $target = $(this).parent().parent();
+        var $positions = $('.shopping-cart .item');
+        $.post(
+            '/shoppingcart/delete',
+            'id='+$itemId+'&'+yupeTokenName+'='+yupeToken,
+            function(response, status) {
+                response = JSON.parse(response);
+                if(typeof updateCartWidget == 'function') {
+                    updateCartWidget(response);
+                }
+
+                $('.shopping-cart .cart-totals tr:first td:last').text(response.cost + ' ' + response.currency);
+                $('.shopping-cart .cart-totals tr:last td:last').text(response.cost + ' ' + response.currency);
+
+                $target.hide(300, function(){
+                    $.when($target.remove()).then( function(){
+                        if($positions.length === 1) {
+                            $('.shopping-cart .items-list').remove();
+                            $('.shopping-cart #h2CartFull').addClass('hidden');
+                            $('.shopping-cart #h2CartEmpty').removeClass('hidden');
+                        }
+                    });
+                });
             }
         );
         return false;

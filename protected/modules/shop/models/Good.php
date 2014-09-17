@@ -299,6 +299,10 @@ class Good extends yupe\models\YModel implements IECartPosition
         return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('ShopModule.shop', '*unknown*');
     }
 
+    public function getUrl(){
+        return '/shop/'.$this->category->alias.'/'.$this->alias;
+    }
+
     public function getImageUrl()
     {
         if ($this->image) {

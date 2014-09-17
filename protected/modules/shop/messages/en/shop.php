@@ -113,5 +113,15 @@ return array (    'Shop' => '',
   'Quantity' => '',
   'Cart is empty!' => '',
   'was successfully added to your cart' => '',
-  'View cart' => ''
+  'View cart' => '',
+  'Shopping cart' => '',
+  'Product name' => '',
+  'Product price' => '',
+  'Total' => '',
+  'Cart totals' => '',
+  'Cart subtotal' => '',
+  'Shipping' => '',
+  'Free shipping' => '',
+  'Order total' => '',
+  'Proceed to checkout' => ''
 );

@@ -22,16 +22,22 @@ class ShoppingcartController extends yupe\components\controllers\FrontController
 
     /**
      * "Положим" товар в корзину
+     *
      * @var $id - id модели Good
      * @var $quantity - кол-во товара
+     * @var $method - либо обновим количество, либо добавим
      * @throws CHttpException
      */
     public function actionPut()
     {
         if($id = (int)Yii::app()->getRequest()->getPost('id')) {
-            $model = $this->loadModel($id);
-            $quantity = (int)Yii::app()->getRequest()->getPost('quantity',1);
-            Yii::app()->shoppingCart->put(
+            $model      = $this->loadModel($id);
+            $quantity   = (int)Yii::app()->getRequest()->getPost('quantity',1);
+            $method     = Yii::app()->getRequest()->getPost('method', 'put');
+            if(!in_array($method, array('put', 'update'))) {
+                throw new CHttpException(400, Yii::t('ShopModule.shop', 'Unknown request. Don\'t repeat it please!'));
+            }
+            Yii::app()->shoppingCart->$method(
                 $model,
                 $quantity
             );

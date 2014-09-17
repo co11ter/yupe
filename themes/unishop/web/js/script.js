@@ -431,6 +431,25 @@ $(document).ready(function(e) {
 		}
 		$button.parent().find("input").val(newVal);
 		e.preventDefault();
+        if($button.hasClass('incr-submit')) {
+            var $itemId   = $(this).parent().parent().find('.itemIdCart').val();
+            $.post(
+                '/shoppingcart/put',
+                'method=update&id='+$itemId+'&quantity='+newVal+'&'+yupeTokenName+'='+yupeToken,
+                function(response, status) {
+                    response = JSON.parse(response);
+                    if(typeof updateCartWidget == 'function') {
+                        updateCartWidget(response);
+                    }
+
+                    var price = $button.parent().parent().find(".price").html().replace(response.currency, '').trim();
+                    $button.parent().parent().find(".total").text(parseFloat(price)*newVal + ' ' + response.currency);
+
+                    $('.shopping-cart .cart-totals tr:first td:last').text(response.cost + ' ' + response.currency);
+                    $('.shopping-cart .cart-totals tr:last td:last').text(response.cost + ' ' + response.currency);
+                }
+            );
+        }
 	});
 	
 	/*Added To Cart Message + Action (For Demo Purpose)

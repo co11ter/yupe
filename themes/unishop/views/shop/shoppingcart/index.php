@@ -73,9 +73,9 @@ $this->breadcrumbs = array(Yii::t('ShopModule.shop', 'Shopping cart'));
 
                         // количество
                         CHtml::tag('td', array('class' => 'qnt-count'),
-                            CHtml::link('-', '#', array('class' => 'incr-btn')).
+                            CHtml::link('-', '#', array('class' => 'incr-btn incr-submit')).
                             CHtml::textField('', $item['quantity'], array('class' => 'quantity form-control')).
-                            CHtml::link('+', '#', array('class' => 'incr-btn'))
+                            CHtml::link('+', '#', array('class' => 'incr-btn incr-submit'))
                         ) .
 
                         // цена с учетом количества

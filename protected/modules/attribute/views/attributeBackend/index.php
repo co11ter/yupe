@@ -67,13 +67,13 @@ $this->renderPartial('_search', array('model' => $model));
                 'params' => array(
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                 )
-            )
+            ),
+            'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
         ),
         array(
             'name'   => 'type_id',
-            'type'   => 'raw',
             'value'  => '$data->getType($data->type_id)',
-            'filter' => CHtml::activeDropDownList($model, 'type_id', $model->getTypeList(), array('encode' => false, 'empty' => ''))
+            'filter' => $model->getTypeList()
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

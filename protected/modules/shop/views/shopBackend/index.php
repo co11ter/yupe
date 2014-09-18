@@ -59,6 +59,13 @@ $this->renderPartial('_search', array('model' => $model));
     'id'           => 'good-grid',
     'dataProvider' => $model->search(),
     'filter'       => $model,
+    'actionsButtons' => [
+        CHtml::link(
+            Yii::t('YupeModule.yupe', 'Add'),
+            ['/shop/shopBackend/create'],
+            ['class' => 'btn btn-success pull-right btn-sm']
+        )
+    ],
     'columns'      => array(
         array(
             'name' => 'id',
@@ -75,7 +82,8 @@ $this->renderPartial('_search', array('model' => $model));
                 'params' => array(
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                 )
-            )
+            ),
+            'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
         ),
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -86,7 +94,8 @@ $this->renderPartial('_search', array('model' => $model));
                 'params' => array(
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                 )
-            )
+            ),
+            'filter'   => CHtml::activeTextField($model, 'alias', array('class' => 'form-control')),
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',
@@ -94,7 +103,11 @@ $this->renderPartial('_search', array('model' => $model));
 				'url'    => $this->createUrl('/shop/shopBackend/inline'),
 				'mode'   => 'popup',
 				'type'   => 'select',
-				'title'  => Yii::t('ShopModule.shop', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))),
+				'title'  => Yii::t(
+                        'ShopModule.shop',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))
+                    ),
 				'source' => Category::model()->getFormattedList(Yii::app()->getModule('shop')->mainCategory),
 				'params' => array(
 					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -103,7 +116,11 @@ $this->renderPartial('_search', array('model' => $model));
             'name'   => 'category_id',
             'type'   => 'raw',
             'value'  => '$data->category->name',
-            'filter' => CHtml::activeDropDownList($model, 'category_id', Category::model()->getFormattedList(Yii::app()->getModule('shop')->mainCategory), array('encode' => false, 'empty' => ''))
+            'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList(Yii::app()->getModule('shop')->mainCategory),
+                    array('encode' => false, 'empty' => '', 'class' => 'form-control'))
         ),
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -114,7 +131,8 @@ $this->renderPartial('_search', array('model' => $model));
                 'params' => array(
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                 )
-            )
+            ),
+            'filter'   => CHtml::activeTextField($model, 'price', array('class' => 'form-control')),
         ),
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -125,13 +143,14 @@ $this->renderPartial('_search', array('model' => $model));
                 'params' => array(
                     Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                 )
-            )
+            ),
+            'filter'   => CHtml::activeTextField($model, 'article', array('class' => 'form-control')),
         ),
 
         array(
             'name'  => 'is_special',
             'type'  => 'raw',
-            'value'  => '{\'is_special\'}',
+            'value'  => '$data->is_special',
             'filter' => Yii::app()->getModule('shop')->getChoice()
         ),
         array(
@@ -140,7 +159,11 @@ $this->renderPartial('_search', array('model' => $model));
 				'url'    => $this->createUrl('/shop/shopBackend/inline'),
 				'mode'   => 'popup',
 				'type'   => 'select',
-				'title'  => Yii::t('ShopModule.shop', 'Select {field}', array('{field}' => mb_strtolower($model->getAttributeLabel('status')))),
+				'title'  => Yii::t(
+                        'ShopModule.shop',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('status')))
+                    ),
 				'source' => $model->getStatusList(),
 				'params' => array(
 					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -149,13 +172,22 @@ $this->renderPartial('_search', array('model' => $model));
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$data->getStatus()',
-            'filter' => $model->getStatusList()
+            'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'status',
+                    $model->getStatusList(),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
         ),
         array(
             'name'   => 'user_id',
             'type'   => 'raw',
             'value'  => 'CHtml::link($data->user->getFullName(), array("/user/userBackend/view", "id" => $data->user->id))',
-            'filter' => CHtml::listData(User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','nick_name')
+            'filter' => CHtml::listData(
+                    User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),
+                    'id',
+                    'nick_name'
+                )
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

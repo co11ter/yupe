@@ -156,10 +156,30 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                     'widgetOptions' => array(
                         'data'        => Category::model()->getFormattedList(),
                         'htmlOptions' => array(
-                            'empty'               => Yii::t('ShopModule.catalog', '--choose--'),
+                            'empty'               => Yii::t('ShopModule.shop', '--choose--'),
                             'class'               => 'popover-help',
                             'data-original-title' => $model->getAttributeLabel('category_id'),
                             'data-content'        => $model->getAttributeDescription('category_id'),
+                            'encode'              => false,
+                        ),
+                    ),
+                )
+            );?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-7">
+            <?php echo $form->dropDownListGroup(
+                $model,
+                'gallery_id',
+                array(
+                    'widgetOptions' => array(
+                        'data'        => CHtml::listData(Gallery::model()->findAll(), 'id', 'name'),
+                        'htmlOptions' => array(
+                            'empty'               => Yii::t('ShopModule.shop', '--choose--'),
+                            'class'               => 'popover-help',
+                            'data-original-title' => $model->getAttributeLabel('gallery_id'),
+                            'data-content'        => $model->getAttributeDescription('gallery_id'),
                             'encode'              => false,
                         ),
                     ),

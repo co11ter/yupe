@@ -11409,7 +11409,7 @@ header .search-form .close-search:hover {
     filter: alpha(opacity=0);
     width: 33px;
     height: 17px;
-    background: url(../masterslider/style/arrow.png) no-repeat;
+    background: url(../images/arrow.png) no-repeat;
     margin-left: -16px;
     border: none !important
 }

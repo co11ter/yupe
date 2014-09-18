@@ -16,6 +16,8 @@ class ShopModule extends WebModule
         return array(
             'category',
             'attribute',
+            'gallery',
+            'image'
         );
     }
 
@@ -77,6 +79,7 @@ class ShopModule extends WebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
+			'gallery.models.*',
 			'shop.models.*',
 			'shop.components.*',
 		));

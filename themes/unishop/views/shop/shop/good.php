@@ -2,6 +2,7 @@
 /**
  * @var $good - Good Data Provider
  */
+$assetUrl = Yii::app()->getTheme()->getAssetsUrl();
 $this->pageTitle = $good->name;
 
 $this->breadcrumbs = array(
@@ -28,18 +29,33 @@ $this->breadcrumbs = array(
             <!--Product Gallery-->
             <div class="col-lg-6 col-md-6">
                 <div id="prod-gal" class="prod-gal master-slider">
-                    <div class="ms-slide">
-                        <?php echo CHtml::image(
-                            '/images/blank.gif',
+                    <?php
+                    echo CHtml::tag('div', array('class' => 'ms-slide'),
+                        CHtml::image(
+                            $assetUrl . '/images/blank.gif',
                             $good->name,
                             array('data-src' => $good->getImageUrl())
-                        ); ?>
-                        <?php echo CHtml::image(
+                        ).
+                        CHtml::image(
                             $good->getImageThumbnail(),
                             'thumb',
                             array('class' => 'ms-thumb')
-                        ); ?>
-                    </div>
+                        )
+                    );
+                    foreach ($good->gallery->images as $image) {
+                        echo CHtml::tag('div', array('class' => 'ms-slide'),
+                            CHtml::image(
+                                $assetUrl . '/images/blank.gif',
+                                $image->alt,
+                                array('data-src' => $image->getRawUrl())
+                            ).
+                            CHtml::image(
+                                $image->getUrl(137, 130),
+                                'thumb',
+                                array('class' => 'ms-thumb')
+                            )
+                        );
+                    } ?>
                 </div>
             </div>
 

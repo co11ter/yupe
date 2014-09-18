@@ -123,5 +123,6 @@ return array (    'Shop' => '',
   'Shipping' => '',
   'Free shipping' => '',
   'Order total' => '',
-  'Proceed to checkout' => ''
+  'Proceed to checkout' => '',
+  'Gallery' => '',
 );

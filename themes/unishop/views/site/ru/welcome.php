@@ -1,6 +1,9 @@
+<ul class="breadcrumb">
+    <li>
+        <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Home'), '/')?>
+    </li>
+</ul>
+
 <section class="catalog-grid">
-    <div class="container">
-        <h2 class="primary-color">Товары</h2>
-        <?php $this->widget('application.modules.shop.widgets.ShopGridWidget'); ?>
-    </div>
+    <?php $this->widget('application.modules.shop.widgets.ShopGridWidget'); ?>
 </section>

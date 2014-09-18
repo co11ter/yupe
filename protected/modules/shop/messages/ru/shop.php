@@ -128,5 +128,6 @@ return array (
   'Shipping' => 'Доставка',
   'Free shipping' => 'Бесплатно',
   'Order total' => 'Итоговая цена',
-  'Proceed to checkout' => 'Оформить покупку'
+  'Proceed to checkout' => 'Оформить покупку',
+  'Gallery' => 'Галерея изображений',
 );

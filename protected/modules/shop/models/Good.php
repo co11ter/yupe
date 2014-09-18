@@ -75,8 +75,8 @@ class Good extends yupe\models\YModel implements IECartPosition
             array('category_id, name, description, alias', 'required', 'except' => 'search'),
             array('name, description, short_description, image, alias, price, article, data, status, is_special', 'filter', 'filter' => 'trim'),
             array('name, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('status, category_id, is_special, user_id', 'numerical', 'integerOnly' => true),
-            array('status, category_id, is_special, user_id', 'length', 'max' => 11),
+            array('status, category_id, is_special, user_id, gallery_id', 'numerical', 'integerOnly' => true),
+            array('status, category_id, is_special, user_id, gallery_id', 'length', 'max' => 11),
             array('price', 'numerical'),
             array('name, image', 'length', 'max' => 250),
             array('article', 'length', 'max' => 100),
@@ -85,7 +85,7 @@ class Good extends yupe\models\YModel implements IECartPosition
             array('is_special','in','range' => array(0, 1)),
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ShopModule.shop', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
-            array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special, goodAttributes', 'safe', 'on' => 'search'),
+            array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special, goodAttributes, gallery_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -97,10 +97,11 @@ class Good extends yupe\models\YModel implements IECartPosition
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'changeUser' => array(self::BELONGS_TO, 'User', 'change_user_id'),
-            'category'   => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'user'       => array(self::BELONGS_TO, 'User', 'user_id'),
-            'goodAttributes'  => array(self::HAS_MANY, 'GoodHasAttribute', 'good_id'),
+            'changeUser'    => array(self::BELONGS_TO, 'User', 'change_user_id'),
+            'category'      => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'user'          => array(self::BELONGS_TO, 'User', 'user_id'),
+            'gallery'       => array(self::BELONGS_TO, 'Gallery', 'gallery_id'),
+            'goodAttributes'=> array(self::HAS_MANY, 'GoodHasAttribute', 'good_id'),
         );
     }
 
@@ -141,6 +142,7 @@ class Good extends yupe\models\YModel implements IECartPosition
             'change_user_id'    => Yii::t('ShopModule.shop', 'Editor'),
             'is_special'        => Yii::t('ShopModule.shop', 'On home page'),
             'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
+            'gallery_id'        => Yii::t('ShopModule.shop', 'Gallery'),
         );
     }
 
@@ -167,6 +169,7 @@ class Good extends yupe\models\YModel implements IECartPosition
             'change_user_id'    => Yii::t('ShopModule.shop', 'Editor'),
             'is_special'        => Yii::t('ShopModule.shop', 'On home page'),
             'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
+            'gallery_id'        => Yii::t('ShopModule.shop', 'Gallery'),
         );
     }
 

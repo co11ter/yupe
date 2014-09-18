@@ -33,6 +33,7 @@ class m000000_000000_good_base extends yupe\components\DbMigration
                 'update_time' => 'datetime NOT NULL',
                 'user_id' => 'integer DEFAULT NULL',
                 'change_user_id' => 'integer DEFAULT NULL',
+                'gallery_id' => 'integer DEFAULT NULL'
             ), $this->getOptions()
         );
 
@@ -55,6 +56,7 @@ class m000000_000000_good_base extends yupe\components\DbMigration
         $this->addForeignKey("fk_{{shop_good}}_user",'{{shop_good}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
         $this->addForeignKey("fk_{{shop_good}}_change_user",'{{shop_good}}', 'change_user_id','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
         $this->addForeignKey("fk_{{shop_good}}_category",'{{shop_good}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{shop_good}}_gallery",'{{shop_good}}', 'gallery_id', '{{gallery_gallery}}', 'id', 'SET NULL', 'NO ACTION');
 
         $this->addForeignKey("fk_{{shop_good_has_attribute}}_good", '{{shop_good_has_attribute}}', 'good_id', '{{shop_good}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey("fk_{{shop_good_has_attribute}}_attribute", '{{shop_good_has_attribute}}', 'attribute_id', '{{attribute_attribute}}', 'id', 'CASCADE', 'CASCADE');

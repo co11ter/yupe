@@ -12,7 +12,9 @@
     <?php
     $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
-    //    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/yupe.css');
+    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/masterslider.css');
+    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/color-default.css');
+    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/color-switcher.css');
     //    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/blog.js');
     //    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');

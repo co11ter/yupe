@@ -9,10 +9,12 @@
  */
 ?>
 
-<div class="row">
     <?php $this->widget('bootstrap.widgets.TbListView',array(
         'dataProvider' => $dataProvider,
         'itemView'     => '_good',
-        'template'     => "{items}\n",
+        'template'     => '<h2>'.Yii::t('ShopModule.shop', 'Items').'</h2>{items}',
+        'itemsCssClass'=> 'row',
+        'htmlOptions'  => array(
+            'class' => 'container'
+        )
     )); ?>
-</div>

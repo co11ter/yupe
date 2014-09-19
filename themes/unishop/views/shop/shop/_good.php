@@ -5,7 +5,7 @@
  * Date: 15.09.14
  * Time: 13:20
  *
- * @var $data - Good
+ * @var $data - Offer
  */
 ?>
 <!--Tile-->

@@ -1,49 +1,50 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: develop
- * Date: 18.09.14
- * Time: 17:29
+ * ShopBackendController контроллер для управления магазином в панели управления
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.catalog.controllers
+ * @since 0.1
+ *
  */
-
-class ShopBackendController extends yupe\components\controllers\BackController
+class OfferBackendController extends yupe\components\controllers\BackController
 {
     public function actions()
     {
         return array(
             'inline' => array(
                 'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'Good',
+                'model' => 'Offer',
                 'validAttributes' => array('name', 'alias', 'price', 'article', 'status')
             )
         );
     }
-
     /**
-     * Отображение списка товаров
+     * Отображает товар по указанному идентификатору
+     * @param integer $id Идинтификатор товар для отображения
      */
-    public function actionIndex()
+    public function actionView($id)
     {
-        $model = new Good('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Good']))
-            $model->attributes = $_GET['Good'];
-        $this->render('index', array('model' => $model));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
-     * Страница создания товара
+     * Создает новую модель товара.
+     * Если создание прошло успешно - перенаправляет на просмотр.
      */
     public function actionCreate()
     {
-        $model = new Good;
+        $model = new Offer;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Good']))
+        if (isset($_POST['Offer']))
         {
-            $model->attributes = $_POST['Good'];
+            $model->attributes = $_POST['Offer'];
+            $model->attributeIds = $_POST['Offer']['offerAttributes'];
 
             if ($model->save())
             {
@@ -63,7 +64,8 @@ class ShopBackendController extends yupe\components\controllers\BackController
     }
 
     /**
-     * Изменение товара
+     * Редактирование товара.
+     * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id)
     {
@@ -72,9 +74,10 @@ class ShopBackendController extends yupe\components\controllers\BackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Good']))
+        if (isset($_POST['Offer']))
         {
-            $model->attributes = $_POST['Good'];
+            $model->attributes = $_POST['Offer'];
+            $model->attributeIds = $_POST['Offer']['offerAttributes'];
 
             if ($model->save())
             {
@@ -83,9 +86,9 @@ class ShopBackendController extends yupe\components\controllers\BackController
                     Yii::t('ShopModule.shop', 'Record was updated!')
                 );
 
-                if (!isset($_POST['submit-type']))
+               if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
-                else
+               else
                     $this->redirect(array($_POST['submit-type']));
             }
         }
@@ -93,7 +96,10 @@ class ShopBackendController extends yupe\components\controllers\BackController
     }
 
     /**
-     * Удаление товара
+     * Удаяет модель товара из базы.
+     * Если удаление прошло успешно - возвращется в index
+     * @param integer $id идентификатор товара, который нужно удалить
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {
@@ -116,6 +122,18 @@ class ShopBackendController extends yupe\components\controllers\BackController
     }
 
     /**
+     * Управление товарами.
+     */
+    public function actionIndex()
+    {
+        $model = new Offer('search');
+        $model->unsetAttributes(); // clear any default values
+        if (isset($_GET['Offer']))
+            $model->attributes = $_GET['Offer'];
+        $this->render('index', array('model' => $model));
+    }
+
+    /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
      * @param integer идентификатор нужной модели
@@ -124,7 +142,7 @@ class ShopBackendController extends yupe\components\controllers\BackController
      */
     public function loadModel($id)
     {
-        $model = Good::model()->findByPk($id);
+        $model = Offer::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('ShopModule.shop', 'Page was not found!'));
         return $model;

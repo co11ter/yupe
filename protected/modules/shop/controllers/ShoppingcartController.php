@@ -99,7 +99,7 @@ class ShoppingcartController extends yupe\components\controllers\FrontController
 
     protected  function loadModel($id)
     {
-        $model = Good::model()->findByPk($id);
+        $model = Offer::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('ShopModule.shop', 'Page was not found!'));
         return $model;

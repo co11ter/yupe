@@ -161,27 +161,27 @@ class Attribute extends yupe\models\YModel
         if($this->categoryIds) {
             foreach($this->categoryIds as $attrId => $attrValue) {
                 if($this->getIsNewRecord()) {
-                    $GoodHasAttribute = new CategoryHasAttribute();
+                    $CategoryHasAttribute = new CategoryHasAttribute();
                 } else {
-                    $GoodHasAttribute = CategoryHasAttribute::model()->findByPk(array(
+                    $CategoryHasAttribute = CategoryHasAttribute::model()->findByPk(array(
                         'category_id'  => $attrValue,
                         'attribute_id' => $this->id
                     ));
                 }
-                $GoodHasAttribute->category_id = $attrValue;
-                $GoodHasAttribute->attribute_id = $this->id;
-                $GoodHasAttribute->save();
+                $CategoryHasAttribute->category_id = $attrValue;
+                $CategoryHasAttribute->attribute_id = $this->id;
+                $CategoryHasAttribute->save();
             }
         }
         if($this->filtering) {
             foreach($this->filtering as $attrId => $attrValue) {
-                $GoodHasAttribute = CategoryHasAttribute::model()->findByPk(array(
+                $CategoryHasAttribute = CategoryHasAttribute::model()->findByPk(array(
                     'category_id'  => $attrValue,
                     'attribute_id' => $this->id
                 ));
-                if($GoodHasAttribute) {
-                    $GoodHasAttribute->for_filter = 1;
-                    $GoodHasAttribute->save();
+                if($CategoryHasAttribute) {
+                    $CategoryHasAttribute->for_filter = 1;
+                    $CategoryHasAttribute->save();
                 }
             }
         }
@@ -192,13 +192,13 @@ class Attribute extends yupe\models\YModel
         if($this->category) {
             foreach($this->category as $cat) {
                 $this->categoryIds[] = $cat->id;
-                $GoodHasAttribute = CategoryHasAttribute::model()->findByPk(array(
+                $CategoryHasAttribute = CategoryHasAttribute::model()->findByPk(array(
                     'category_id'  => $cat->id,
                     'attribute_id' => $this->id
                 ));
-                if($GoodHasAttribute){
-                    $this->filtering[] = $GoodHasAttribute->for_filter
-                        ? $GoodHasAttribute->category_id
+                if($CategoryHasAttribute){
+                    $this->filtering[] = $CategoryHasAttribute->for_filter
+                        ? $CategoryHasAttribute->category_id
                         : null;
                 }
             }

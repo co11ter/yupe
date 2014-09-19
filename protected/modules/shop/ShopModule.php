@@ -58,15 +58,18 @@ class ShopModule extends WebModule
 
     public function getAdminPageLink()
     {
-        return '/shop/shopBackend/index';
+        return '/shop/offerBackend/index';
     }
 
     public function getNavigation()
     {
         return array(
-            array('label' => Yii::t('ShopModule.shop', 'Products')),
-            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ShopModule.shop', 'Shop manage'), 'url' => array('/shop/shopBackend/index')),
-            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a product'), 'url' => array('/shop/shopBackend/create')),
+            array('label' => Yii::t('ShopModule.shop', 'Shop')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ShopModule.shop', 'Good manage'), 'url' => array('/shop/shopBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a good'), 'url' => array('/shop/shopBackend/create')),
+            array('label' => Yii::t('ShopModule.shop', 'Offers')),
+            array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ShopModule.shop', 'Offer manage'), 'url' => array('/shop/offerBackend/index')),
+            array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a offer'), 'url' => array('/shop/offerBackend/create')),
             array('label' => Yii::t('ShopModule.shop', 'Attribute')),
             array('icon' => 'glyphicon glyphicon-list-alt', 'label' => Yii::t('ShopModule.shop', 'Attribute list'), 'url' => array('/attribute/attributeBackend/index')),
             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a attribute'), 'url' => array('/attribute/attributeBackend/create')),

@@ -1,12 +1,12 @@
 <?php
 /**
- * @var $model Good
+ * @var $model Offer
  * @var $dataProvider
- * @var $attributes GoodHasAttribute
+ * @var $attributes OfferHasAttribute
  * @var $this ShopController
  */
-$this->pageTitle = Yii::t('ShopModule.shop', 'Products');
-$this->breadcrumbs = array(Yii::t('ShopModule.shop', 'Products'));
+$this->pageTitle = Yii::t('ShopModule.shop', 'Offers');
+$this->breadcrumbs = array(Yii::t('ShopModule.shop', 'Offers'));
 
 Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function(){
@@ -30,7 +30,7 @@ Yii::app()->clientScript->registerScript('search', "
 </div>-->
 <section class="catalog-grid">
     <div class="container">
-        <h2><?php echo Yii::t('ShopModule.shop', 'Products');?></h2>
+        <h2><?php echo Yii::t('ShopModule.shop', 'Offers');?></h2>
         <div class="row">
             <?php $this->widget('bootstrap.widgets.TbListView',array(
                 'dataProvider' => $dataProvider,

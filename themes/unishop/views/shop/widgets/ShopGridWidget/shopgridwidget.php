@@ -5,7 +5,7 @@
  * Date: 15.09.14
  * Time: 13:04
  *
- * @var $model - Good
+ * @var $model - Offer
  */
 ?>
 

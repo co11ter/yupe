@@ -1,5 +1,5 @@
 <?php
-$model = Good::model()->published()->onHomePage();
+$model = Offer::model()->published()->onHomePage();
 ?>
 <h2 class="primary-color">Catalog picks</h2>
 <div class="row">

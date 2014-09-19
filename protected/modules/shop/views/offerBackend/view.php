@@ -37,8 +37,50 @@
     'data'       => $model,
     'attributes' => array(
         'id',
+        array(
+            'name'  => 'category_id',
+            'value' => $model->category->name,
+        ),
         'name',
-        'meta_description',
-        'meta_keywords',
+        'price',
+        'article',
+        'image',
+        array(
+            'name' => 'short_description',
+            'type' => 'raw'
+        ),
+        array(
+            'name' => 'description',
+            'type' => 'raw'
+        ),
+        'alias',
+        array(
+            'name' => 'data',
+            'type' => 'raw'
+        ),
+        array(
+            'name'  => 'is_special',
+            'value' => $model->getSpecial(),
+        ),
+        array(
+            'name'  => 'status',
+            'value' => $model->getStatus(),
+        ),
+        array(
+            'name'  => 'user_id',
+            'value' => $model->user->getFullName(),
+        ),
+        array(
+            'name'  => 'change_user_id',
+            'value' => $model->changeUser->getFullName(),
+        ),
+        array(
+            'name'  => 'create_time',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_time, "short", "short"),
+        ),
+        array(
+            'name'  => 'update_time',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_time, "short", "short"),
+        ),
     ),
 )); ?>

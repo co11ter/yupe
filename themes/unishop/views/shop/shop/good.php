@@ -1,12 +1,12 @@
 <?php
 /**
- * @var $good - Good Data Provider
+ * @var $good - Offer Data Provider
  */
 $assetUrl = Yii::app()->getTheme()->getAssetsUrl();
 $this->pageTitle = $good->name;
 
 $this->breadcrumbs = array(
-    Yii::t('ShopModule.shop','Products') => array('/shop/shop/index/'),
+    Yii::t('ShopModule.shop','Offers') => array('/shop/shop/index/'),
     CHtml::encode($good->name)
 ); ?>
 <section class="cart-message">
@@ -81,7 +81,7 @@ $this->breadcrumbs = array(
                     </a>
                 </div>
                 <div>
-                    <?php foreach($good->goodAttributes as $attr) {
+                    <?php foreach($good->offerAttributes as $attr) {
                         echo CHtml::tag('b', array(), CHtml::encode($attr->attribute->name)).': '.CHtml::encode($attr->value).'<br/>';
                     }?>
                 </div>

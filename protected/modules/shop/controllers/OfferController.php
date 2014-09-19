@@ -9,7 +9,7 @@
  * @since 0.1
  *
  */
-class ShopController extends yupe\components\controllers\FrontController
+class OfferController extends yupe\components\controllers\FrontController
 {
     const GOOD_PER_PAGE = 10;
 
@@ -24,22 +24,22 @@ class ShopController extends yupe\components\controllers\FrontController
     public function actionIndex($cid = '', $name = '')
     {
         Yii::app()->getModule('attribute');
-        $attrs = GoodHasAttribute::model()->createFilter()->findAll();
+        $attrs = OfferHasAttribute::model()->createFilter()->findAll();
 
-        $model = new Good('search');
+        $model = new Offer('search');
         $model->unsetAttributes();
 
-        if(isset($_GET['Good']))
-            $model->attributes=$_GET['Good'];
+        if(isset($_GET['Offer']))
+            $model->attributes=$_GET['Offer'];
 
-        $goodsProvider = $model->published()->search();
+        $offersProvider = $model->published()->search();
 
         if($cid) {
-            $goodsProvider->getCriteria()->mergeWith(array(
+            $offersProvider->getCriteria()->mergeWith(array(
                 'limit' => self::GOOD_PER_PAGE,
                 'order' => 't.create_time DESC',
             ));
-            $goodsProvider->getCriteria()->mergeWith(
+            $offersProvider->getCriteria()->mergeWith(
                 array(
                     'with' => array(
                         'category' => array(
@@ -52,7 +52,7 @@ class ShopController extends yupe\components\controllers\FrontController
             );
         }
         if($name) {
-            $goodsProvider->getCriteria()->mergeWith(
+            $offersProvider->getCriteria()->mergeWith(
                 array(
                     'condition' => 't.alias = :galias',
                     'params' => array(':galias' => $name),
@@ -61,13 +61,13 @@ class ShopController extends yupe\components\controllers\FrontController
 
             // Если ищем по алиасу, то выводим страницу для одного товара
             $this->render('good', array(
-                'good' => reset($goodsProvider->getData())
+                'good' => reset($offersProvider->getData())
             ));
             return true;
         }
 
         $this->render('index', array(
-            'dataProvider' => $goodsProvider,
+            'dataProvider' => $offersProvider,
             'model' => $model,
             'attributes' => $attrs
         ));

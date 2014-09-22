@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Файл конфигурации модуля shop
  *
  * @author co11ter <dev@emfy.com>
@@ -25,6 +24,7 @@ return array(
         ),
     ),
     'rules' => array(
+        '/shop/exchange' => 'shop/exchange/unloading',
         '/shoppingcart/<action:\w+>' => 'shop/shoppingcart/<action>',
         '/shoppingcart' => 'shop/shoppingcart/index',
         '/shop/<cid>/<name>' => 'shop/shop/index',

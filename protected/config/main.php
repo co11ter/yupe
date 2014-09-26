@@ -87,7 +87,11 @@ return array(
             'globals'       => array('html' => 'CHtml'),
             'filters'       => array('jencode' => 'CJSON::encode',),
         ),
-        'debug'         => array('class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug', 'internalUrls' => false,),
+        'debug'         => array(
+            'class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+            'internalUrls' => false,
+            'allowedIPs' => array('192.168.5.123')
+        ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
         'db'            => file_exists(__DIR__ . '/db.php') ? require_once __DIR__ . '/db.php' : array(),

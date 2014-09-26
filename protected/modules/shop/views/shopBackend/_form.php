@@ -80,6 +80,29 @@ $form = $this->beginWidget(
     </div>
 </div>
 
+<div class="row">
+    <div class="col-sm-12">
+        <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
+        <div class="panel-group" id="extended-options">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" data-parent="#extended-options" href="#collapseOne">
+                            <?php echo Yii::t('ShopModule.shop', 'All attributes'); ?>
+                        </a>
+                    </div>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        dsaf alkd akj fnadfjkl a
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php $this->endWidget(); ?>
+    </div>
+</div>
+
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     array(

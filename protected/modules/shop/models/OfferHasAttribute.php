@@ -71,7 +71,7 @@ class OfferHasAttribute extends yupe\models\YModel
     {
         return array(
             'createFilter' => array(
-                'select' => array('offer_id', 'attribute_id', new CDbExpression('GROUP_CONCAT(value) as value')),
+                'select' => array('offer_id', 'attribute_id', new CDbExpression('GROUP_CONCAT(distinct value) as value')),
                 'group' => 'attribute_id'
             ),
         );

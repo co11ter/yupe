@@ -29,11 +29,13 @@ class OfferController extends yupe\components\controllers\FrontController
         $model = new Offer('search');
         $model->unsetAttributes();
 
-        if(isset($_GET['Offer']))
-            $model->attributes=$_GET['Offer'];
+        if(isset($_POST['Offer']))
+            $model->attributes=$_POST['Offer'];
 
         $offersProvider = $model->published()->search();
+        $prices = $model->published()->limitPrices()->find();
 
+        // категория товара
         if($cid) {
             $offersProvider->getCriteria()->mergeWith(array(
                 'limit' => self::GOOD_PER_PAGE,
@@ -51,6 +53,8 @@ class OfferController extends yupe\components\controllers\FrontController
                 )
             );
         }
+
+        // алиас товара
         if($name) {
             $offersProvider->getCriteria()->mergeWith(
                 array(
@@ -69,7 +73,8 @@ class OfferController extends yupe\components\controllers\FrontController
         $this->render('index', array(
             'dataProvider' => $offersProvider,
             'model' => $model,
-            'attributes' => $attrs
+            'attributes' => $attrs,
+            'prices' => $prices
         ));
         return true;
     }

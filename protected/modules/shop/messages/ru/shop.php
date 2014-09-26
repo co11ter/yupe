@@ -129,9 +129,11 @@ return array (
   'Order total' => 'Итоговая цена',
   'Proceed to checkout' => 'Оформить покупку',
   'Gallery' => 'Галерея изображений',
-  'Good manage' => 'Управлелние товарами',
+  'Good manage' => 'Управление товарами',
   'Add a good' => 'Добавить товар',
   'Description(Meta)' => 'Описание(Мета)',
   'Keywords(Meta)' => 'Ключевые слова(Мета)',
-  'Good' => 'Товар'
+  'Good' => 'Товар',
+  'All attributes' => 'Все атрибуты',
+  'Clear' => 'Очистить',
 );

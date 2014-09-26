@@ -398,7 +398,7 @@ $(document).ready(function(e) {
 			$('#filterModal').modal('hide');
 		}
 	});
-	
+
 	/*Catalog Single
 	*******************************************/
 	//Product Gallery

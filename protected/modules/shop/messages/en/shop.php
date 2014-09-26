@@ -130,5 +130,7 @@ return array (    'Shop' => '',
   'Add a good' => '',
   'Description(Meta)' => '',
   'Keywords(Meta)' => '',
-  'Good' => ''
+  'Good' => '',
+  'All attributes' => '',
+  'Clear' => '',
 );

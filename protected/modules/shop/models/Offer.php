@@ -49,6 +49,13 @@ class Offer extends yupe\models\YModel implements IECartPosition
     public $attributeIds = array();
 
     /**
+     * Минимальная и максимальная цены выборки
+     * @var int
+     */
+    public $minPrice = 0;
+    public $maxPrice = 0;
+
+    /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
      * @return offer the static model class
@@ -85,7 +92,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
             array('is_special','in','range' => array(0, 1)),
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ShopModule.shop', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
-            array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, gallery_id, good_id', 'safe', 'on' => 'search'),
+            array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, gallery_id, good_id, minPrice, maxPrice', 'safe', 'on' => 'search'),
         );
     }
 
@@ -115,6 +122,9 @@ class Offer extends yupe\models\YModel implements IECartPosition
             'onHomePage' => array(
                 'condition' => 't.is_special = :is_special',
                 'params'    => array(':is_special' => self::SPECIAL_ACTIVE)
+            ),
+            'limitPrices' => array(
+                'select' => 'CEILING(MAX(t.price)) as maxPrice, FLOOR(MIN(t.price)) as minPrice'
             )
         );
     }
@@ -177,7 +187,9 @@ class Offer extends yupe\models\YModel implements IECartPosition
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     * @param string $cid
+     * @param string $name
+     * @return CActiveDataProvider
      */
     public function search($cid = '', $name = '')
     {
@@ -203,13 +215,20 @@ class Offer extends yupe\models\YModel implements IECartPosition
         $criteria->compare('user_id', $this->user_id,true);
         $criteria->compare('change_user_id', $this->change_user_id, true);
 
+        if($this->minPrice) {
+            $criteria->compare('price', '>='.$this->minPrice, true);
+        }
+        if($this->maxPrice) {
+            $criteria->compare('price', '<='.$this->maxPrice, true);
+        }
+
         foreach($this->offerAttributes as $id => $value) {
             if($value) {
                 $criteria->mergeWith(array(
                     'join'=>'JOIN '.OfferHasAttribute::model()->tableName().' attr'.$id.' ON attr'.$id.'.offer_id = t.id'
                 ));
                 $criteria->compare('attr'.$id.'.attribute_id', $id, false);
-                $criteria->compare('attr'.$id.'.value', $value, true);
+                $criteria->addInCondition('attr'.$id.'.value', $value);
             }
         }
 

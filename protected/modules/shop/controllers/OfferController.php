@@ -33,35 +33,20 @@ class OfferController extends yupe\components\controllers\FrontController
             $model->attributes=$_POST['Offer'];
 
         $offersProvider = $model->published()->search();
-        $prices = $model->published()->limitPrices()->find();
+
+        $offersProvider->getCriteria()->mergeWith(array(
+            'limit' => self::GOOD_PER_PAGE,
+            'order' => 't.create_time DESC',
+        ));
 
         // категория товара
         if($cid) {
-            $offersProvider->getCriteria()->mergeWith(array(
-                'limit' => self::GOOD_PER_PAGE,
-                'order' => 't.create_time DESC',
-            ));
-            $offersProvider->getCriteria()->mergeWith(
-                array(
-                    'with' => array(
-                        'category' => array(
-                            'condition' => 'category.alias = :calias',
-                            'params' => array(':calias' => $cid),
-//                            'together' => true
-                        )
-                    )
-                )
-            );
+            $offersProvider->model->applyCategory($cid);
         }
 
         // алиас товара
         if($name) {
-            $offersProvider->getCriteria()->mergeWith(
-                array(
-                    'condition' => 't.alias = :galias',
-                    'params' => array(':galias' => $name),
-                )
-            );
+            $offersProvider->model->applyOffer($name);
 
             // Если ищем по алиасу, то выводим страницу для одного товара
             $this->render('good', array(
@@ -74,7 +59,7 @@ class OfferController extends yupe\components\controllers\FrontController
             'dataProvider' => $offersProvider,
             'model' => $model,
             'attributes' => $attrs,
-            'prices' => $prices
+            'prices' => $model->published()->limitPrices()->find() // max и min цены
         ));
         return true;
     }

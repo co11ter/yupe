@@ -418,8 +418,8 @@ class Offer extends yupe\models\YModel implements IECartPosition
             array(
                 'with' => array(
                     'category' => array(
-                        'condition' => 'category.alias = :alias',
-                        'params' => array(':alias' => $alias),
+                        'condition' => 'category.alias = :calias',
+                        'params' => array(':calias' => $alias),
                     )
                 )
             )
@@ -430,8 +430,8 @@ class Offer extends yupe\models\YModel implements IECartPosition
     {
         $this->getDbCriteria()->mergeWith(
             array(
-                'condition' => 't.alias = :alias',
-                'params' => array(':alias' => $alias),
+                'condition' => 't.alias = :galias',
+                'params' => array(':galias' => $alias),
             )
         );
     }

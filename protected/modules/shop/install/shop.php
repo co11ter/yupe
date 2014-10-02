@@ -24,7 +24,7 @@ return array(
         ),
     ),
     'rules' => array(
-        '/shop/exchange' => 'shop/exchange/unloading',
+        '/shop/exchange/<key>' => 'shop/exchange/unloading',
         '/shoppingcart/<action:\w+>' => 'shop/shoppingcart/<action>',
         '/shoppingcart' => 'shop/shoppingcart/index',
         '/shop/<cid>/<name>' => 'shop/offer/index',

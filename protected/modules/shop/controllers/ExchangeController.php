@@ -9,31 +9,26 @@
 
 class ExchangeController extends yupe\components\controllers\FrontController
 {
-    private $secretKey = '11';
+    private $secretKey = 'd41d8cd98f00b204e9800998ecf8427e';
 
-    private $ip = '';
+    private $ip = '192.168.5.29';
 
-    public function actionUnloading()
+    public function actionUnloading($key)
     {
-        if(Yii::app()->getRequest()->getPost('file'))
-        {
+//        if(Yii::app()->getRequest()->getPost('file'))
+//        {
 //            $transaction = Yii::app()->db->beginTransaction();
 //            $transaction->commit();
 //            $transaction->rollback();
+//        }
+        if($key != $this->secretKey) {
+            Yii::app()->end('Wrong secret key!');
         }
-    }
 
-    public function actionIndex()
-    {
-
-    }
-
-    protected function beforeAction()
-    {
-        $key = Yii::app()->getRequest()->getQuery('k');
-        if($key === $this->secretKey) {
-            return true;
+        if(Yii::app()->request->userHostAddress != $this->ip) {
+            Yii::app()->end('Wrong host ip!');
         }
-        return false;
+
+        Import1c::processRequest(Yii::app()->request->getQuery('type'), Yii::app()->request->getQuery('mode'));
     }
 } 

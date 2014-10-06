@@ -82,7 +82,7 @@ class ShopModule extends WebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'gallery.models.*',
+//			'gallery.models.*',
 			'shop.models.*',
 			'shop.components.*',
 		));

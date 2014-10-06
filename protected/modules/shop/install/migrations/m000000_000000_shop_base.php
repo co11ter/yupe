@@ -21,7 +21,9 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
                 'id' => 'pk',
                 'name' => 'varchar(250) NOT NULL',
                 'meta_description' => 'text',
-                'meta_keywords' => 'text'
+                'meta_keywords' => 'text',
+                'article' => 'varchar(100) DEFAULT NULL',
+                'external_id' => 'varchar(32) DEFAULT NULL'
             ), $this->getOptions()
         );
 
@@ -44,7 +46,8 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
                 'update_time' => 'datetime NOT NULL',
                 'user_id' => 'integer DEFAULT NULL',
                 'change_user_id' => 'integer DEFAULT NULL',
-                'gallery_id' => 'integer DEFAULT NULL'
+                'gallery_id' => 'integer DEFAULT NULL',
+                'external_id' => 'varchar(32) DEFAULT NULL'
             ), $this->getOptions()
         );
 

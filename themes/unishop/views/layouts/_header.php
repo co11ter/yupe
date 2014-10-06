@@ -56,7 +56,10 @@
                 <a data-target="#loginModal" data-toggle="modal" href="#" class="login-btn btn-outlined-invert"><i class="icon-profile"></i> <span>Login</span></a>
             </div>
             <div class="cart-btn">
-                <?php $this->widget('application.modules.shop.widgets.ShoppingCartWidget'); ?>
+                <?php
+                if (Yii::app()->hasModule('shop')) {
+                    $this->widget('application.modules.shop.widgets.ShoppingCartWidget');
+                } ?>
             </div>
         </div><!--Toolbar Close-->
     </div>

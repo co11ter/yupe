@@ -136,4 +136,5 @@ return array (
   'Good' => 'Товар',
   'All attributes' => 'Все атрибуты',
   'Clear' => 'Очистить',
+  'It unloaded from 1c' => 'Выгружено из 1С'
 );

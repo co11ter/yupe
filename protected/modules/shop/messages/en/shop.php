@@ -133,4 +133,5 @@ return array (    'Shop' => '',
   'Good' => '',
   'All attributes' => '',
   'Clear' => '',
+  'It unloaded from 1c' => ''
 );

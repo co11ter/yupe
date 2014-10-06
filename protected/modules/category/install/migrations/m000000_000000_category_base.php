@@ -32,6 +32,7 @@ class m000000_000000_category_base extends yupe\components\DbMigration
                 'short_description' => 'text',
                 'description'       => 'text NOT NULL',
                 'status'            => "boolean NOT NULL DEFAULT '1'",
+                'external_id'       => 'varchar(32) DEFAULT NULL'
             ),
             $this->getOptions()
         );
@@ -40,6 +41,7 @@ class m000000_000000_category_base extends yupe\components\DbMigration
         $this->createIndex("ux_{{category_category}}_alias_lang", '{{category_category}}', "alias,lang", true);
         $this->createIndex("ix_{{category_category}}_parent_id", '{{category_category}}', "parent_id", false);
         $this->createIndex("ix_{{category_category}}_status", '{{category_category}}', "status", false);
+        $this->createIndex("ix_{{category_category}}_external_id", '{{category_category}}', "external_id", false);
 
         //fk
         $this->addForeignKey(

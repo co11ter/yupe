@@ -5,5 +5,10 @@
 </ul>
 
 <section class="catalog-grid">
-    <?php $this->widget('application.modules.shop.widgets.ShopGridWidget'); ?>
+    <?php
+    if (Yii::app()->hasModule('shop')) {
+        $this->widget('application.modules.shop.widgets.ShopGridWidget');
+    }
+    ?>
+
 </section>

@@ -79,20 +79,19 @@ class Offer extends yupe\models\YModel implements IECartPosition
     public function rules()
     {
         return array(
-            array('category_id, name, description, alias, good_id', 'required', 'except' => 'search'),
-            array('name, description, short_description, image, alias, price, article, data, status, is_special', 'filter', 'filter' => 'trim'),
+            array('name, description, alias, good_id', 'required', 'except' => 'search'),
+            array('name, description, short_description, image, alias, price, data, status, is_special', 'filter', 'filter' => 'trim'),
             array('name, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('status, category_id, is_special, user_id, gallery_id, good_id', 'numerical', 'integerOnly' => true),
-            array('status, category_id, is_special, user_id, gallery_id, good_id', 'length', 'max' => 11),
+            array('status, is_special, user_id, gallery_id, good_id', 'numerical', 'integerOnly' => true),
+            array('status, is_special, user_id, gallery_id, good_id', 'length', 'max' => 11),
             array('price', 'numerical'),
             array('name, image', 'length', 'max' => 250),
-            array('article', 'length', 'max' => 100),
             array('alias', 'length', 'max' => 150),
             array('status','in','range' => array_keys($this->statusList)),
             array('is_special','in','range' => array(0, 1)),
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ShopModule.shop', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
-            array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, gallery_id, good_id, minPrice, maxPrice', 'safe', 'on' => 'search'),
+            array('id, name, price, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, gallery_id, good_id, minPrice, maxPrice', 'safe', 'on' => 'search'),
         );
     }
 

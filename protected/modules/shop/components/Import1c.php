@@ -5,7 +5,7 @@
  * Date: 02.10.14
  * Time: 16:53
  *
- * http://demo.my/shop/exchange/d41d8cd98f00b204e9800998ecf8427e?type=catalog&mode=import&filename=import.xml
+ * http://demo.my/shop/exchange/d41d8cd98f00b204e9800998ecf8427e?type=catalog&mode=import&filename=offers.xml
  */
 class Import1c extends CComponent
 {
@@ -79,12 +79,14 @@ class Import1c extends CComponent
 
         // Import products
         if(isset($this->xml->{"Каталог"}->{"Товары"})/* && !$this->check(self::IMPORT_TYPE_GOODS)*/) {
-            if($this->importProducts())
+            if($this->importProducts($this->xml->{"Каталог"}->{"Товары"}))
                 Yii::app()->session[self::IMPORT_TYPE_GOODS] = true;
         }
         // Import offers
-//        if(isset($this->xml->{"ПакетПредложений"}->{"Предложения"}))
-//            $this->importOffers();
+        if(isset($this->xml->{"ПакетПредложений"}->{"Предложения"})) {
+            if($this->importOffers($this->xml->{"ПакетПредложений"}->{"Предложения"}))
+                Yii::app()->session[self::IMPORT_TYPE_OFFERS] = true;
+        }
 
         echo 'success'.PHP_EOL;
     }
@@ -92,30 +94,30 @@ class Import1c extends CComponent
     /**
      * Import catalog products
      */
-    public function importProducts()
+    public function importProducts($data)
     {
-        foreach($this->xml->{"Каталог"}->{"Товары"}->{"Товар"} as $product)
+        foreach($data->{"Товар"} as $product)
         {
             if(!$product->{"Группы"}->{"Ид"})
                 continue;
 
             // ищем категорию, если не найдена то пропускаем
-            $category = Category::model()->find('external_id = :ext_id', array(':ext_id' => $product->{"Группы"}->{"Ид"}));
+            $category = Category::model()->find('external_id = :ext_id', array(':ext_id' => (string)$product->{"Группы"}->{"Ид"}));
             if(!$category)
                 continue;
 
-            $model = Good::model()->find('external_id = :ext_id', array(':ext_id' => $product->{"Ид"}));
+            $model = Good::model()->find('external_id = :ext_id', array(':ext_id' => (string)$product->{"Ид"}));
 
             if(!$model)
             {
                 $model = new Good;
                 $model->status = Good::STATUS_NOT_ACTIVE;
-                $model->external_id = $product->{"Ид"};
+                $model->external_id = (string)$product->{"Ид"};
             }
 
-            $model->name = $product->{"Наименование"};
-            $model->alias = yupe\helpers\YText::translit($product->{"Наименование"});
-            $model->article = $product->{"Артикул"};
+            $model->name = (string)$product->{"Наименование"};
+            $model->alias = yupe\helpers\YText::translit((string)$product->{"Наименование"});
+            $model->article = (string)$product->{"Артикул"};
             $model->category_id = $category->id;
 
             $model->save();
@@ -126,19 +128,34 @@ class Import1c extends CComponent
     /**
      * Import catalog prices
      */
-    public function importOffers()
+    public function importOffers($data)
     {
-        foreach($this->xml->{"ПакетПредложений"}->{"Предложения"}->{"Предложение"} as $offer)
+        foreach($data->{"Предложение"} as $offer)
         {
-            $product=C1ExternalFinder::getObject(C1ExternalFinder::OBJECT_TYPE_PRODUCT, $offer->{"Ид"});
+            $ids = explode('#', (string)$offer->{"Ид"});
+            $good_ext_id  = $ids[0];
+            $offer_ext_id = isset($ids[1]) ? $ids[1] : $ids[0];
 
-            if($product)
-            {
-                $product->price=$offer->{"Цены"}->{"Цена"}->{"ЦенаЗаЕдиницу"};
-                $product->quantity=$offer->{"Количество"};
-                $product->save(false);
+            // ищем товар, если не найден то пропускаем
+            $good = Good::model()->find('external_id = :ext_id', array(':ext_id' => $good_ext_id));
+            if(!$good)
+                continue;
+
+            $model = Offer::model()->find('external_id = :ext_id', array(':ext_id' => $offer_ext_id));
+
+            if(!$model){
+                $model = new Offer;
+                $model->good_id = $good->id;
+                $model->external_id = $offer_ext_id;
             }
+
+            $model->name = (string)$offer->{"Наименование"};
+            $model->alias = yupe\helpers\YText::translit((string)$offer->{"Наименование"});
+            $model->description = Yii::t('ShopModule.shop', 'It unloaded from 1c');
+            $model->price = (string)$offer->{"Цены"}->{"Цена"}->{"ЦенаЗаЕдиницу"};
+            $model->save();
         }
+        return true;
     }
 
     /**

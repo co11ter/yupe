@@ -11,7 +11,7 @@ class ExchangeController extends yupe\components\controllers\FrontController
 {
     private $secretKey = 'd41d8cd98f00b204e9800998ecf8427e';
 
-    private $ip = '192.168.5.29';
+    private $ip = array('192.168.5.29', '192.168.5.123');
 
     public function actionUnloading($key)
     {
@@ -19,9 +19,9 @@ class ExchangeController extends yupe\components\controllers\FrontController
             Yii::app()->end('Wrong secret key!');
         }
 
-        /*if(Yii::app()->request->userHostAddress != $this->ip) {
+        if(!in_array(Yii::app()->request->userHostAddress, $this->ip)) {
             Yii::app()->end('Wrong host ip!');
-        }*/
+        }
 
         Import1c::processRequest(Yii::app()->request->getQuery('type'), Yii::app()->request->getQuery('mode'));
     }

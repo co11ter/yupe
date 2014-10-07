@@ -32,7 +32,7 @@ class m000000_000000_category_base extends yupe\components\DbMigration
                 'short_description' => 'text',
                 'description'       => 'text NOT NULL',
                 'status'            => "boolean NOT NULL DEFAULT '1'",
-                'external_id'       => 'varchar(32) DEFAULT NULL'
+                'external_id'       => 'varchar(64) DEFAULT NULL'
             ),
             $this->getOptions()
         );

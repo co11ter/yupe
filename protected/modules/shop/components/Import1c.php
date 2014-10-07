@@ -4,9 +4,15 @@
  * User: Poltoratskiy A.
  * Date: 02.10.14
  * Time: 16:53
+ *
+ * http://demo.my/shop/exchange/d41d8cd98f00b204e9800998ecf8427e?type=catalog&mode=import&filename=import.xml
  */
 class Import1c extends CComponent
 {
+    const IMPORT_TYPE_CATEGORIES    = 'import_categories';
+    const IMPORT_TYPE_GOODS         = 'import_goods';
+    const IMPORT_TYPE_OFFERS        = 'import_offers';
+
     protected $uploadPath = 'exchange';
 
     protected $xml = '';
@@ -48,9 +54,8 @@ class Import1c extends CComponent
      */
     public function commandCatalogFile()
     {
-        $fileName = Yii::app()->request->getQuery('filename');
         $result = file_put_contents(
-            $this->getUploadPath($fileName),
+            $this->getUploadPath(Yii::app()->request->getQuery('filename')),
             Yii::app()->request->getRawBody()
         );
         if($result)
@@ -67,19 +72,17 @@ class Import1c extends CComponent
             Yii::app()->end('Not found xml file!');
 
         // Import categories
-        if(isset($this->xml->{"Классификатор"}->{"Группы"}))
-            $this->importCategories($this->xml->{"Классификатор"}->{"Группы"});
-
-        // Import properties
-        // Свойства на данный момент не выгружаются
-//        if(isset($this->xml->{"Классификатор"}->{"Свойства"}))
-//            $this->importProperties();
+        if(isset($this->xml->{"Классификатор"}->{"Группы"}) && !$this->check(self::IMPORT_TYPE_CATEGORIES)) {
+            if($this->importCategories($this->xml->{"Классификатор"}->{"Группы"}))
+                Yii::app()->session[self::IMPORT_TYPE_CATEGORIES] = true;
+        }
 
         // Import products
-        if(isset($this->xml->{"Каталог"}->{"Товары"}))
-            $this->importProducts();
-
-        // Import prices
+        if(isset($this->xml->{"Каталог"}->{"Товары"})/* && !$this->check(self::IMPORT_TYPE_GOODS)*/) {
+            if($this->importProducts())
+                Yii::app()->session[self::IMPORT_TYPE_GOODS] = true;
+        }
+        // Import offers
 //        if(isset($this->xml->{"ПакетПредложений"}->{"Предложения"}))
 //            $this->importOffers();
 
@@ -93,30 +96,31 @@ class Import1c extends CComponent
     {
         foreach($this->xml->{"Каталог"}->{"Товары"}->{"Товар"} as $product)
         {
-            $createExId=false;
-            $model=C1ExternalFinder::getObject(C1ExternalFinder::OBJECT_TYPE_PRODUCT, $product->{"Ид"});
+            if(!$product->{"Группы"}->{"Ид"})
+                continue;
+
+            // ищем категорию, если не найдена то пропускаем
+            $category = Category::model()->find('external_id = :ext_id', array(':ext_id' => $product->{"Группы"}->{"Ид"}));
+            if(!$category)
+                continue;
+
+            $model = Good::model()->find('external_id = :ext_id', array(':ext_id' => $product->{"Ид"}));
 
             if(!$model)
             {
-                $model = new StoreProduct;
-                $model->type_id   = self::DEFAULT_TYPE;
-                $model->price     = 0;
-                $model->is_active = 1;
-                $createExId=true;
+                $model = new Good;
+                $model->status = Good::STATUS_NOT_ACTIVE;
+                $model->external_id = $product->{"Ид"};
             }
 
-            $model->name=$product->{"Наименование"};
-            $model->sku=$product->{"Артикул"};
+            $model->name = $product->{"Наименование"};
+            $model->alias = yupe\helpers\YText::translit($product->{"Наименование"});
+            $model->article = $product->{"Артикул"};
+            $model->category_id = $category->id;
+
             $model->save();
-
-            // Create external id
-            if($createExId===true)
-                $this->createExternalId(C1ExternalFinder::OBJECT_TYPE_PRODUCT, $model->id, $product->{"Ид"});
-
-            // Set category
-            $categoryId=C1ExternalFinder::getObject(C1ExternalFinder::OBJECT_TYPE_CATEGORY,$product->{"Группы"}->{"Ид"}, false);
-            $model->setCategories(array($categoryId), $categoryId);
         }
+        return true;
     }
 
     /**
@@ -138,51 +142,39 @@ class Import1c extends CComponent
     }
 
     /**
-     * @param $attribute_id
-     * @param $value
-     * @return StoreAttributeOption
-     */
-    public function addOptionToAttribute($attribute_id, $value)
-    {
-        // Add option
-        $option = new StoreAttributeOption;
-        $option->attribute_id = $attribute_id;
-        $option->value = $value;
-        $option->save();
-        return $option;
-    }
-
-    /**
      * @param $data
-     * @param null|StoreCategory $parent
+     * @param null $parent
+     * @return bool
      */
     public function importCategories($data, $parent=null)
     {
         foreach($data->{"Группа"} as $category)
         {
             // Find category by external id
-            $model = Category::model()->find('external_id = :ext_id', array(':ext_id' => $category->{"Ид"}));
+            $model = Category::model()->find('external_id = :ext_id', array(':ext_id' => (string)$category->{"Ид"}));
 
             if(!$model)
             {
-                $model = new Category;
-                $model->name = $category->{"Наименование"};
-                $model->alias = yupe\helpers\YText::translit($category->{"Наименование"});
+                $model              = new Category;
+                $model->name        = (string)$category->{"Наименование"};
+                $model->alias       = yupe\helpers\YText::translit((string)$category->{"Наименование"});
                 $model->description = Yii::t('ShopModule.shop', 'It unloaded from 1c');
-                $model->lang = Yii::app()->getLanguage();
-                $model->status = Category::STATUS_MODERATION;
-                $model->external_id = $category->{"Ид"};
+                $model->lang        = Yii::app()->getLanguage();
+                $model->status      = Category::STATUS_MODERATION;
+                $model->external_id = (string)$category->{"Ид"};
 
                 if($parent instanceof CActiveRecord)
                     $model->parent_id = $parent->id;
+
+                $model->save();
             }
 
-            $model->save();
-
             // Process subcategories
-            if(isset($category->{"Группы"}))
+            if(isset($category->{"Группы"})) {
                 $this->importCategories($category->{"Группы"}, $model);
+            }
         }
+        return true;
     }
 
     /**
@@ -211,5 +203,10 @@ class Import1c extends CComponent
             mkdir($path);
         }
         return $path.DIRECTORY_SEPARATOR.$fileName;
+    }
+
+    public function check($type)
+    {
+        return isset(Yii::app()->session[$type]) && Yii::app()->session[$type];
     }
 }

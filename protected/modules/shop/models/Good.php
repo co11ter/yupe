@@ -8,6 +8,9 @@
 
 class Good extends yupe\models\YModel
 {
+    const STATUS_ACTIVE     = 1;
+    const STATUS_NOT_ACTIVE = 0;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.

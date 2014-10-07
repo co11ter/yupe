@@ -15,19 +15,13 @@ class ExchangeController extends yupe\components\controllers\FrontController
 
     public function actionUnloading($key)
     {
-//        if(Yii::app()->getRequest()->getPost('file'))
-//        {
-//            $transaction = Yii::app()->db->beginTransaction();
-//            $transaction->commit();
-//            $transaction->rollback();
-//        }
         if($key != $this->secretKey) {
             Yii::app()->end('Wrong secret key!');
         }
 
-        if(Yii::app()->request->userHostAddress != $this->ip) {
+        /*if(Yii::app()->request->userHostAddress != $this->ip) {
             Yii::app()->end('Wrong host ip!');
-        }
+        }*/
 
         Import1c::processRequest(Yii::app()->request->getQuery('type'), Yii::app()->request->getQuery('mode'));
     }

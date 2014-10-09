@@ -11,6 +11,9 @@ class ShopModule extends WebModule
     public $maxSize           = 5242880;
     public $maxFiles          = 1;
 
+    public $exchangeKey = 'key';
+    public $exchangeIps = '127.0.0.1';
+
     public function getDependencies()
     {
         return array(
@@ -75,6 +78,23 @@ class ShopModule extends WebModule
             array('icon' => 'glyphicon glyphicon-plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a attribute'), 'url' => array('/attribute/attributeBackend/create')),
         );
     }
+
+    public function getEditableParams()
+    {
+        return array(
+            'exchangeKey',
+            'exchangeIps'
+        );
+    }
+
+    public function getParamsLabels()
+    {
+        return array(
+            'exchangeKey' => Yii::t('ShopModule.shop', 'Access token for 1C exchange'),
+            'exchangeIps' => Yii::t('ShopModule.shop', 'Allowed Ips for 1C exchange'),
+        );
+    }
+
 	public function init()
 	{
 		// this method is called when the module is being created

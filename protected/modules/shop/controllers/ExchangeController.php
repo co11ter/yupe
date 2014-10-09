@@ -9,17 +9,13 @@
 
 class ExchangeController extends yupe\components\controllers\FrontController
 {
-    private $secretKey = 'd41d8cd98f00b204e9800998ecf8427e';
-
-    private $ip = array('192.168.5.29', '192.168.5.123');
-
     public function actionUnloading($key)
     {
-        if($key != $this->secretKey) {
+        if($key != Yii::app()->getModule('shop')->exchangeKey) {
             Yii::app()->end('Wrong secret key!');
         }
 
-        if(!in_array(Yii::app()->request->userHostAddress, $this->ip)) {
+        if(!in_array(Yii::app()->request->userHostAddress, Yii::app()->getModule('shop')->exchangeIps)) {
             Yii::app()->end('Wrong host ip!');
         }
 

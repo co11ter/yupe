@@ -5,17 +5,16 @@
  * Date: 02.10.14
  * Time: 16:53
  *
- * http://demo.my/shop/exchange/d41d8cd98f00b204e9800998ecf8427e?type=catalog&mode=import&filename=offers.xml
+ * /shop/exchange/d41d8cd98f00b204e9800998ecf8427e?type=catalog&mode=import&filename=offers.xml
  */
 class Import1c extends CComponent
 {
     const IMPORT_TYPE_CATEGORIES    = 'import_categories';
     const IMPORT_TYPE_GOODS         = 'import_goods';
     const IMPORT_TYPE_OFFERS        = 'import_offers';
+    const IMPORT_TYPE_ATTRIBUTES    = 'import_attributes';
 
     protected $uploadPath = 'exchange';
-
-    protected $xml = '';
 
     /**
      * @param $type
@@ -67,24 +66,34 @@ class Import1c extends CComponent
      */
     public function commandCatalogImport()
     {
-        $this->xml = $this->getXml(Yii::app()->request->getQuery('filename'));
-        if(!$this->xml)
+        $xml = $this->getXml(Yii::app()->request->getQuery('filename'));
+        if(!$xml)
             Yii::app()->end('Not found xml file!');
 
+        // Import attributes
+        /*if(isset($xml->collection) && !$this->check(self::IMPORT_TYPE_ATTRIBUTES))
+        {
+            if($this->importAttributes($xml->collection))
+                Yii::app()->session[self::IMPORT_TYPE_ATTRIBUTES] = true;
+        }*/
+
         // Import categories
-        if(isset($this->xml->{"Классификатор"}->{"Группы"}) && !$this->check(self::IMPORT_TYPE_CATEGORIES)) {
-            if($this->importCategories($this->xml->{"Классификатор"}->{"Группы"}))
+        if(isset($xml->{"Классификатор"}->{"Группы"}) && !$this->check(self::IMPORT_TYPE_CATEGORIES))
+        {
+            if($this->importCategories($xml->{"Классификатор"}->{"Группы"}))
                 Yii::app()->session[self::IMPORT_TYPE_CATEGORIES] = true;
         }
 
         // Import products
-        if(isset($this->xml->{"Каталог"}->{"Товары"})/* && !$this->check(self::IMPORT_TYPE_GOODS)*/) {
-            if($this->importProducts($this->xml->{"Каталог"}->{"Товары"}))
+        if(isset($xml->{"Каталог"}->{"Товары"})/* && !$this->check(self::IMPORT_TYPE_GOODS)*/)
+        {
+            if($this->importProducts($xml->{"Каталог"}->{"Товары"}))
                 Yii::app()->session[self::IMPORT_TYPE_GOODS] = true;
         }
         // Import offers
-        if(isset($this->xml->{"ПакетПредложений"}->{"Предложения"})) {
-            if($this->importOffers($this->xml->{"ПакетПредложений"}->{"Предложения"}))
+        if(isset($xml->{"ПакетПредложений"}->{"Предложения"}) && !$this->check(self::IMPORT_TYPE_OFFERS))
+        {
+            if($this->importOffers($xml->{"ПакетПредложений"}->{"Предложения"}))
                 Yii::app()->session[self::IMPORT_TYPE_OFFERS] = true;
         }
 
@@ -116,7 +125,7 @@ class Import1c extends CComponent
             }
 
             $model->name = (string)$product->{"Наименование"};
-            $model->alias = yupe\helpers\YText::translit((string)$product->{"Наименование"});
+            $model->description = Yii::t('ShopModule.shop', 'It unloaded from 1c');
             $model->article = (string)$product->{"Артикул"};
             $model->category_id = $category->id;
 
@@ -143,16 +152,17 @@ class Import1c extends CComponent
 
             $model = Offer::model()->find('external_id = :ext_id', array(':ext_id' => $offer_ext_id));
 
-            if(!$model){
+            if(!$model)
+            {
                 $model = new Offer;
                 $model->good_id = $good->id;
                 $model->external_id = $offer_ext_id;
             }
 
             $model->name = (string)$offer->{"Наименование"};
-            $model->alias = yupe\helpers\YText::translit((string)$offer->{"Наименование"});
             $model->description = Yii::t('ShopModule.shop', 'It unloaded from 1c');
             $model->price = (string)$offer->{"Цены"}->{"Цена"}->{"ЦенаЗаЕдиницу"};
+            $model->status = Offer::STATUS_ZERO;
             $model->save();
         }
         return true;

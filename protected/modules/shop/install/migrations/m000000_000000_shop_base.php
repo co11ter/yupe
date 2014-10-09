@@ -67,12 +67,14 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
             ), $this->getOptions()
         );
 
-        $this->createIndex("ix_{{shop_good}}_category", '{{shop_good}}', "category_id", false);
         $this->createIndex("ux_{{shop_good}}_alias", '{{shop_good}}', "alias", true);
+        $this->createIndex("ux_{{shop_good}}_external", '{{shop_good}}', "external_id", true);
         $this->createIndex("ix_{{shop_good}}_status", '{{shop_good}}', "status", false);
         $this->createIndex("ix_{{shop_good}}_article", '{{shop_good}}', "article", false);
+        $this->createIndex("ix_{{shop_good}}_category", '{{shop_good}}', "category_id", false);
 
         $this->createIndex("ux_{{shop_offer}}_alias", '{{shop_offer}}', "alias", true);
+        $this->createIndex("ux_{{shop_offer}}_external", '{{shop_offer}}', "external_id", true);
         $this->createIndex("ix_{{shop_offer}}_status", '{{shop_offer}}', "status", false);
         $this->createIndex("ix_{{shop_offer}}_price", '{{shop_offer}}', "price", false);
 

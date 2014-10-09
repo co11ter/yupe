@@ -8,11 +8,21 @@
  */
 class Attribute extends yupe\models\YModel
 {
-    const TYPE_BOOLEAN = 0;
-    const TYPE_STRING = 1;
-    const TYPE_FLOAT = 2;
-    const TYPE_LIST = 3;
-    const TYPE_MULTIPLE_LIST = 4;
+    /**
+     * Types for attribute
+     */
+    const TYPE_BOOLEAN       = 0;
+    const TYPE_STRING        = 1;
+    const TYPE_FLOAT         = 2;
+    const TYPE_FILE          = 3;
+    const TYPE_LIST          = 4;
+    const TYPE_MULTIPLE_LIST = 5;
+
+    /**
+     * Used for external_id field
+     */
+    const TARGET_OFFER = 0;
+    const TARGET_GOOD  = 1;
 
     public $filtering = array();
 
@@ -73,6 +83,7 @@ class Attribute extends yupe\models\YModel
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('type_id', $this->type_id, true);
+        $criteria->compare('external_id', $this->external_id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('category.id', $this->categoryIds, true);
         $criteria->with = array('category'=>array('select'=>'category.id','together'=>true));
@@ -122,10 +133,11 @@ class Attribute extends yupe\models\YModel
             array('type_id, name', 'required', 'except' => 'search'),
             array('name', 'filter', 'filter' => 'trim'),
             array('name', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('type_id', 'numerical', 'integerOnly' => true),
-            array('type_id', 'length', 'max' => 11),
+            array('type_id, external_id', 'numerical', 'integerOnly' => true),
+            array('type_id, external_id', 'length', 'max' => 11),
             array('name', 'length', 'max' => 250),
-            array('id, type_id, name, categoryIds, filtering, value_list', 'safe', 'on' => 'search'),
+            array('external_id', 'unique'),
+            array('id, type_id, name, categoryIds, filtering, value_list, external_id', 'safe', 'on' => 'search'),
             array('categoryIds, filtering, value_list', 'type', 'type' => 'array'),
             array('value_list', 'filter', 'filter' => 'serialize'),
         );

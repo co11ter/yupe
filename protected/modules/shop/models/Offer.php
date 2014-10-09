@@ -42,9 +42,9 @@ class Offer extends yupe\models\YModel implements IECartPosition
     const SPECIAL_NOT_ACTIVE = 0;
     const SPECIAL_ACTIVE     = 1;
 
-    const STATUS_ZERO       = 0;
-    const STATUS_ACTIVE     = 1;
-    const STATUS_NOT_ACTIVE = 2;
+    const STATUS_ZERO       = 0; // не отображается
+    const STATUS_ACTIVE     = 1; // активный
+    const STATUS_NOT_ACTIVE = 2; // скрытый
 
     public $attributeIds = array();
 
@@ -81,7 +81,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
         return array(
             array('name, description, alias, good_id', 'required', 'except' => 'search'),
             array('name, description, short_description, image, alias, price, data, status, is_special', 'filter', 'filter' => 'trim'),
-            array('name, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('name, alias, price, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('status, is_special, user_id, gallery_id, good_id', 'numerical', 'integerOnly' => true),
             array('status, is_special, user_id, gallery_id, good_id', 'length', 'max' => 11),
             array('price', 'numerical'),
@@ -91,7 +91,8 @@ class Offer extends yupe\models\YModel implements IECartPosition
             array('is_special','in','range' => array(0, 1)),
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ShopModule.shop', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
-            array('id, name, price, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, gallery_id, good_id, minPrice, maxPrice', 'safe', 'on' => 'search'),
+            array('external_id', 'unique'),
+            array('id, name, price, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, gallery_id, good_id, minPrice, maxPrice, external_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -138,7 +139,6 @@ class Offer extends yupe\models\YModel implements IECartPosition
             'category_id'       => Yii::t('ShopModule.shop', 'Category'),
             'name'              => Yii::t('ShopModule.shop', 'Name'),
             'price'             => Yii::t('ShopModule.shop', 'Price'),
-            'article'           => Yii::t('ShopModule.shop', 'Article'),
             'image'             => Yii::t('ShopModule.shop', 'Image'),
             'short_description' => Yii::t('ShopModule.shop', 'Short description'),
             'description'       => Yii::t('ShopModule.shop', 'Description'),
@@ -166,7 +166,6 @@ class Offer extends yupe\models\YModel implements IECartPosition
             'category_id'       => Yii::t('ShopModule.shop', 'Category'),
             'name'              => Yii::t('ShopModule.shop', 'Name'),
             'price'             => Yii::t('ShopModule.shop', 'Price'),
-            'article'           => Yii::t('ShopModule.shop', 'Article'),
             'image'             => Yii::t('ShopModule.shop', 'Image'),
             'short_description' => Yii::t('ShopModule.shop', 'Short description'),
             'description'       => Yii::t('ShopModule.shop', 'Description'),
@@ -201,7 +200,6 @@ class Offer extends yupe\models\YModel implements IECartPosition
         $criteria->compare('category_id', $this->category_id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('price', $this->price);
-        $criteria->compare('article', $this->article, true);
         $criteria->compare('image', $this->image, true);
         $criteria->compare('short_description', $this->short_description, true);
         $criteria->compare('description', $this->description, true);

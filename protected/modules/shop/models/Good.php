@@ -108,10 +108,12 @@ class Good extends yupe\models\YModel
             'meta_description'  => Yii::t('ShopModule.shop', 'Description(Meta)'),
             'meta_keywords'     => Yii::t('ShopModule.shop', 'Keywords(Meta)'),
             'article'           => Yii::t('ShopModule.shop', 'Article'),
-            'alias'           => Yii::t('ShopModule.shop', 'Alias'),
+            'alias'             => Yii::t('ShopModule.shop', 'Alias'),
             'category_id'       => Yii::t('ShopModule.shop', 'Category'),
             'short_description' => Yii::t('ShopModule.shop', 'Short description'),
             'description'       => Yii::t('ShopModule.shop', 'Description'),
+            'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
+            'status'            => Yii::t('ShopModule.shop', 'Status'),
         );
     }
 
@@ -130,6 +132,20 @@ class Good extends yupe\models\YModel
             'category_id'       => Yii::t('ShopModule.shop', 'Category'),
             'short_description' => Yii::t('ShopModule.shop', 'Short description'),
             'description'       => Yii::t('ShopModule.shop', 'Description'),
+            'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
+            'status'            => Yii::t('ShopModule.shop', 'Status'),
+        );
+    }
+
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'goodAttributes'   => array(self::HAS_MANY, 'GoodHasAttribute', 'good_id'),
         );
     }
 

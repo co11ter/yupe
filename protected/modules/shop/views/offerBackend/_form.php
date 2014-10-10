@@ -75,23 +75,6 @@
             };
             createAttribute(obj);
         });
-        $('#Offer_category_id').on('change', function(event){
-            $.get(
-                '/backend/attribute/attribute',
-                {
-                    type: 'json',
-                    Attribute: {
-                        categoryIds: [$(this).val()]
-                    }
-                },
-                function(data){
-                    var obj = JSON.parse(data);
-                    $.each(obj, function(key, value) {
-                        createAttribute(value);
-                    });
-                }
-            );
-        });
     })
 </script>
 
@@ -145,26 +128,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                     ),
                 )
             ); ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-7">
-            <?php echo $form->dropDownListGroup(
-                $model,
-                'category_id',
-                array(
-                    'widgetOptions' => array(
-                        'data'        => Category::model()->getFormattedList(),
-                        'htmlOptions' => array(
-                            'empty'               => Yii::t('ShopModule.shop', '--choose--'),
-                            'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('category_id'),
-                            'data-content'        => $model->getAttributeDescription('category_id'),
-                            'encode'              => false,
-                        ),
-                    ),
-                )
-            );?>
         </div>
     </div>
     <div class="row">

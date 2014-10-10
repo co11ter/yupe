@@ -91,12 +91,16 @@ class Attribute extends yupe\models\YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('type_id', $this->type_id, true);
-        $criteria->compare('external_id', $this->external_id, true);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('t.id', $this->id, true);
+        $criteria->compare('t.type_id', $this->type_id, true);
+        $criteria->compare('t.external_id', $this->external_id, true);
+        $criteria->compare('t.name', $this->name, true);
+
         $criteria->compare('category.id', $this->categoryIds, true);
-        $criteria->with = array('category'=>array('select'=>'category.id','together'=>true));
+        $criteria->with = array(
+            'category'=>array('select'=>'category.id','together'=>true),
+            'values'=>array('together'=>true)
+        );
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
@@ -159,6 +163,20 @@ class Attribute extends yupe\models\YModel
         return array(
             'category' => array(self::MANY_MANY, 'Category', '{{attribute_category_has_attribute}}(category_id, attribute_id)'),
             'values' => array(self::MANY_MANY, 'AttributeValue', '{{attribute_attribute_has_value}}(value_id, attribute_id)')
+        );
+    }
+
+    public function scopes()
+    {
+        return array(
+            'onlyOffers' => array(
+                'condition' => 't.target_id = :target_id',
+                'params'    => array(':target_id' => self::TARGET_OFFER),
+            ),
+            'onlyGoods' => array(
+                'condition' => 't.target_id = :target_id',
+                'params'    => array(':target_id' => self::TARGET_GOOD),
+            )
         );
     }
 

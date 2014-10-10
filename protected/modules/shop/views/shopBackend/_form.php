@@ -1,12 +1,100 @@
 <script type='text/javascript'>
-    $(document).ready(function () {
+    function createAttribute(obj) {
+        console.log(obj);
+        var select = $('#Good_goodAttributes'),
+            outer, label;
+
+        if(select.find('option[value="' + obj.id + '"]').length==0) {
+            return false;
+        }
+
+        <?php // TODO преписать дальнейший говнокод ?>
+        select.find('option[value="' + obj.id + '"]').remove();
+        select.parent().append('<label for="Good_goodAttributes_' + obj.id + '">' + obj.name + '</label>');
+        if(obj.type_id == <?php echo Attribute::TYPE_LIST;?>) {
+            outer = $('<select>')
+                .addClass('span7 popover-help')
+                .attr({
+                    id: 'Good_goodAttributes_' + obj.id,
+                    name: 'Good[goodAttributes][' + obj.id + ']',
+                    type: 'text'
+                });
+            select.parent().append(outer);
+            outer.append($('<option>')
+                .attr('value', '')
+                .html('--choose--')
+            );
+//            obj.value_list = obj.value_list.split('\n');
+            $.each(obj.value_list, function(key, value) {
+                outer.append($('<option>')
+                    .attr('value', value)
+                    .html(value)
+                );
+            });
+        } else if(obj.type_id == <?php echo Attribute::TYPE_MULTIPLE_LIST;?>) {
+            outer = $('<span>').attr('id', 'Good_goodAttributes_' + obj.id);
+            select.parent().append(outer);
+//            obj.value_list = obj.value_list.split('\n');
+            $.each(obj.value_list, function(key, value) {
+                label = $('<label>').addClass('checkbox');
+                outer.append(label);
+                label.append($('<input>')
+                    .addClass('span7 popover-help')
+                    .attr({
+//                        id: 'Good_goodAttributes_' + obj.id,
+                        name: 'Good[goodAttributes][' + obj.id + '][]',
+                        value: value,
+                        type: 'checkbox'
+                    })
+                );
+                label.html(label.html() + value);
+            });
+        } else {
+            select.parent().append($('<input>')
+                .addClass('span7 popover-help')
+                .attr({
+                    id: 'Good_goodAttributes_' + obj.id,
+                    name: 'Good[goodAttributes][' + obj.id + ']',
+                    type: 'text'
+                })
+            );
+        }
+        return false;
+    }
+    $(document).ready(function(){
         $('#good-form').liTranslit({
             elName: '#Good_name',
             elAlias: '#Good_alias'
         });
+        $('#Good_goodAttributes').on('change', function(event){
+            var option = $(this).find('option:selected');
+            var obj = {
+                id: option.val(),
+                name: option.text(),
+                type_id: option.data().type_id,
+                value_list: option.data().value_list.split('\n')
+            };
+            createAttribute(obj);
+        });
+        $('#Good_category_id').on('change', function(event){
+            $.get(
+                '/backend/attribute/attribute/getAttributes',
+                {
+                    type: 'onlyGoods',
+                    Attribute: {
+                        categoryIds: [$(this).val()]
+                    }
+                },
+                function(data){
+                    var obj = JSON.parse(data);
+                    $.each(obj, function(key, value) {
+                        createAttribute(value);
+                    });
+                }
+            );
+        });
     })
 </script>
-
 
 <?php
 $form = $this->beginWidget(
@@ -56,6 +144,24 @@ $form = $this->beginWidget(
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('alias'),
                         'data-content'        => $model->getAttributeDescription('alias')
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-7">
+        <?php echo $form->dropDownListGroup(
+            $model,
+            'status',
+            array(
+                'widgetOptions' => array(
+                    'data' => $model->getStatusList(),
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('status'),
+                        'data-content' => $model->getAttributeDescription('status')
                     ),
                 ),
             )
@@ -135,6 +241,42 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-12">
+        <?php echo $form->textAreaGroup(
+            $model,
+            'meta_description',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('meta_description'),
+                        'data-content' => $model->getAttributeDescription('meta_description'),
+                        'encode' => false
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <?php echo $form->textAreaGroup(
+            $model,
+            'meta_keywords',
+            array(
+                'widgetOptions' => array(
+                    'htmlOptions' => array(
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('meta_keywords'),
+                        'data-content' => $model->getAttributeDescription('meta_keywords'),
+                        'encode' => false
+                    ),
+                ),
+            )
+        ); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
         <div class="popover-help form-group"
              data-original-title='<?php echo $model->getAttributeLabel('short_description'); ?>'
              data-content='<?php echo $model->getAttributeDescription('short_description'); ?>'>
@@ -162,7 +304,7 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-sm-12">
         <?php
-/*        $options = array();
+        $options = array();
         foreach(Attribute::model()->findAll() as $val) {
             $options[CHtml::value($val, 'id')] = array(
                 'data-type_id' => CHtml::value($val, 'type_id'),
@@ -170,8 +312,8 @@ $form = $this->beginWidget(
             );
         }
         $attrs = CHtml::listData(Attribute::model()->findAll(), 'id', 'name');
-        if($model->offerAttributes) {
-            foreach($model->offerAttributes as $m) {
+        if($model->goodAttributes) {
+            foreach($model->goodAttributes as $m) {
                 if(isset($attrs[$m->attribute_id])) {
                     unset($attrs[$m->attribute_id]);
                 }
@@ -179,75 +321,75 @@ $form = $this->beginWidget(
         }
         echo $form->dropDownListGroup(
             $model,
-            'offerAttributes',
+            'goodAttributes',
             array(
                 'widgetOptions' => array(
                     'data'        => $attrs,
                     'htmlOptions' => array(
                         'empty' => Yii::t('ShopModule.shop', '--choose--'),
                         'class' => 'span7 popover-help',
-                        'data-original-title' => $model->getAttributeLabel('offerAttributes'),
-                        'data-content' => $model->getAttributeDescription('offerAttributes'),
+                        'data-original-title' => $model->getAttributeLabel('goodAttributes'),
+                        'data-content' => $model->getAttributeDescription('goodAttributes'),
                         'encode' => false,
                         'options' => $options
                     ),
                 ),
             )
-        ); */?>
+        ); ?>
 
         <?php // TODO Временное решение. Переписать?>
-<!--        <?php /*if($model->offerAttributes) {
+        <?php if($model->goodAttributes) {
             $is_output = array();
-            foreach($model->offerAttributes as $m) {
+            foreach($model->goodAttributes as $m) {
                 if(in_array($m->attribute->id, $is_output))
                     continue;
-                */?>
-                <label for="Offer_offerAttributes_<?php /*echo $m->attribute->id;*/?>"><?php /*echo $m->attribute->name;*/?></label>
+                ?>
+                <label for="Good_goodAttributes_<?php echo $m->attribute->id;?>"><?php echo $m->attribute->name;?></label>
                 <?php
-/*                switch((int)$m->attribute->type_id){
+                switch((int)$m->attribute->type_id){
                     case Attribute::TYPE_LIST:
-                        */?>
+                        ?>
                         <select
-                            id="Offer_offerAttributes_<?php /*echo $m->attribute->id; */?>"
-                            name="Offer[offerAttributes][<?php /*echo $m->attribute->id; */?>]"
+                            id="Good_goodAttributes_<?php echo $m->attribute->id; ?>"
+                            name="Good[goodAttributes][<?php echo $m->attribute->id; ?>]"
                             class="span7 popover-help"
                             >
                             <option value="">--choose--</option>
-                            <?php /*foreach ($m->attribute->value_list as $value): */?>
+                            <?php foreach ($m->attribute->value_list as $value): ?>
                                 <option
-                                    value="<?php /*echo $value */?>"<?php /*if ($value == $m->value) echo ' selected="selected"' */?>>
-                                    <?php /*echo $value */?>
+                                    value="<?php echo $value ?>"<?php if ($value == $m->value) echo ' selected="selected"' ?>>
+                                    <?php echo $value ?>
                                 </option>
-                            <?php /*endforeach; */?>
+                            <?php endforeach; ?>
                         </select>
                         <?php
-/*                        break;
+                        break;
                     case Attribute::TYPE_MULTIPLE_LIST:
-                        $list = CHtml::listData($model->offerAttributes, 'id', 'value', 'attribute_id');
-                        */?>
-                        <span id="Offer_offerAttributes_<?php /*echo $m->attribute->id; */?>">
-                            <?php /*foreach ($m->attribute->value_list as $value): */?>
+                        $list = CHtml::listData($model->goodAttributes, 'id', 'value', 'attribute_id');
+                        ?>
+                        <span id="Good_goodAttributes_<?php echo $m->attribute->id; ?>">
+                            <?php foreach ($m->attribute->value_list as $value): ?>
                                 <label class="checkbox">
                                     <input type="checkbox" class="span7 popover-help"
-                                           name="Offer[offerAttributes][<?php /*echo $m->attribute->id; */?>][]"
-                                           value="<?php /*echo $value; */?>"
-                                        <?php /*if (in_array($value, $list[$m->attribute->id])) echo ' checked' */?>>
-                                    <?php /*echo $value */?>
+                                           name="Good[goodAttributes][<?php echo $m->attribute->id; ?>][]"
+                                           value="<?php echo $value; ?>"
+                                        <?php if (in_array($value, $list[$m->attribute->id])) echo ' checked' ?>>
+                                    <?php echo $value ?>
                                 </label>
-                            <?php /*endforeach; */?>
+                            <?php endforeach; ?>
                         </span>
                         <?php
-/*                        break;
+                        break;
                     default:
-                        */?>
+                        ?>
                             <input type="text" class="span7 popover-help"
-                                   id="Offer_offerAttributes_<?php /*echo $m->attribute->id; */?>"
-                                   name="Offer[offerAttributes][<?php /*echo $m->attribute->id; */?>]">
-                        --><?php
-/*                }
+                                   id="Good_goodAttributes_<?php echo $m->attribute->id; ?>"
+                                   name="Good[goodAttributes][<?php echo $m->attribute->id; ?>]">
+                        <?php
+                }
                 $is_output[] = $m->attribute->id;
             }
-        } */?>
+        } ?>
     </div>
 </div>
 

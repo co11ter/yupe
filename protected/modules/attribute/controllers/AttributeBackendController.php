@@ -31,13 +31,8 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Attribute']))
             $model->attributes = $_GET['Attribute'];
-        if(Yii::app()->getRequest()->getParam('type')==='json') {
-            $data = CJSON::encode($model->search()->getData());
-            echo $data;
-            Yii::app()->end();
-        } else {
-            $this->render('index', array('model' => $model));
-        }
+
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -121,6 +116,34 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
         }
         else
             throw new CHttpException(400, Yii::t('AttributeModule.attribute', 'Unknown request. Don\'t repeat it please!'));
+    }
+
+    public function actionGetAttributes()
+    {
+        if(Yii::app()->getRequest()->getIsAjaxRequest()) {
+            $model = new Attribute('search');
+            $model->unsetAttributes(); // clear any default values
+
+            if (isset($_GET['Attribute']))
+                $model->attributes = $_GET['Attribute'];
+
+            if(in_array(Yii::app()->getRequest()->getParam('type'), array_keys($model->scopes())))
+                $model->{Yii::app()->getRequest()->getParam('type')}();
+
+            $output = array();
+            $data = $model->search()->getData();
+            // Если просто CJSON::encode, то ключ value_list будет отсутствовать.
+            // Не нашел другого простого способа.
+            foreach($data as $model) {
+                $output[] = array(
+                    'id' => $model->id,
+                    'name' => $model->name,
+                    'type_id' => $model->type_id,
+                    'value_list' => $model->value_list
+                );
+            }
+            Yii::app()->end(CJSON::encode($output));
+        }
     }
 
     /**

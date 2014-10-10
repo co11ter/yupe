@@ -108,7 +108,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
             'category'          => array(self::BELONGS_TO, 'Category', 'category_id'),
             'user'              => array(self::BELONGS_TO, 'User', 'user_id'),
             'gallery'           => array(self::BELONGS_TO, 'Gallery', 'gallery_id'),
-            'offerAttributes'   => array(self::HAS_MANY, 'offerHasAttribute', 'offer_id'),
+            'offerAttributes'   => array(self::HAS_MANY, 'OfferHasAttribute', 'offer_id'),
         );
     }
 

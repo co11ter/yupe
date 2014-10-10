@@ -136,7 +136,6 @@ class Offer extends yupe\models\YModel implements IECartPosition
     {
         return array(
             'id'                => Yii::t('ShopModule.shop', 'ID'),
-            'category_id'       => Yii::t('ShopModule.shop', 'Category'),
             'name'              => Yii::t('ShopModule.shop', 'Name'),
             'price'             => Yii::t('ShopModule.shop', 'Price'),
             'image'             => Yii::t('ShopModule.shop', 'Image'),
@@ -163,7 +162,6 @@ class Offer extends yupe\models\YModel implements IECartPosition
     {
         return array(
             'id'                => Yii::t('ShopModule.shop', 'ID'),
-            'category_id'       => Yii::t('ShopModule.shop', 'Category'),
             'name'              => Yii::t('ShopModule.shop', 'Name'),
             'price'             => Yii::t('ShopModule.shop', 'Price'),
             'image'             => Yii::t('ShopModule.shop', 'Image'),

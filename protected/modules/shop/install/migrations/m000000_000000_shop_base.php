@@ -58,12 +58,20 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
             ), $this->getOptions()
         );
 
-        // таблица со значениями атрибутов товара
+        // таблица со значениями атрибутов товарных предложений
         $this->createTable('{{shop_offer_has_attribute}}', array(
                 'id' => 'pk',
                 'offer_id' => 'int NOT NULL',
                 'attribute_id' => 'int NOT NULL',
                 'value' => 'varchar(250) NOT NULL',
+            ), $this->getOptions()
+        );
+
+        $this->createTable('{{shop_good_has_attribute}}', array(
+                'id' => 'pk',
+                'good_id' => 'int NOT NULL',
+                'attribute_id' => 'int NOT NULL',
+                'value' => 'varchar(250) NOT NULL'
             ), $this->getOptions()
         );
 
@@ -89,6 +97,9 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
 
         $this->addForeignKey("fk_{{shop_offer_has_attribute}}_offer", '{{shop_offer_has_attribute}}', 'offer_id', '{{shop_offer}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey("fk_{{shop_offer_has_attribute}}_attribute", '{{shop_offer_has_attribute}}', 'attribute_id', '{{attribute_attribute}}', 'id', 'CASCADE', 'CASCADE');
+
+        $this->addForeignKey("fk_{{shop_good_has_attribute}}_good", '{{shop_good_has_attribute}}', 'good_id', '{{shop_good}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey("fk_{{shop_good_has_attribute}}_attribute", '{{shop_good_has_attribute}}', 'attribute_id', '{{attribute_attribute}}', 'id', 'CASCADE', 'CASCADE');
     }
  
     /**

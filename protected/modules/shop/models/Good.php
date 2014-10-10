@@ -108,6 +108,10 @@ class Good extends yupe\models\YModel
             'meta_description'  => Yii::t('ShopModule.shop', 'Description(Meta)'),
             'meta_keywords'     => Yii::t('ShopModule.shop', 'Keywords(Meta)'),
             'article'           => Yii::t('ShopModule.shop', 'Article'),
+            'alias'           => Yii::t('ShopModule.shop', 'Alias'),
+            'category_id'       => Yii::t('ShopModule.shop', 'Category'),
+            'short_description' => Yii::t('ShopModule.shop', 'Short description'),
+            'description'       => Yii::t('ShopModule.shop', 'Description'),
         );
     }
 
@@ -122,6 +126,10 @@ class Good extends yupe\models\YModel
             'meta_description'  => Yii::t('ShopModule.shop', 'Description(Meta)'),
             'meta_keywords'     => Yii::t('ShopModule.shop', 'Keywords(Meta)'),
             'article'           => Yii::t('ShopModule.shop', 'Article'),
+            'alias'             => Yii::t('ShopModule.shop', 'Alias'),
+            'category_id'       => Yii::t('ShopModule.shop', 'Category'),
+            'short_description' => Yii::t('ShopModule.shop', 'Short description'),
+            'description'       => Yii::t('ShopModule.shop', 'Description'),
         );
     }
 

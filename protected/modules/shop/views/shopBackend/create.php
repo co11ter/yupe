@@ -7,8 +7,8 @@
     $this->pageTitle = Yii::t('ShopModule.shop', 'Offers - creating');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.shop', 'Good manage'), 'url' => array('/shop/offerBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a good'), 'url' => array('/shop/offerBackend/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.shop', 'Good manage'), 'url' => array('/shop/shopBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a good'), 'url' => array('/shop/shopBackend/create')),
     );
 ?>
 <div class="page-header">

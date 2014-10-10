@@ -240,23 +240,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup(
-                $model,
-                'article',
-                array(
-                    'widgetOptions' => array(
-                        'htmlOptions' => array(
-                            'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('article'),
-                            'data-content'        => $model->getAttributeDescription('article')
-                        ),
-                    ),
-                )
-            ); ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-7">
             <?php
             echo CHtml::image(
                 !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
@@ -302,18 +285,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="popover-help form-group" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
-                <?php echo $form->labelEx($model, 'description'); ?>
-                <?php $this->widget($this->module->editor, array(
-                    'model'       => $model,
-                    'attribute'   => 'description',
-                    'options'     => $this->module->editorOptions,
-                )); ?>
-             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
             <div class="popover-help form-group"
                  data-original-title='<?php echo $model->getAttributeLabel('short_description'); ?>'
                  data-content='<?php echo $model->getAttributeDescription('short_description'); ?>'>
@@ -324,6 +295,18 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                     'options' => $this->module->editorOptions,
                 )); ?>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="popover-help form-group" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
+                <?php echo $form->labelEx($model, 'description'); ?>
+                <?php $this->widget($this->module->editor, array(
+                    'model'       => $model,
+                    'attribute'   => 'description',
+                    'options'     => $this->module->editorOptions,
+                )); ?>
+             </div>
         </div>
     </div>
     <div class="row">

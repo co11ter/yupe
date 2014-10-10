@@ -28,6 +28,8 @@ class Attribute extends yupe\models\YModel
 
     public $categoryIds = array();
 
+    public $value_list = '';
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className
@@ -57,6 +59,14 @@ class Attribute extends yupe\models\YModel
             self::TYPE_FLOAT => Yii::t('AttributeModule.attribute', 'Float'),
             self::TYPE_LIST => Yii::t('AttributeModule.attribute', 'List'),
             self::TYPE_MULTIPLE_LIST => Yii::t('AttributeModule.attribute', 'Multiple list'),
+        );
+    }
+
+    public function getTargetList()
+    {
+        return array(
+            self::TARGET_GOOD  => Yii::t('AttributeModule.attribute', 'For goods'),
+            self::TARGET_OFFER => Yii::t('AttributeModule.attribute', 'For offers')
         );
     }
 
@@ -100,6 +110,7 @@ class Attribute extends yupe\models\YModel
             'id' => Yii::t('AttributeModule.attribute', 'ID'),
             'name' => Yii::t('AttributeModule.attribute', 'Name'),
             'type_id' => Yii::t('AttributeModule.attribute', 'Type'),
+            'target_id' => Yii::t('AttributeModule.attribute', 'Target'),
             'category_id' => Yii::t('AttributeModule.attribute', 'Category'),
             'value_list' => Yii::t('AttributeModule.attribute', 'Value list'),
             'for_filter' => Yii::t('AttributeModule.attribute', 'Participates in the filtration'),
@@ -117,6 +128,7 @@ class Attribute extends yupe\models\YModel
             'id' => Yii::t('AttributeModule.attribute', 'ID'),
             'name' => Yii::t('AttributeModule.attribute', 'Name'),
             'type_id' => Yii::t('AttributeModule.attribute', 'Type'),
+            'target_id' => Yii::t('AttributeModule.attribute', 'Target'),
             'category_id' => Yii::t('AttributeModule.attribute', 'Category'),
             'value_list' => Yii::t('AttributeModule.attribute', 'Separate values by ​​newline'),
             'for_filter' => Yii::t('AttributeModule.attribute', 'Participates in the filtration'),
@@ -130,29 +142,37 @@ class Attribute extends yupe\models\YModel
     public function rules()
     {
         return array(
-            array('type_id, name', 'required', 'except' => 'search'),
+            array('type_id, name, target_id', 'required', 'except' => 'search'),
             array('name', 'filter', 'filter' => 'trim'),
             array('name', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('type_id, external_id', 'numerical', 'integerOnly' => true),
-            array('type_id, external_id', 'length', 'max' => 11),
+            array('type_id, external_id, target_id', 'numerical', 'integerOnly' => true),
+            array('type_id, external_id, target_id', 'length', 'max' => 11),
             array('name', 'length', 'max' => 250),
             array('external_id', 'unique'),
-            array('id, type_id, name, categoryIds, filtering, value_list, external_id', 'safe', 'on' => 'search'),
+            array('id, type_id, name, categoryIds, filtering, value_list, external_id, target_id', 'safe', 'on' => 'search'),
             array('categoryIds, filtering, value_list', 'type', 'type' => 'array'),
-            array('value_list', 'filter', 'filter' => 'serialize'),
         );
     }
 
     public function relations()
     {
         return array(
-            'category' => array(self::MANY_MANY, 'Category', '{{attribute_category_has_attribute}}(category_id, attribute_id)')
+            'category' => array(self::MANY_MANY, 'Category', '{{attribute_category_has_attribute}}(category_id, attribute_id)'),
+            'values' => array(self::MANY_MANY, 'AttributeValue', '{{attribute_attribute_has_value}}(value_id, attribute_id)')
         );
     }
 
     public function getCategoryList()
     {
         return Category::model()->getFormattedList();
+    }
+
+    public function clearValues()
+    {
+        foreach($this->values as $value)
+        {
+            $value->deleteAll();
+        }
     }
 
     protected function beforeValidate() {
@@ -197,6 +217,20 @@ class Attribute extends yupe\models\YModel
                 }
             }
         }
+        if($this->value_list) {
+            $this->clearValues();
+            foreach($this->value_list as $value) {
+                $AttributeValue = new AttributeValue;
+                $AttributeValue->name  = $value;
+                $AttributeValue->value = $value;
+                if($AttributeValue->save()) {
+                    $AttributeHasValue = new AttributeHasValue;
+                    $AttributeHasValue->attribute_id = $this->id;
+                    $AttributeHasValue->value_id = $AttributeValue->id;
+                    $AttributeHasValue->save();
+                }
+            }
+        }
     }
 
     protected function afterFind()
@@ -215,8 +249,8 @@ class Attribute extends yupe\models\YModel
                 }
             }
         }
-        if($this->value_list) {
-            $this->value_list = unserialize($this->value_list);
+        if($this->values) {
+            $this->value_list = array_values(CHtml::listData($this->values, 'id', 'value'));
         }
     }
 }

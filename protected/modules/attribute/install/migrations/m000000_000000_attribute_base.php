@@ -16,8 +16,9 @@ class m000000_000000_attribute_base extends yupe\components\DbMigration
         $this->createTable('{{attribute_attribute}}', array(
                 'id' => 'pk',
                 'name' => 'varchar(250) NOT NULL',
+                'target_id' => 'int(11) DEFAULT NULL',
                 'type_id' => 'int(11) DEFAULT 1', // default type is string (Attribute::TYPE_STRING)
-                'external_id' => 'int(11) DEFAULT NULL', //  external type
+                'external_id' => 'int(11) DEFAULT NULL',
             ), $this->getOptions()
         );
 
@@ -59,6 +60,8 @@ class m000000_000000_attribute_base extends yupe\components\DbMigration
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{attribute_category_has_attribute}}');
+        $this->dropTableWithForeignKeys('{{attribute_attribute_has_value}}');
+        $this->dropTableWithForeignKeys('{{attribute_value}}');
         $this->dropTableWithForeignKeys('{{attribute_attribute}}');
     }
 }

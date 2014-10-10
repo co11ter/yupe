@@ -58,6 +58,27 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             </div>
     </div>
     <div class="row">
+        <div class="col-sm-6">
+
+            <?php echo $form->dropDownListGroup(
+                $model,
+                'target_id',
+                array(
+                    'widgetOptions' => array(
+                        'data'        => $model->getTargetList(),
+                        'htmlOptions' => array(
+//                            'empty' => Yii::t('AttributeModule.attribute', '--choose--'),
+                            'class' => 'popover-help',
+                            'data-original-title' => $model->getAttributeLabel('target_id'),
+                            'data-content' => $model->getAttributeDescription('target_id'),
+                            'encode' => false
+                        ),
+                    ),
+                )
+            );?>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-3">
             <?php echo $form->checkBoxListGroup(
                 $model,
@@ -126,7 +147,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                     'htmlOptions' => array(
                         'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('value_list'),
-                        'data-content' => $model->getAttributeDescription('value_list')
+                        'data-content' => $model->getAttributeDescription('value_list'),
+                        'encode' => false
                     ),
                 ),
             )

@@ -72,5 +72,8 @@ return array (
     'Binding' => 'Привязка',
     'Filtering' => 'Фильтрация',
     'Separate values by ​​newline' => 'Разделяйте значения преводом строки',
-    'Find a attribute' => 'Найти атрибут'
+    'Find a attribute' => 'Найти атрибут',
+    'For goods' => 'Для товара',
+    'For offers' => 'Для предложения',
+    'Target' => 'Цель'
 );

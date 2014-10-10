@@ -70,5 +70,8 @@ return array (
     'Binding' => '',
     'Filtering' => '',
     'Separate values by ​​newline' => '',
-    'Find a attribute' => ''
+    'Find a attribute' => '',
+    'For goods' => '',
+    'For offers' => '',
+    'Target' => ''
 );

@@ -24,6 +24,7 @@ class OfferController extends yupe\components\controllers\FrontController
     public function actionIndex($cid = '', $name = '')
     {
         Yii::app()->getModule('attribute');
+        Yii::app()->getModule('gallery');
         $attrs = OfferHasAttribute::model()->createFilter()->findAll();
 
         $model = new Offer('search');
@@ -35,6 +36,7 @@ class OfferController extends yupe\components\controllers\FrontController
         $offersProvider = $model->published()->search();
 
         $offersProvider->getCriteria()->mergeWith(array(
+            'with' => array('gallery'),
             'limit' => self::GOOD_PER_PAGE,
             'order' => 't.create_time DESC',
         ));
@@ -50,7 +52,7 @@ class OfferController extends yupe\components\controllers\FrontController
 
             // Если ищем по алиасу, то выводим страницу для одного товара
             $this->render('good', array(
-                'good' => reset($offersProvider->getData())
+                'offer' => reset($offersProvider->getData())
             ));
             return true;
         }

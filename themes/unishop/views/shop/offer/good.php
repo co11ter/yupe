@@ -1,20 +1,21 @@
 <?php
 /**
- * @var $good - Offer Data Provider
+ * Страница товарного предложения
+ * @var $offer - Offer Data Provider
  */
 $assetUrl = Yii::app()->getTheme()->getAssetsUrl();
-$this->pageTitle = $good->name;
+$this->pageTitle = $offer->name;
 
 $this->breadcrumbs = array(
     Yii::t('ShopModule.shop','Offers') => array('/shop/shop/index/'),
-    CHtml::encode($good->name)
+    CHtml::encode($offer->name)
 ); ?>
 <section class="cart-message">
     <i class="fa fa-check-square"></i>
     <?php
     echo CHtml::tag('p',
         array('class' => 'p-style3'),
-        CHtml::encode($good->name) . '&nbsp;' . Yii::t('ShopModule.shop', 'was successfully added to your cart')
+        CHtml::encode($offer->name) . '&nbsp;' . Yii::t('ShopModule.shop', 'was successfully added to your cart')
     );
     echo CHtml::link(Yii::t('ShopModule.shop', 'View cart'),
         '/shoppingcart',
@@ -33,39 +34,41 @@ $this->breadcrumbs = array(
                     echo CHtml::tag('div', array('class' => 'ms-slide'),
                         CHtml::image(
                             $assetUrl . '/images/blank.gif',
-                            $good->name,
-                            array('data-src' => $good->getImageUrl())
+                            $offer->name,
+                            array('data-src' => $offer->getImageUrl())
                         ).
                         CHtml::image(
-                            $good->getImageThumbnail(),
+                            $offer->getImageThumbnail(),
                             'thumb',
                             array('class' => 'ms-thumb')
                         )
                     );
-                    foreach ($good->gallery->images as $image) {
-                        echo CHtml::tag('div', array('class' => 'ms-slide'),
-                            CHtml::image(
-                                $assetUrl . '/images/blank.gif',
-                                $image->alt,
-                                array('data-src' => $image->getRawUrl())
-                            ).
-                            CHtml::image(
-                                $image->getUrl(137, 130),
-                                'thumb',
-                                array('class' => 'ms-thumb')
-                            )
-                        );
+                    if($offer->gallery) {
+                        foreach ($offer->gallery->images as $image) {
+                            echo CHtml::tag('div', array('class' => 'ms-slide'),
+                                CHtml::image(
+                                    $assetUrl . '/images/blank.gif',
+                                    $image->alt,
+                                    array('data-src' => $image->getRawUrl())
+                                ).
+                                CHtml::image(
+                                    $image->getUrl(137, 130),
+                                    'thumb',
+                                    array('class' => 'ms-thumb')
+                                )
+                            );
+                        }
                     } ?>
                 </div>
             </div>
 
             <!--Product Description-->
             <div class="col-lg-6 col-md-6">
-                <h1><?php echo CHtml::encode($good->name); ?></h1>
+                <h1><?php echo CHtml::encode($offer->name); ?></h1>
 
-                <div class="price"><?php echo $good->price?> <?php echo Yii::t('ShopModule.shop', 'RUB')?></div>
+                <div class="price"><?php echo $offer->price?> <?php echo Yii::t('ShopModule.shop', 'RUB')?></div>
                 <div class="buttons group">
-                    <input type="hidden" value="<?php echo $good->id;?>" id="itemId">
+                    <input type="hidden" value="<?php echo $offer->id;?>" id="itemId">
                     <div class="qnt-count">
                         <a href="#" class="incr-btn">-</a>
                         <input type="text" value="1" class="form-control" id="quantity">
@@ -81,12 +84,12 @@ $this->breadcrumbs = array(
                     </a>
                 </div>
                 <div>
-                    <?php foreach($good->offerAttributes as $attr) {
+                    <?php foreach($offer->offerAttributes as $attr) {
                         echo CHtml::tag('b', array(), CHtml::encode($attr->attribute->name)).': '.CHtml::encode($attr->value).'<br/>';
                     }?>
                 </div>
                 <p class="p-style2">
-                    <?php echo $good->description;?>
+                    <?php echo $offer->description;?>
                 </p>
             </div>
         </div>

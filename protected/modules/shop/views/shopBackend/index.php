@@ -68,6 +68,31 @@ $this->breadcrumbs = array(
             'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
         ),
         array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'    => $this->createUrl('/shop/offerBackend/inline'),
+                'mode'   => 'popup',
+                'type'   => 'select',
+                'title'  => Yii::t(
+                        'ShopModule.shop',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))
+                    ),
+                'source' => Category::model()->getFormattedList(Yii::app()->getModule('shop')->mainCategory),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
+            'name'   => 'category_id',
+            'type'   => 'raw',
+            'value'  => '$data->category->name',
+            'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList(Yii::app()->getModule('shop')->mainCategory),
+                    array('encode' => false, 'empty' => '', 'class' => 'form-control'))
+        ),
+        array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
             'name'  => 'meta_description',
             'editable' => array(

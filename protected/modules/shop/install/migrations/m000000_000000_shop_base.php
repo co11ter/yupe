@@ -46,7 +46,6 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
                 'short_description' => 'text',
                 'description' => 'text NOT NULL',
                 'alias' => 'varchar(150) NOT NULL',
-                'data' => 'text',
                 'is_special' => "boolean NOT NULL DEFAULT '0'",
                 'status' => "boolean NOT NULL DEFAULT '1'",
                 'create_time' => 'datetime NOT NULL',

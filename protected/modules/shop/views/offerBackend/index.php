@@ -110,20 +110,20 @@ $this->renderPartial('_search', array('model' => $model));
 				'title'  => Yii::t(
                         'ShopModule.shop',
                         'Select {field}',
-                        array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('good_id')))
                     ),
-				'source' => Category::model()->getFormattedList(Yii::app()->getModule('shop')->mainCategory),
+				'source' => CHtml::listData(Good::model()->findAll(), 'id', 'name'),
 				'params' => array(
 					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
 				)
 			),
-            'name'   => 'category_id',
+            'name'   => 'good_id',
             'type'   => 'raw',
-            'value'  => '$data->category->name',
+            'value'  => '$data->good->name',
             'filter' => CHtml::activeDropDownList(
                     $model,
-                    'category_id',
-                    Category::model()->getFormattedList(Yii::app()->getModule('shop')->mainCategory),
+                    'good_id',
+                    CHtml::listData(Good::model()->findAll(), 'id', 'name'),
                     array('encode' => false, 'empty' => '', 'class' => 'form-control'))
         ),
         array(
@@ -137,18 +137,6 @@ $this->renderPartial('_search', array('model' => $model));
                 )
             ),
             'filter'   => CHtml::activeTextField($model, 'price', array('class' => 'form-control')),
-        ),
-        array(
-            'class' => 'bootstrap.widgets.TbEditableColumn',
-            'name'  => 'article',
-            'editable' => array(
-                'url' => $this->createUrl('/shop/offerBackend/inline'),
-                'mode' => 'inline',
-                'params' => array(
-                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                )
-            ),
-            'filter'   => CHtml::activeTextField($model, 'article', array('class' => 'form-control')),
         ),
 
         array(

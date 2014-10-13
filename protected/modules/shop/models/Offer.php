@@ -25,7 +25,6 @@
  * @property string $short_description
  * @property string $description
  * @property string $alias
- * @property string $data
  * @property integer $status
  * @property string $create_time
  * @property string $update_time
@@ -34,7 +33,7 @@
  *
  * The followings are the available model relations:
  * @property User $changeUser
- * @property Category $category
+ * @property Good $good
  * @property User $user
  */
 class Offer extends yupe\models\YModel implements IECartPosition
@@ -80,8 +79,8 @@ class Offer extends yupe\models\YModel implements IECartPosition
     {
         return array(
             array('name, description, alias, good_id', 'required', 'except' => 'search'),
-            array('name, description, short_description, image, alias, price, data, status, is_special', 'filter', 'filter' => 'trim'),
-            array('name, alias, price, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('name, description, short_description, image, alias, price, status, is_special', 'filter', 'filter' => 'trim'),
+            array('name, alias, price, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('status, is_special, user_id, gallery_id, good_id', 'numerical', 'integerOnly' => true),
             array('status, is_special, user_id, gallery_id, good_id', 'length', 'max' => 11),
             array('price', 'numerical'),
@@ -92,7 +91,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ShopModule.shop', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
             array('external_id', 'unique'),
-            array('id, name, price, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, gallery_id, good_id, minPrice, maxPrice, external_id', 'safe', 'on' => 'search'),
+            array('id, name, price, short_description, description, alias, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, gallery_id, good_id, minPrice, maxPrice, external_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -105,8 +104,8 @@ class Offer extends yupe\models\YModel implements IECartPosition
         // class name for the relations automatically generated below.
         return array(
             'changeUser'        => array(self::BELONGS_TO, 'User', 'change_user_id'),
-            'category'          => array(self::BELONGS_TO, 'Category', 'category_id'),
             'user'              => array(self::BELONGS_TO, 'User', 'user_id'),
+            'good'              => array(self::BELONGS_TO, 'Good', 'good_id'),
             'gallery'           => array(self::BELONGS_TO, 'Gallery', 'gallery_id'),
             'offerAttributes'   => array(self::HAS_MANY, 'OfferHasAttribute', 'offer_id'),
         );
@@ -142,7 +141,6 @@ class Offer extends yupe\models\YModel implements IECartPosition
             'short_description' => Yii::t('ShopModule.shop', 'Short description'),
             'description'       => Yii::t('ShopModule.shop', 'Description'),
             'alias'             => Yii::t('ShopModule.shop', 'Alias'),
-            'data'              => Yii::t('ShopModule.shop', 'Data'),
             'status'            => Yii::t('ShopModule.shop', 'Status'),
             'create_time'       => Yii::t('ShopModule.shop', 'Added'),
             'update_time'       => Yii::t('ShopModule.shop', 'Updated'),
@@ -168,7 +166,6 @@ class Offer extends yupe\models\YModel implements IECartPosition
             'short_description' => Yii::t('ShopModule.shop', 'Short description'),
             'description'       => Yii::t('ShopModule.shop', 'Description'),
             'alias'             => Yii::t('ShopModule.shop', 'Alias'),
-            'data'              => Yii::t('ShopModule.shop', 'Data'),
             'status'            => Yii::t('ShopModule.shop', 'Status'),
             'create_time'       => Yii::t('ShopModule.shop', 'Added'),
             'update_time'       => Yii::t('ShopModule.shop', 'Edited'),
@@ -195,14 +192,13 @@ class Offer extends yupe\models\YModel implements IECartPosition
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, false);
-        $criteria->compare('category_id', $this->category_id, true);
+        $criteria->compare('good_id', $this->good_id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('price', $this->price);
         $criteria->compare('image', $this->image, true);
         $criteria->compare('short_description', $this->short_description, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('alias', $this->alias, true);
-        $criteria->compare('data', $this->data, true);
         $criteria->compare('is_special', $this->is_special, true);
         $criteria->compare('status', $this->status);
         $criteria->compare('create_time', $this->create_time, true);
@@ -319,7 +315,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
     }
 
     public function getUrl(){
-        return '/shop/'.$this->category->alias.'/'.$this->alias;
+        return '/shop/'.$this->good->category->alias.'/'.$this->alias;
     }
 
     public function getImageUrl()
@@ -357,8 +353,8 @@ class Offer extends yupe\models\YModel implements IECartPosition
      **/
     public function getCategoryLink()
     {
-        return $this->category instanceof Category
-            ? CHtml::link($this->category->name, array("/category/default/view", "id" => $this->category_id))
+        return $this->good->category instanceof Category
+            ? CHtml::link($this->good->category->name, array("/category/default/view", "id" => $this->good->category->id))
             : '---';
     }
 

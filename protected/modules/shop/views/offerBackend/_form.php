@@ -80,6 +80,7 @@
 
 
 <?php
+Yii::app()->getModule('gallery');
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'                     => 'good-form',
     'enableAjaxValidation'   => false,
@@ -270,19 +271,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                     'options'     => $this->module->editorOptions,
                 )); ?>
              </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="popover-help form-group" data-original-title='<?php echo $model->getAttributeLabel('data'); ?>'
-                 data-content='<?php echo $model->getAttributeDescription('data'); ?>'>
-                <?php echo $form->labelEx($model, 'data'); ?>
-                <?php $this->widget($this->module->editor, array(
-                    'model' => $model,
-                    'attribute' => 'data',
-                    'options' => $this->module->editorOptions,
-                )); ?>
-            </div>
         </div>
     </div>
     <div class="row">

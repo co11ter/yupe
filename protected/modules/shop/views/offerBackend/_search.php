@@ -15,15 +15,15 @@ $form = $this->beginWidget(
         <div class="col-sm-3">
             <?php echo $form->dropDownListGroup(
                 $model,
-                'category_id',
+                'good_id',
                 array(
                     'widgetOptions' => array(
-                        'data'        => CHtml::listData(Category::model()->published()->findAll(), 'id', 'name'),
+                        'data'        => CHtml::listData(Good::model()->findAll(), 'id', 'name'),
                         'htmlOptions' => array(
                             'empty'               => Yii::t('ShopModule.catalog', '--choose--'),
                             'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('category_id'),
-                            'data-content'        => $model->getAttributeDescription('category_id')
+                            'data-original-title' => $model->getAttributeLabel('good_id'),
+                            'data-content'        => $model->getAttributeDescription('good_id')
                         ),
                     ),
                 )
@@ -116,21 +116,6 @@ $form = $this->beginWidget(
 
     <div class="row">
 
-        <div class="col-sm-3">
-            <?php echo $form->textFieldGroup(
-                $model,
-                'article',
-                array(
-                    'widgetOptions' => array(
-                        'htmlOptions' => array(
-                            'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('article'),
-                            'data-content'        => $model->getAttributeDescription('article')
-                        ),
-                    ),
-                )
-            ); ?>
-        </div>
         <div class="col-sm-3">
             <?php echo $form->textFieldGroup(
                 $model,

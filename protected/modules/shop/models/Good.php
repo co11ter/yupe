@@ -147,6 +147,9 @@ class Good extends yupe\models\YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'changeUser'        => array(self::BELONGS_TO, 'User', 'change_user_id'),
+            'user'              => array(self::BELONGS_TO, 'User', 'user_id'),
+            'category'         => array(self::BELONGS_TO, 'Category', 'category_id'),
             'goodAttributes'   => array(self::HAS_MANY, 'GoodHasAttribute', 'good_id'),
         );
     }

@@ -33,7 +33,8 @@ class OfferController extends yupe\components\controllers\FrontController
         if(isset($_POST['Offer']))
             $model->attributes=$_POST['Offer'];
 
-        $offersProvider = $model->published()->search();
+        $offersProvider = $model->search();
+        $offersProvider->model->published();
 
         $offersProvider->getCriteria()->mergeWith(array(
             'with' => array('gallery'),

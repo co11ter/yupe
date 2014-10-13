@@ -120,7 +120,7 @@ class Import1c extends CComponent
             if(!$model)
             {
                 $model = new Good;
-                $model->status = Good::STATUS_NOT_ACTIVE;
+                $model->status = Good::STATUS_ZERO;
                 $model->external_id = (string)$product->{"Ид"};
             }
 

@@ -139,4 +139,5 @@ return array (
     'It unloaded from 1c' => 'Выгружено из 1С',
     'Access token for 1C exchange' => 'Токен доступа для обмена с 1С',
     'Allowed Ips for 1C exchange' => 'Разрешенные IP для обмена с 1С',
+    'General module settings' => 'Основные настройки модуля',
 );

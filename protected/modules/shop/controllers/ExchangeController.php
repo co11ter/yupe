@@ -15,10 +15,11 @@ class ExchangeController extends yupe\components\controllers\FrontController
             Yii::app()->end('Wrong secret key!');
         }
 
-        if(!in_array(Yii::app()->request->userHostAddress, Yii::app()->getModule('shop')->exchangeIps)) {
+        if(!in_array(Yii::app()->request->userHostAddress, explode(',', Yii::app()->getModule('shop')->exchangeIps))) {
             Yii::app()->end('Wrong host ip!');
         }
 
+        Yii::app()->user->setId(1);
         Import1c::processRequest(Yii::app()->request->getQuery('type'), Yii::app()->request->getQuery('mode'));
     }
 } 

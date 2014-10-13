@@ -3,7 +3,7 @@ use yupe\components\WebModule;
 
 class ShopModule extends WebModule
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 
     public $uploadPath        = 'shop';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -11,7 +11,16 @@ class ShopModule extends WebModule
     public $maxSize           = 5242880;
     public $maxFiles          = 1;
 
+    /**
+     * Токен доступа для обмена с 1С
+     * @var string
+     */
     public $exchangeKey = 'key';
+
+    /**
+     * Разрешенные IP для обмена с 1С
+     * @var string
+     */
     public $exchangeIps = '127.0.0.1';
 
     public function getDependencies()
@@ -82,6 +91,7 @@ class ShopModule extends WebModule
     public function getEditableParams()
     {
         return array(
+            'adminMenuOrder',
             'exchangeKey',
             'exchangeIps'
         );
@@ -90,8 +100,23 @@ class ShopModule extends WebModule
     public function getParamsLabels()
     {
         return array(
-            'exchangeKey' => Yii::t('ShopModule.shop', 'Access token for 1C exchange'),
-            'exchangeIps' => Yii::t('ShopModule.shop', 'Allowed Ips for 1C exchange'),
+            'adminMenuOrder' => Yii::t('ShopModule.shop', 'Menu items order'),
+            'exchangeKey'    => Yii::t('ShopModule.shop', 'Access token for 1C exchange'),
+            'exchangeIps'    => Yii::t('ShopModule.shop', 'Allowed Ips for 1C exchange'),
+        );
+    }
+
+    public function getEditableParamsGroups()
+    {
+        return array(
+            'main' => array(
+                'label' => Yii::t('ShopModule.shop', 'General module settings'),
+                'items' => array(
+                    'adminMenuOrder',
+                    'exchangeKey',
+                    'exchangeIps'
+                )
+            )
         );
     }
 
@@ -100,12 +125,13 @@ class ShopModule extends WebModule
 		// this method is called when the module is being created
 		// you may place code here to customize the module or the application
 
+        parent::init();
 		// import the module-level models and components
 		$this->setImport(array(
-//			'gallery.models.*',
 			'shop.models.*',
 			'shop.components.*',
 		));
+
 	}
 
 	public function beforeControllerAction($controller, $action)

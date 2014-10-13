@@ -137,4 +137,5 @@ return array (
     'It unloaded from 1c' => '',
     'Access token for 1C exchange' => '',
     'Allowed Ips for 1C exchange' => '',
+    'General module settings' => '',
 );

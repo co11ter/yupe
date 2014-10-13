@@ -119,14 +119,14 @@ class Import1c extends CComponent
 
             if(!$model)
             {
-                $model = new Good;
-                $model->status = Good::STATUS_ZERO;
+                $model              = new Good;
+                $model->status      = Good::STATUS_ZERO;
                 $model->external_id = (string)$product->{"Ид"};
             }
 
-            $model->name = (string)$product->{"Наименование"};
-            $model->description = Yii::t('ShopModule.shop', 'It unloaded from 1c');
-            $model->article = (string)$product->{"Артикул"};
+            $model->name        = (string)$product->{"Наименование"};
+            $model->description = CHtml::tag('p', array(), Yii::t('ShopModule.shop', 'It unloaded from 1c'));
+            $model->article     = (string)$product->{"Артикул"};
             $model->category_id = $category->id;
 
             $model->save();
@@ -154,15 +154,15 @@ class Import1c extends CComponent
 
             if(!$model)
             {
-                $model = new Offer;
-                $model->good_id = $good->id;
+                $model              = new Offer;
+                $model->good_id     = $good->id;
                 $model->external_id = $offer_ext_id;
             }
 
-            $model->name = (string)$offer->{"Наименование"};
-            $model->description = Yii::t('ShopModule.shop', 'It unloaded from 1c');
-            $model->price = (string)$offer->{"Цены"}->{"Цена"}->{"ЦенаЗаЕдиницу"};
-            $model->status = Offer::STATUS_ZERO;
+            $model->name        = (string)$offer->{"Наименование"};
+            $model->description = CHtml::tag('p', array(), Yii::t('ShopModule.shop', 'It unloaded from 1c'));
+            $model->price       = (string)$offer->{"Цены"}->{"Цена"}->{"ЦенаЗаЕдиницу"};
+            $model->status      = Offer::STATUS_ZERO;
             $model->save();
         }
         return true;
@@ -185,7 +185,7 @@ class Import1c extends CComponent
                 $model              = new Category;
                 $model->name        = (string)$category->{"Наименование"};
                 $model->alias       = yupe\helpers\YText::translit((string)$category->{"Наименование"});
-                $model->description = Yii::t('ShopModule.shop', 'It unloaded from 1c');
+                $model->description = CHtml::tag('p', array(), Yii::t('ShopModule.shop', 'It unloaded from 1c'));
                 $model->lang        = Yii::app()->getLanguage();
                 $model->status      = Category::STATUS_MODERATION;
                 $model->external_id = (string)$category->{"Ид"};

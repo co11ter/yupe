@@ -27,7 +27,9 @@
 class Good extends yupe\models\YModel
 {
     const STATUS_ACTIVE     = 1;
-    const STATUS_NOT_ACTIVE = 0;
+    const STATUS_ZERO       = 0;
+
+    public $attributeIds = array();
 
     /**
      * Returns the static model of the specified AR class.
@@ -164,6 +166,59 @@ class Good extends yupe\models\YModel
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
+    /**
+     * Готовит массив с аттрибутами к сохранению
+     * @return array
+     */
+    private function prepareAttrSave()
+    {
+        $result = array();
+        foreach((array)$this->attributeIds as $attrId => $attrValue) {
+            if(is_array($attrValue)) {
+                foreach($attrValue as $value) {
+                    $result[] = array(
+                        'key' => $attrId,
+                        'value' => $value
+                    );
+                }
+            } else {
+                $result[] = array(
+                    'key' => $attrId,
+                    'value' => $attrValue
+                );
+            }
+        }
+        //delete empty value
+        foreach($result as $key => $value) {
+            if(!$value['value']) {
+                unset($result[$key]);
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Сохраняет атрибуты торгового предложения
+     */
+    private function saveAttrs()
+    {
+        $attributes = $this->prepareAttrSave();
+        GoodHasAttribute::model()->deleteAll('good_id = :good_id', array('good_id' => $this->id));
+        foreach($attributes as $attrValue) {
+            $GoodHasAttribute = new GoodHasAttribute();
+            $GoodHasAttribute->good_id = $this->id;
+            $GoodHasAttribute->attribute_id = $attrValue['key'];
+            $GoodHasAttribute->value = $attrValue['value'];
+            $GoodHasAttribute->save();
+        }
+    }
+
+    protected function afterSave()
+    {
+        $this->saveAttrs();
+        parent::afterSave();
+    }
+
     public function beforeValidate()
     {
         $this->change_user_id = Yii::app()->user->getId();
@@ -183,7 +238,7 @@ class Good extends yupe\models\YModel
     {
         return array(
             self::STATUS_ACTIVE     => Yii::t('ShopModule.shop', 'Active'),
-            self::STATUS_NOT_ACTIVE => Yii::t('ShopModule.shop', 'Not active'),
+            self::STATUS_ZERO       => Yii::t('ShopModule.shop', 'Not available'),
         );
     }
 } 

@@ -8,8 +8,8 @@
     $this->pageTitle = Yii::t('ShopModule.shop', 'Offers - edition');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.shop', 'Offers administration'), 'url' => array('/shop/offerBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a product'), 'url' => array('/shop/offerBackend/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('ShopModule.shop', 'Offers administration'), 'url' => array('/shop/goodBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('ShopModule.shop', 'Add a good'), 'url' => array('/shop/goodBackend/create')),
         array('label' => Yii::t('ShopModule.shop', 'Product') . ' «' . mb_substr($model->name, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('ShopModule.shop', 'Update product'), 'url' => array(
             '/shop/offerBackend/update',

@@ -110,6 +110,7 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{shop_offer_has_attribute}}');
+        $this->dropTableWithForeignKeys('{{shop_good_has_attribute}}');
         $this->dropTableWithForeignKeys('{{shop_offer}}');
         $this->dropTableWithForeignKeys('{{shop_good}}');
     }

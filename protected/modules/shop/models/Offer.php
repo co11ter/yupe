@@ -393,9 +393,11 @@ class Offer extends yupe\models\YModel implements IECartPosition
         return $result;
     }
 
-    protected function afterSave()
+    /**
+     * Сохраняет атрибуты торгового предложения
+     */
+    private function saveAttrs()
     {
-        parent::afterSave();
         $attributes = $this->prepareAttrSave();
         OfferHasAttribute::model()->deleteAll('offer_id = :offer_id', array('offer_id' => $this->id));
         foreach($attributes as $attrValue) {
@@ -405,6 +407,12 @@ class Offer extends yupe\models\YModel implements IECartPosition
             $OfferHasAttribute->value = $attrValue['value'];
             $OfferHasAttribute->save();
         }
+    }
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+        $this->saveAttrs();
     }
 
     public function applyCategory($alias)

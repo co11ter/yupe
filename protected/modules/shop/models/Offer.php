@@ -427,6 +427,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
                 )
             )
         );
+        return $this;
     }
 
     public function applyOffer($alias)
@@ -437,5 +438,6 @@ class Offer extends yupe\models\YModel implements IECartPosition
                 'params' => array(':galias' => $alias),
             )
         );
+        return $this;
     }
 }

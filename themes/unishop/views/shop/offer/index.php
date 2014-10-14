@@ -7,7 +7,11 @@
  * @var $this OfferController
  */
 $this->pageTitle = Yii::t('ShopModule.shop', 'Items');
-$this->breadcrumbs = array(Yii::t('ShopModule.shop', 'Items'));
+$this->breadcrumbs = array(
+    Yii::t('ShopModule.shop', 'Items')//,
+    //Yii::t()
+);
+Yii2Debug::dump($dataProvider);
 
 Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function(){

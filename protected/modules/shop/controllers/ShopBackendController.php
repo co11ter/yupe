@@ -32,6 +32,15 @@ class ShopBackendController extends yupe\components\controllers\BackController
     }
 
     /**
+     * Отображает товарное предложение по указанному идентификатору
+     * @param integer $id Идинтификатор товар для отображения
+     */
+    public function actionView($id)
+    {
+        $this->render('view', array('model' => $this->loadModel($id)));
+    }
+
+    /**
      * Страница создания товара
      */
     public function actionCreate()

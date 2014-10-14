@@ -71,9 +71,27 @@ class OfferHasAttribute extends yupe\models\YModel
     {
         return array(
             'createFilter' => array(
-                'select' => array('offer_id', 'attribute_id', new CDbExpression('GROUP_CONCAT(distinct value) as value')),
-                'group' => 'attribute_id'
+                'select' => array('t.offer_id', 't.attribute_id', new CDbExpression('GROUP_CONCAT(distinct t.value) as value')),
+                'group' => 't.attribute_id'
             ),
+        );
+    }
+
+    public function applyCategory($cid)
+    {
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'with' => array(
+                    'attribute' => array(
+                        'with' => array(
+                            'category' => array(
+                                'condition' => 'category.id = :cid',
+                                'params' => array(':cid' => $cid),
+                            )
+                        )
+                    )
+                )
+            )
         );
     }
 }

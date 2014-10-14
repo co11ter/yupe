@@ -17,10 +17,11 @@ class OfferBackendController extends yupe\components\controllers\BackController
             'inline' => array(
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Offer',
-                'validAttributes' => array('name', 'alias', 'price', 'article', 'status')
+                'validAttributes' => array('name', 'alias', 'price', 'article', 'status', 'is_special')
             )
         );
     }
+
     /**
      * Отображает товар по указанному идентификатору
      * @param integer $id Идинтификатор товар для отображения

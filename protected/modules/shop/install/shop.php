@@ -27,7 +27,7 @@ return array(
         '/shop/exchange/<key>' => 'shop/exchange/unloading',
         '/shoppingcart/<action:\w+>' => 'shop/shoppingcart/<action>',
         '/shoppingcart' => 'shop/shoppingcart/index',
-        '/shop/<cid>/<name>' => 'shop/offer/index',
+        '/shop/<cid>/<name>' => 'shop/offer/view',
         '/shop/<cid>' => 'shop/offer/index',
         '/shop' => 'shop/offer/index'
     ),

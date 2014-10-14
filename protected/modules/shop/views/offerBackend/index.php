@@ -102,29 +102,14 @@ $this->renderPartial('_search', array('model' => $model));
             'filter'   => CHtml::activeTextField($model, 'alias', array('class' => 'form-control')),
         ),
         array(
-            'class'  => 'bootstrap.widgets.TbEditableColumn',
-			'editable' => array(
-				'url'    => $this->createUrl('/shop/offerBackend/inline'),
-				'mode'   => 'popup',
-				'type'   => 'select',
-				'title'  => Yii::t(
-                        'ShopModule.shop',
-                        'Select {field}',
-                        array('{field}' => mb_strtolower($model->getAttributeLabel('good_id')))
-                    ),
-				'source' => CHtml::listData(Good::model()->findAll(), 'id', 'name'),
-				'params' => array(
-					Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-				)
-			),
             'name'   => 'good_id',
             'type'   => 'raw',
-            'value'  => '$data->good->name',
-            'filter' => CHtml::activeDropDownList(
-                    $model,
-                    'good_id',
-                    CHtml::listData(Good::model()->findAll(), 'id', 'name'),
-                    array('encode' => false, 'empty' => '', 'class' => 'form-control'))
+            'value'  => 'CHtml::link($data->good->name, array("/shop/shopBackend/view", "id" => $data->good->id))',
+            'filter' => CHtml::listData(
+                    Good::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),
+                    'id',
+                    'nick_name'
+                )
         ),
         array(
             'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -140,10 +125,30 @@ $this->renderPartial('_search', array('model' => $model));
         ),
 
         array(
+            'class'  => 'bootstrap.widgets.TbEditableColumn',
+            'editable' => array(
+                'url'    => $this->createUrl('/shop/offerBackend/inline'),
+                'mode'   => 'popup',
+                'type'   => 'select',
+                'title'  => Yii::t(
+                        'ShopModule.shop',
+                        'Select {field}',
+                        array('{field}' => mb_strtolower($model->getAttributeLabel('is_special')))
+                    ),
+                'source' => Yii::app()->getModule('shop')->getChoice(),
+                'params' => array(
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                )
+            ),
             'name'  => 'is_special',
             'type'  => 'raw',
-            'value'  => '$data->is_special',
-            'filter' => Yii::app()->getModule('shop')->getChoice()
+            'value'  => '$data->getSpecial()',
+            'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'is_special',
+                    Yii::app()->getModule('shop')->getChoice(),
+                    array('class' => 'form-control', 'empty' => '')
+                ),
         ),
         array(
             'class'  => 'bootstrap.widgets.TbEditableColumn',

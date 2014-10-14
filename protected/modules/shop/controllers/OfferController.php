@@ -14,17 +14,11 @@ class OfferController extends yupe\components\controllers\FrontController
     const GOOD_PER_PAGE = 10;
 
     /**
-     * TODO вынести критерии в модель
-     *
+     * Покажем товары в указанной категории
      * @param string $cid
-     * @param string $name
-     * @throws CHttpException
-     * @return bool
      */
-    public function actionIndex($cid = '', $name = '')
+    public function actionIndex($cid = '')
     {
-        Yii::app()->getModule('attribute');
-        Yii::app()->getModule('gallery');
         $attrs = OfferHasAttribute::model()->createFilter()->findAll();
 
         $model = new Offer('search');
@@ -36,27 +30,16 @@ class OfferController extends yupe\components\controllers\FrontController
         $offersProvider = $model->search();
         $offersProvider->model->published();
 
-        $offersProvider->getCriteria()->mergeWith(array(
-            'with' => array('gallery'),
-            'limit' => self::GOOD_PER_PAGE,
-            'order' => 't.create_time DESC',
-        ));
-
         // категория товара
         if($cid) {
             $offersProvider->model->applyCategory($cid);
         }
 
-        // алиас товара
-        if($name) {
-            $offersProvider->model->applyOffer($name);
-
-            // Если ищем по алиасу, то выводим страницу для одного товара
-            $this->render('good', array(
-                'offer' => reset($offersProvider->getData())
-            ));
-            return true;
-        }
+        $offersProvider->getCriteria()->mergeWith(array(
+//            'with' => array('gallery'),
+            'limit' => self::GOOD_PER_PAGE,
+            'order' => 't.create_time DESC',
+        ));
 
         $this->render('index', array(
             'dataProvider' => $offersProvider,
@@ -64,6 +47,23 @@ class OfferController extends yupe\components\controllers\FrontController
             'attributes' => $attrs,
             'prices' => $model->published()->limitPrices()->find() // max и min цены
         ));
+    }
+
+    /**
+     * Покажем карточку товара
+     * @param $name
+     */
+    public function actionView($name)
+    {
+        $model = Offer::model()->applyOffer($name)->find();
+
+        $this->render('good', array('offer' => $model));
+    }
+
+    protected function beforeAction()
+    {
+        Yii::app()->getModule('attribute');
+        Yii::app()->getModule('gallery');
         return true;
     }
 }

@@ -5,9 +5,16 @@
  */
 $assetUrl = Yii::app()->getTheme()->getAssetsUrl();
 $this->pageTitle = $offer->name;
+$this->description = $offer->good->meta_description ? : $this->description;
+$this->keywords = $offer->good->meta_keywords ? : $this->keywords;
 
 $this->breadcrumbs = array(
-    Yii::t('ShopModule.shop','Offers') => array('/shop/shop/index/'),
+    Yii::t('ShopModule.shop','Items') => array('/shop/'),
+    Yii::t(
+        'ShopModule.shop',
+        '{Category}',
+        array('{Category}' => $offer->good->category->name)
+    ) => array('/shop/'.$offer->good->category->alias),
     CHtml::encode($offer->name)
 ); ?>
 <section class="cart-message">
@@ -159,6 +166,5 @@ $this->breadcrumbs = array(
                 </div>
             </div>
         </div>
-
     </div>
 </section>

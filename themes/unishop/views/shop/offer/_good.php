@@ -5,7 +5,7 @@
  * Date: 15.09.14
  * Time: 13:20
  *
- * @var $data - Offer
+ * @var $data Offer
  */
 ?>
 <!--Tile-->
@@ -16,7 +16,7 @@
         </div>
         <?php echo CHtml::link(
             CHtml::image(
-                $data->getImageUrl(),
+                $data->getImageThumbnail(356, 390),
                 $data->name
             ),
             '/shop/'.$data->good->category->alias.'/'.$data->alias

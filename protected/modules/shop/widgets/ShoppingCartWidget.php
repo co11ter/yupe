@@ -34,7 +34,7 @@ class ShoppingCartWidget extends yupe\widgets\YWidget
                     'data' => $data,
                     'count' => Yii::app()->shoppingCart->getItemsCount(),
                     'cost' => Yii::app()->shoppingCart->getCost(),
-                    'currency' => Yii::t('ShopModule.shop', 'RUB')
+                    'currency' => 'RUB'
                 )
             )
         );

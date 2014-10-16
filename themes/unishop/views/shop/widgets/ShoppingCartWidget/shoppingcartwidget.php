@@ -18,14 +18,14 @@ Yii::app()->clientScript->registerScript('updateCartWidget', "
         }
 
         $('.cart-btn a span').text(cart.count);
-        $('.cart-dropdown div.total').text(cart.cost + ' ' + cart.currency);
+        $('.cart-dropdown div.total').text(numeric_format(cart.cost) + ' ' + cart.ajaxCurrency);
         $('.cart-dropdown tr.item').remove();
         for(var i = 0; cart.data.length>i; i++) {
             $('.cart-dropdown table').append(
                 '<tr class=\"item\"><input type=\"hidden\" name=\"itemIdCart\" value=\"' + cart.data[i].id + '\" class=\"itemIdCart\">' +
                 '<td><div class=\"delete\"></div><a href=\"' + cart.data[i].url +'\">' +
                 cart.data[i].name + '<td><input type=\"text\" value=\"' + cart.data[i].quantity +
-                '\"></td><td class=\"price\">' + cart.data[i].totalPrice + '&nbsp;' +  cart.currency + '</td>'
+                '\"></td><td class=\"price\">' + numeric_format(cart.data[i].totalPrice) + '&nbsp;' +  cart.ajaxCurrency + '</td>'
             );
         }
     }
@@ -58,7 +58,7 @@ echo CHtml::link(
                 CHtml::hiddenField('itemIdCart', $item['id'], array('class' => 'itemIdCart')).
                 CHtml::tag('td', array(), '<div class="delete"></div>' . CHtml::link($item['name'], '#')) .
                 CHtml::tag('td', array(), CHtml::textField('', $item['quantity'])) .
-                CHtml::tag('td', array('class' => 'price'), $item['totalPrice'] . '&nbsp;' . Yii::t('ShopModule.shop', 'RUB'))
+                CHtml::tag('td', array('class' => 'price'), Yii::app()->getNumberFormatter()->formatCurrency($item['totalPrice'], $cart['currency']))
             );
         }
 
@@ -88,6 +88,10 @@ echo CHtml::link(
                 )
             );?>
         </div>
-        <?php echo CHtml::tag('div', array('class' => 'total'), $cart['cost'].'&nbsp;'.Yii::t('ShopModule.shop', 'RUB'));?>
+        <?php echo CHtml::tag(
+            'div',
+            array('class' => 'total'),
+            Yii::app()->getNumberFormatter()->formatCurrency($cart['cost'], $cart['currency']));
+        ?>
     </div>
 </div>

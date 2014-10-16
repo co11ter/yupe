@@ -32,6 +32,7 @@ $this->breadcrumbs = array(
 </section>
 <section class="catalog-single">
     <div class="container">
+        <h1><?php echo CHtml::encode($offer->name); ?></h1>
         <div class="row">
 
             <!--Product Gallery-->
@@ -71,9 +72,10 @@ $this->breadcrumbs = array(
 
             <!--Product Description-->
             <div class="col-lg-6 col-md-6">
-                <h1><?php echo CHtml::encode($offer->name); ?></h1>
 
-                <div class="price"><?php echo $offer->price?> <?php echo Yii::t('ShopModule.shop', 'RUB')?></div>
+                <div class="price">
+                    <?php echo Yii::app()->getNumberFormatter()->formatCurrency($offer->price, 'RUB');?>
+                </div>
                 <div class="buttons group">
                     <input type="hidden" value="<?php echo $offer->id;?>" id="itemId">
                     <div class="qnt-count">

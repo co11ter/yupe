@@ -15403,7 +15403,7 @@ header .search-form .close-search:hover {
     margin: 0 auto;
     padding: 24px 15px 0 15px;
     background: none;
-    text-align: right
+    text-align: left;
 }
 
 .breadcrumb > li {

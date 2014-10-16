@@ -339,7 +339,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
                 $module->uploadPath,
                 $width,
                 $height,
-                \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
+                \Imagine\Image\ImageInterface::THUMBNAIL_INSET
             );
         }
 

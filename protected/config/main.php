@@ -34,6 +34,7 @@ return array(
     // язык по умолчанию
     'language'            => 'ru',
     'sourceLanguage'      => 'en',
+    'localeDataPath'      => Yii::getPathOfAlias('application.modules.yupe.i18n'),
     // тема оформления по умолчанию
     'theme'               => 'default',
     'charset'             => 'UTF-8',

@@ -68,7 +68,7 @@ $this->breadcrumbs = array(Yii::t('ShopModule.shop', 'Shopping cart'));
 
                         // цена одного товара
                         CHtml::tag('td', array('class' => 'price'),
-                            $item['itemPrice'] . '&nbsp;' . $cart['currency']
+                            Yii::app()->getNumberFormatter()->formatCurrency($item['itemPrice'], $cart['currency'])
                         ) .
 
                         // количество
@@ -80,7 +80,7 @@ $this->breadcrumbs = array(Yii::t('ShopModule.shop', 'Shopping cart'));
 
                         // цена с учетом количества
                         CHtml::tag('td', array('class' => 'total'),
-                            $item['totalPrice'] . '&nbsp;' . $cart['currency']
+                            Yii::app()->getNumberFormatter()->formatCurrency($item['totalPrice'], $cart['currency'])
                         ) .
 
                         // иконка удаления
@@ -109,7 +109,7 @@ $this->breadcrumbs = array(Yii::t('ShopModule.shop', 'Shopping cart'));
                                     Yii::t('ShopModule.shop', 'Cart subtotal')
                                 ) .
                                 CHtml::tag('td', array('class' => 'total align-r'),
-                                    $cart['cost'] . '&nbsp;' . $cart['currency']
+                                    Yii::app()->getNumberFormatter()->formatCurrency($cart['cost'], $cart['currency'])
                                 )
                             );
                             echo CHtml::tag('tr', array('class' => 'devider'),
@@ -125,7 +125,7 @@ $this->breadcrumbs = array(Yii::t('ShopModule.shop', 'Shopping cart'));
                                     Yii::t('ShopModule.shop', 'Order total')
                                 ) .
                                 CHtml::tag('td', array('class' => 'total align-r'),
-                                    $cart['cost'] . '&nbsp;' . $cart['currency']
+                                    Yii::app()->getNumberFormatter()->formatCurrency($cart['cost'], $cart['currency'])
                                 )
                             );
                             ?>

@@ -93,7 +93,9 @@ class ShoppingcartController extends yupe\components\controllers\FrontController
             'data'  => $data,
             'count' => Yii::app()->shoppingCart->getItemsCount(),
             'cost' => Yii::app()->shoppingCart->getCost(),
-            'currency' => Yii::t('ShopModule.shop', 'RUB')
+            'currency' => 'RUB',
+            // ajaxCurrency - костыль для js, нужен так как клиентская сторона не умеет преобразовать код валюты
+            'ajaxCurrency' => 'руб.'
         );
     }
 

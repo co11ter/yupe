@@ -85,6 +85,7 @@ return array (
     'On home page' => '',
     'Status' => '',
     'This section describes products manager' => '',
+    'This section describes offer manager' => '',
     'Title' => '',
     'Unknown request. Don\'t repeat it please!' => '',
     'Updated' => '',
@@ -138,4 +139,5 @@ return array (
     'Access token for 1C exchange' => '',
     'Allowed Ips for 1C exchange' => '',
     'General module settings' => '',
+    'Relation Goods' => ''
 );

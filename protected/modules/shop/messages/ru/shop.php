@@ -88,6 +88,7 @@ return array (
     'On home page' => 'На главной',
     'Status' => 'Статус',
     'This section describes products manager' => 'В данном разделе представлены средства управления товарами',
+    'This section describes offer manager' => 'В данном разделе представлены средства управления товарами',
     'Title' => 'Заголовок',
     'Unknown request. Don\'t repeat it please!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
     'Updated' => 'Обновлено',
@@ -140,4 +141,5 @@ return array (
     'Access token for 1C exchange' => 'Токен доступа для обмена с 1С',
     'Allowed Ips for 1C exchange' => 'Разрешенные IP для обмена с 1С',
     'General module settings' => 'Основные настройки модуля',
+    'Relation Goods' => 'Похожие товары'
 );

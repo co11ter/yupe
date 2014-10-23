@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var Good $model
+ */
+?>
 <script type='text/javascript'>
     function createAttribute(obj) {
         console.log(obj);
@@ -188,38 +193,54 @@ $form = $this->beginWidget(
         );?>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $select = $("#relationGoods");
+        <?php
+        $options = array(
+            'data' => array_values(
+                CHtml::listData(
+                    Good::model()->findAll(),
+                    'id',
+                    function($model) {
+                        return array(
+                            'id' => $model->id,
+                            'text' => $model->name
+                        );
+                    }
+                )
+            ),
+            'placeholder'     => Yii::t('ShopModule.shop', 'Relation Goods'),
+            'tokenSeparators' => array(',', ' '),
+            'multiple' => true
+        );
+        echo '$select.select2('.CJavaScript::encode($options).');';
+        echo '$select.select2(\'val\', '.CJSON::encode($model->getRelationIds()).');'
+        ?>
+        $select.select2("container").find("ul.select2-choices").sortable({
+            containment: 'parent',
+            start: function() { $select.select2("onSortStart"); },
+            update: function() { $select.select2("onSortEnd"); }
+        });
+    });
+</script>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
-            $model,
-            'article',
+        <?php echo $form->labelEx($model, 'relationGoods', array('class' => 'control-label')); ?>
+        <?php $this->widget(
+            'booster.widgets.TbSelect2',
             array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
-                        'class'               => 'popover-help',
-                        'data-original-title' => $model->getAttributeLabel('article'),
-                        'data-content'        => $model->getAttributeDescription('article')
-                    ),
+                'asDropDownList' => false,
+                'name' => 'relationGoods',
+                'val' => $model->getRelationIds(),
+                'htmlOptions'    => array(
+                    'class'               => 'form-control popover-help',
+                    'data-original-title' => $model->getAttributeLabel('relationGoods'),
+                    'data-content'        => $model->getAttributeDescription('relationGoods')
                 ),
             )
-        ); ?>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
-            $model,
-            'meta_description',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
-                        'class'               => 'popover-help',
-                        'data-original-title' => $model->getAttributeLabel('meta_description'),
-                        'data-content'        => $model->getAttributeDescription('meta_description')
-                    ),
-                ),
-            )
-        ); ?>
+        );?>
+        <br/>
     </div>
 </div>
 <div class="row">

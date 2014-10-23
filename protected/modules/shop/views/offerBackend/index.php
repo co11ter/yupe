@@ -28,7 +28,7 @@ $this->breadcrumbs = array(
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ShopModule.shop', 'Items'); ?>
+        <?php echo Yii::t('ShopModule.shop', 'Offers'); ?>
         <small><?php echo Yii::t('ShopModule.shop', 'administration'); ?></small>
     </h1>
 </div>
@@ -57,7 +57,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('ShopModule.shop', 'This section describes products manager'); ?></p>
+<p><?php echo Yii::t('ShopModule.shop', 'This section describes offer manager'); ?></p>
 
 <?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'good-grid',

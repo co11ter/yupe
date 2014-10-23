@@ -66,12 +66,21 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
             ), $this->getOptions()
         );
 
+        // таблица со значениями атрибутов товаров
         $this->createTable('{{shop_good_has_attribute}}', array(
                 'id' => 'pk',
                 'good_id' => 'int NOT NULL',
                 'attribute_id' => 'int NOT NULL',
                 'value' => 'varchar(250) NOT NULL'
             ), $this->getOptions()
+        );
+
+        $this->createTable('{{shop_good_has_good}}', array(
+                'good_id' => 'int NOT NULL',
+                'relation_good_id' => 'int NOT NULL',
+                'sort' => 'int(3) DEFAULT 100',
+                'PRIMARY KEY (`good_id`, `relation_good_id`)',
+            )
         );
 
         $this->createIndex("ux_{{shop_good}}_alias", '{{shop_good}}', "alias", true);
@@ -99,6 +108,9 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
 
         $this->addForeignKey("fk_{{shop_good_has_attribute}}_good", '{{shop_good_has_attribute}}', 'good_id', '{{shop_good}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey("fk_{{shop_good_has_attribute}}_attribute", '{{shop_good_has_attribute}}', 'attribute_id', '{{attribute_attribute}}', 'id', 'CASCADE', 'CASCADE');
+
+        $this->addForeignKey("fk_{{shop_good_has_good}}_good", '{{shop_good_has_good}}', 'good_id', '{{shop_good}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey("fk_{{shop_good_has_good}}_relation_good", '{{shop_good_has_good}}', 'relation_good_id', '{{shop_good}}', 'id', 'CASCADE', 'CASCADE');
     }
  
     /**
@@ -110,6 +122,7 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
     {
         $this->dropTableWithForeignKeys('{{shop_offer_has_attribute}}');
         $this->dropTableWithForeignKeys('{{shop_good_has_attribute}}');
+        $this->dropTableWithForeignKeys('{{shop_good_has_good}}');
         $this->dropTableWithForeignKeys('{{shop_offer}}');
         $this->dropTableWithForeignKeys('{{shop_good}}');
     }

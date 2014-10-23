@@ -115,6 +115,7 @@ class Good extends yupe\models\YModel
             'short_description' => Yii::t('ShopModule.shop', 'Short description'),
             'description'       => Yii::t('ShopModule.shop', 'Description'),
             'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
+            'relationGoods'     => Yii::t('ShopModule.shop', 'Relation Goods'),
             'status'            => Yii::t('ShopModule.shop', 'Status'),
         );
     }
@@ -135,6 +136,7 @@ class Good extends yupe\models\YModel
             'short_description' => Yii::t('ShopModule.shop', 'Short description'),
             'description'       => Yii::t('ShopModule.shop', 'Description'),
             'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
+            'relationGoods'     => Yii::t('ShopModule.shop', 'Relation Goods'),
             'status'            => Yii::t('ShopModule.shop', 'Status'),
         );
     }
@@ -149,8 +151,9 @@ class Good extends yupe\models\YModel
         return array(
             'changeUser'        => array(self::BELONGS_TO, 'User', 'change_user_id'),
             'user'              => array(self::BELONGS_TO, 'User', 'user_id'),
-            'category'         => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'goodAttributes'   => array(self::HAS_MANY, 'GoodHasAttribute', 'good_id'),
+            'category'          => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'goodAttributes'    => array(self::HAS_MANY, 'GoodHasAttribute', 'good_id'),
+            'relationGoods'     => array(self::HAS_MANY, 'GoodHasGood', 'good_id')
         );
     }
 
@@ -243,5 +246,16 @@ class Good extends yupe\models\YModel
             self::STATUS_ACTIVE     => Yii::t('ShopModule.shop', 'Active'),
             self::STATUS_ZERO       => Yii::t('ShopModule.shop', 'Not available'),
         );
+    }
+
+    public function getRelationIds()
+    {
+        return array(2,6,4);
+    }
+
+    public function getGoodsForSelect2()
+    {
+        $this->findAll();
+        return true;
     }
 } 

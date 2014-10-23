@@ -147,7 +147,7 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-sm-5">
         <div class="form-group">
-            <?php echo $form->labelEx($model, 'tags', array('control-label')); ?>
+            <?php echo $form->labelEx($model, 'tags', array('class' => 'control-label')); ?>
             <?php
             $this->widget(
                 'booster.widgets.TbSelect2',

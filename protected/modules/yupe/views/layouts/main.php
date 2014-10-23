@@ -24,6 +24,8 @@
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/main.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery-ui.js');
+
     if (($langs = $this->yupe->getLanguageSelectorArray()) != array()) {
         Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/flags.css');
     }

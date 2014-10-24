@@ -193,36 +193,6 @@ $form = $this->beginWidget(
         );?>
     </div>
 </div>
-<?php
-$options = array(
-    'data' => array_values(
-        CHtml::listData(
-            Good::model()->findAll(),
-            'id',
-            function($model) {
-                return array(
-                    'id' => $model->id,
-                    'text' => $model->name
-                );
-            }
-        )
-    ),
-//    'value' => CJSON::encode(array_keys(CHtml::listData($model->relationGoods, 'relation_good_id', 'sort'))),
-    'placeholder'     => Yii::t('ShopModule.shop', 'Relation Goods'),
-    'tokenSeparators' => array(',', ' '),
-    'multiple' => true
-);
-/*Yii::app()->getClientScript()->registerScript('RelationGoodsSelect2', '
-    var $select = $("#RelationGoods");
-    $select.on("select2-loaded", function(e) {
-        $select.select2("container").find("ul.select2-choices").sortable({
-            containment: "parent",
-            start: function() { $select.select2("onSortStart"); },
-            update: function() { $select.select2("onSortEnd"); }
-        });
-    });
-');*/
-?>
 <div class="row">
     <div class="col-sm-7">
         <?php echo $form->labelEx($model, 'relationGoods', array('class' => 'control-label')); ?>

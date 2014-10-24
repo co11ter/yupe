@@ -54,6 +54,7 @@ class ShopBackendController extends yupe\components\controllers\BackController
         {
             $model->attributes = $_POST['Good'];
             $model->attributeIds = $_POST['Good']['goodAttributes'];
+            $model->relationIds = $_POST['RelationGoods'];
 
             if ($model->save())
             {
@@ -86,6 +87,7 @@ class ShopBackendController extends yupe\components\controllers\BackController
         {
             $model->attributes = $_POST['Good'];
             $model->attributeIds = $_POST['Good']['goodAttributes'];
+            $model->relationIds = $_POST['RelationGoods'];
 
             if ($model->save())
             {

@@ -193,71 +193,82 @@ $form = $this->beginWidget(
         );?>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var $select = $("#relationGoods");
-        <?php
-        $options = array(
-            'data' => array_values(
-                CHtml::listData(
-                    Good::model()->findAll(),
-                    'id',
-                    function($model) {
-                        return array(
-                            'id' => $model->id,
-                            'text' => $model->name
-                        );
-                    }
-                )
-            ),
-            'placeholder'     => Yii::t('ShopModule.shop', 'Relation Goods'),
-            'tokenSeparators' => array(',', ' '),
-            'multiple' => true
-        );
-        echo '$select.select2('.CJavaScript::encode($options).');';
-        echo '$select.select2(\'val\', '.CJSON::encode($model->getRelationIds()).');'
-        ?>
+<?php
+$options = array(
+    'data' => array_values(
+        CHtml::listData(
+            Good::model()->findAll(),
+            'id',
+            function($model) {
+                return array(
+                    'id' => $model->id,
+                    'text' => $model->name
+                );
+            }
+        )
+    ),
+//    'value' => CJSON::encode(array_keys(CHtml::listData($model->relationGoods, 'relation_good_id', 'sort'))),
+    'placeholder'     => Yii::t('ShopModule.shop', 'Relation Goods'),
+    'tokenSeparators' => array(',', ' '),
+    'multiple' => true
+);
+/*Yii::app()->getClientScript()->registerScript('RelationGoodsSelect2', '
+    var $select = $("#RelationGoods");
+    $select.on("select2-loaded", function(e) {
         $select.select2("container").find("ul.select2-choices").sortable({
-            containment: 'parent',
+            containment: "parent",
             start: function() { $select.select2("onSortStart"); },
             update: function() { $select.select2("onSortEnd"); }
         });
     });
-</script>
+');*/
+?>
 <div class="row">
     <div class="col-sm-7">
         <?php echo $form->labelEx($model, 'relationGoods', array('class' => 'control-label')); ?>
         <?php $this->widget(
             'booster.widgets.TbSelect2',
             array(
+                'name' => 'RelationGoods',
                 'asDropDownList' => false,
-                'name' => 'relationGoods',
-                'val' => $model->getRelationIds(),
+                'val' => array_keys(CHtml::listData($model->relationGoods, 'relation_good_id', 'sort')),
+                'events' => array(
+                    // функция для сортировки элемнетов в селекте
+                    'select2-focus' => 'js:function(e) {
+                            var $select = $("#RelationGoods");
+                            $select.select2("container").find("ul.select2-choices").sortable({
+                                containment: "parent",
+                                start: function() { $select.select2("onSortStart"); },
+                                update: function() { $select.select2("onSortEnd"); }
+                            });
+                        }'
+                ),
+                'options' => array(
+                    // список других товаров
+                    'data' => array_values(
+                        CHtml::listData(
+                            Good::model()->findAll('t.id<>:id', array(':id' => $model->id)),
+                            'id',
+                            function($model) {
+                                return array(
+                                    'id' => $model->id,
+                                    'text' => $model->name
+                                );
+                            }
+                        )
+                    ),
+                    'placeholder'     => Yii::t('ShopModule.shop', 'Relation Goods'),
+                    'tokenSeparators' => array(',', ' '),
+                    'multiple' => true
+                ),
                 'htmlOptions'    => array(
                     'class'               => 'form-control popover-help',
                     'data-original-title' => $model->getAttributeLabel('relationGoods'),
                     'data-content'        => $model->getAttributeDescription('relationGoods')
                 ),
             )
-        );?>
-        <br/>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
-            $model,
-            'meta_keywords',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
-                        'class'               => 'popover-help',
-                        'data-original-title' => $model->getAttributeLabel('meta_keywords'),
-                        'data-content'        => $model->getAttributeDescription('meta_keywords')
-                    ),
-                ),
-            )
         ); ?>
+        <br/>
     </div>
 </div>
 <div class="row">
@@ -312,7 +323,9 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <div class="popover-help form-group" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
+        <div class="popover-help form-group"
+             data-original-title='<?php echo $model->getAttributeLabel('description'); ?>'
+             data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
             <?php echo $form->labelEx($model, 'description'); ?>
             <?php $this->widget($this->module->editor, array(
                 'model'       => $model,

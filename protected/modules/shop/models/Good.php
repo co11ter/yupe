@@ -29,7 +29,17 @@ class Good extends yupe\models\YModel
     const STATUS_ACTIVE     = 1;
     const STATUS_ZERO       = 0;
 
+    /**
+     * Good Attributes id array
+     * @var array
+     */
     public $attributeIds = array();
+
+    /**
+     * Relation Goods id array
+     * @var array
+     */
+    public $relationIds = array();
 
     /**
      * Returns the static model of the specified AR class.
@@ -153,7 +163,7 @@ class Good extends yupe\models\YModel
             'user'              => array(self::BELONGS_TO, 'User', 'user_id'),
             'category'          => array(self::BELONGS_TO, 'Category', 'category_id'),
             'goodAttributes'    => array(self::HAS_MANY, 'GoodHasAttribute', 'good_id'),
-            'relationGoods'     => array(self::HAS_MANY, 'GoodHasGood', 'good_id')
+            'relationGoods'     => array(self::HAS_MANY, 'GoodHasGood', 'good_id', 'order' => 'relationGoods.sort')
         );
     }
 
@@ -210,7 +220,8 @@ class Good extends yupe\models\YModel
     {
         $attributes = $this->prepareAttrSave();
         GoodHasAttribute::model()->deleteAll('good_id = :good_id', array('good_id' => $this->id));
-        foreach($attributes as $attrValue) {
+        foreach($attributes as $attrValue)
+        {
             $GoodHasAttribute = new GoodHasAttribute();
             $GoodHasAttribute->good_id = $this->id;
             $GoodHasAttribute->attribute_id = $attrValue['key'];
@@ -219,9 +230,26 @@ class Good extends yupe\models\YModel
         }
     }
 
+    private function saveRelationGoods()
+    {
+        GoodHasGood::model()->deleteAll('good_id = :good_id', array('good_id' => $this->id));
+        $relationIds = explode(',', $this->relationIds);
+        $step = $sort = ceil(900/count($relationIds));
+        foreach($relationIds as $id)
+        {
+            $GoodHasGood = new GoodHasGood();
+            $GoodHasGood->good_id = $this->id;
+            $GoodHasGood->relation_good_id = $id;
+            $GoodHasGood->sort = $sort;
+            $GoodHasGood->save();
+            $sort += $step;
+        }
+    }
+
     protected function afterSave()
     {
         $this->saveAttrs();
+        $this->saveRelationGoods();
         parent::afterSave();
     }
 
@@ -246,16 +274,5 @@ class Good extends yupe\models\YModel
             self::STATUS_ACTIVE     => Yii::t('ShopModule.shop', 'Active'),
             self::STATUS_ZERO       => Yii::t('ShopModule.shop', 'Not available'),
         );
-    }
-
-    public function getRelationIds()
-    {
-        return array(2,6,4);
-    }
-
-    public function getGoodsForSelect2()
-    {
-        $this->findAll();
-        return true;
     }
 } 

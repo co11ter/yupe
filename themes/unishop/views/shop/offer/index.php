@@ -11,7 +11,6 @@ $this->breadcrumbs = array(
     Yii::t('ShopModule.shop', 'Items')//,
     //Yii::t()
 );
-Yii2Debug::dump($dataProvider);
 
 Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function(){
@@ -37,6 +36,7 @@ Yii::app()->clientScript->registerScript('search', "
                     'class' => 'col-lg-9 col-md-9 col-sm-8'
                 )
             )); ?>
+            <?php if($prices): ?>
             <div class="filters-mobile col-lg-3 col-md-3 col-sm-4">
                 <div class="shop-filters">
 
@@ -63,26 +63,26 @@ Yii::app()->clientScript->registerScript('search', "
                                 <div class="values group">
                                     <!--data-min-val represent minimal price and data-max-val maximum price respectively in pricing slider range; value="" - default values-->
                                     <?php
-                                    echo CHtml::textField(
-                                        'Offer[minPrice]',
-                                        $model->minPrice ? $model->minPrice : $prices->minPrice,
-                                        array(
-                                            'class' => 'form-control',
-                                            'data-min-val' => $prices->minPrice,
-                                            'id' => 'minVal'
-                                        )
-                                    );
-                                    echo CHtml::tag('span', array('class' => 'labels'), '&nbsp;р -&nbsp;');
-                                    echo CHtml::textField(
-                                        'Offer[maxPrice]',
-                                        $model->maxPrice ? $model->maxPrice : $prices->maxPrice,
-                                        array(
-                                            'class' => 'form-control',
-                                            'data-max-val' => $prices->maxPrice,
-                                            'id' => 'maxVal'
-                                        )
-                                    );
-                                    echo CHtml::tag('span', array('class' => 'labels'), '&nbsp;р');
+                                        echo CHtml::textField(
+                                            'Offer[minPrice]',
+                                            $model->minPrice ? $model->minPrice : $prices->minPrice,
+                                            array(
+                                                'class' => 'form-control',
+                                                'data-min-val' => $prices->minPrice,
+                                                'id' => 'minVal'
+                                            )
+                                        );
+                                        echo CHtml::tag('span', array('class' => 'labels'), '&nbsp;р -&nbsp;');
+                                        echo CHtml::textField(
+                                            'Offer[maxPrice]',
+                                            $model->maxPrice ? $model->maxPrice : $prices->maxPrice,
+                                            array(
+                                                'class' => 'form-control',
+                                                'data-max-val' => $prices->maxPrice,
+                                                'id' => 'maxVal'
+                                            )
+                                        );
+                                        echo CHtml::tag('span', array('class' => 'labels'), '&nbsp;р');
                                     ?>
                                 </div>
                                 <input type="submit" value="Filter" class="btn btn-primary btn-sm">
@@ -147,6 +147,7 @@ Yii::app()->clientScript->registerScript('search', "
                     ?>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>

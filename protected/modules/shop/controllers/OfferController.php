@@ -36,9 +36,9 @@ class OfferController extends yupe\components\controllers\FrontController
         }
 
         $offersProvider->getCriteria()->mergeWith(array(
-//            'with' => array('gallery'),
             'limit' => self::GOOD_PER_PAGE,
             'order' => 't.create_time DESC',
+            'group' => 't.good_id'
         ));
 
         $this->render('index', array(
@@ -52,11 +52,14 @@ class OfferController extends yupe\components\controllers\FrontController
     /**
      * Покажем карточку товара
      * @param $name
+     * @throws CHttpException
      */
     public function actionView($name)
     {
-        $model = Offer::model()->applyOffer($name)->find();
+        $model = Offer::model()->published()->applyOffer($name)->find();
 
+        if ($model === null)
+            throw new CHttpException(404, Yii::t('ShopModule.shop', 'Page was not found!'));
         $this->render('good', array('offer' => $model));
     }
 

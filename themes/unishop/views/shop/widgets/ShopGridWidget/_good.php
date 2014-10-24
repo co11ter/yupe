@@ -12,11 +12,11 @@
 <div class="col-lg-3 col-md-4 col-sm-6">
     <div class="tile">
         <div class="price-label">
-            <?php echo $data->price; ?> <?php echo Yii::t('ShopModule.shop', 'RUB'); ?>
+            <?php echo Yii::app()->getNumberFormatter()->formatCurrency($data->price, 'RUB'); ?>
         </div>
         <?php echo CHtml::link(
             CHtml::image(
-                $data->getImageUrl(),
+                $data->getImageThumbnail(356, 390),
                 $data->name
             ),
             '/shop/'.$data->good->category->alias.'/'.$data->alias

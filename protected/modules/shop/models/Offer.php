@@ -115,8 +115,14 @@ class Offer extends yupe\models\YModel implements IECartPosition
     {
         return array(
             'published' => array(
-                'condition' => 't.status = :status',
-                'params'    => array(':status' => self::STATUS_ACTIVE),
+                'condition' => 't.status = :ofstatus',
+                'params'    => array(':ofstatus' => self::STATUS_ACTIVE),
+                'with'      => array(
+                    'good' => array(
+                        'condition' => 'good.status = :gstatus',
+                        'params' => array(':gstatus' => Good::STATUS_ACTIVE),
+                    )
+                )
             ),
             'onHomePage' => array(
                 'condition' => 't.is_special = :is_special',

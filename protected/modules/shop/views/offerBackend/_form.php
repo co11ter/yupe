@@ -277,13 +277,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <div class="col-sm-12">
         <?php
         $options = array();
-        foreach(Attribute::model()->findAll() as $val) {
+        foreach(Attribute::model()->onlyOffers()->findAll() as $val) {
             $options[CHtml::value($val, 'id')] = array(
                 'data-type_id' => CHtml::value($val, 'type_id'),
-                'data-value_list' => implode(PHP_EOL, CHtml::value($val, 'value_list'))
+                'data-value_list' => $val->value_list ? implode(PHP_EOL, CHtml::value($val, 'value_list')) : ''
             );
         }
-        $attrs = CHtml::listData(Attribute::model()->findAll(), 'id', 'name');
+        $attrs = CHtml::listData(Attribute::model()->onlyOffers()->findAll(), 'id', 'name');
         if($model->offerAttributes) {
             foreach($model->offerAttributes as $m) {
                 if(isset($attrs[$m->attribute_id])) {

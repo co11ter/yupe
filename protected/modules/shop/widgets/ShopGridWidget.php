@@ -13,12 +13,17 @@ class ShopGridWidget extends yupe\widgets\YWidget
 
     public $dataProvider = '';
 
+    public $template = '{items}';
+
     public function run()
     {
         // По умолчанию те товары, которые для главной страницы
         if(!$this->dataProvider) {
             $this->dataProvider = new CActiveDataProvider(Offer::model()->published()->onHomePage());
         }
-        $this->render($this->view, array('dataProvider' => $this->dataProvider));
+        $this->render($this->view, array(
+            'dataProvider' => $this->dataProvider,
+            'template' => $this->template
+        ));
     }
 }

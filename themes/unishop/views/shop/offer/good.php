@@ -89,6 +89,9 @@ $this->breadcrumbs = array(
                     <?php foreach($model->offerAttributes as $attr) {
                         echo CHtml::tag('b', array(), CHtml::encode($attr->attribute->name)).': '.CHtml::encode($attr->value).'<br/>';
                     }?>
+                    <?php foreach($model->good->goodAttributes as $attr) {
+                        echo CHtml::tag('b', array(), CHtml::encode($attr->attribute->name)).': '.CHtml::encode($attr->value).'<br/>';
+                    }?>
                 </div>
             </div>
         </div>
@@ -107,7 +110,7 @@ $this->breadcrumbs = array(
             <section class="catalog-grid">
             <?php
                 $this->widget('application.modules.shop.widgets.ShopGridWidget', array(
-                    'dataProvider' => $model->getRelationGoods()
+                    'dataProvider' => $model->getRelationGoods(),
                 ));
             ?>
             </section>

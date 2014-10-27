@@ -12,7 +12,7 @@
     <?php $this->widget('bootstrap.widgets.TbListView',array(
         'dataProvider' => $dataProvider,
         'itemView'     => '_good',
-        'template'     => '<h2>'.Yii::t('ShopModule.shop', 'Items').'</h2>{items}',
+        'template'     => $template,//'<h2>'.Yii::t('ShopModule.shop', 'Items').'</h2>{items}',
         'itemsCssClass'=> 'row',
         'htmlOptions'  => array(
             'class' => 'container'

@@ -162,6 +162,7 @@ class Good extends yupe\models\YModel
             'changeUser'        => array(self::BELONGS_TO, 'User', 'change_user_id'),
             'user'              => array(self::BELONGS_TO, 'User', 'user_id'),
             'category'          => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'offers'            => array(self::HAS_MANY, 'Offer', 'good_id'),
             'goodAttributes'    => array(self::HAS_MANY, 'GoodHasAttribute', 'good_id'),
             'relationGoods'     => array(self::HAS_MANY, 'GoodHasGood', 'good_id', 'order' => 'relationGoods.sort')
         );
@@ -275,4 +276,4 @@ class Good extends yupe\models\YModel
             self::STATUS_ZERO       => Yii::t('ShopModule.shop', 'Not available'),
         );
     }
-} 
+}

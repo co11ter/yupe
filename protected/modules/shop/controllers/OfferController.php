@@ -28,7 +28,7 @@ class OfferController extends yupe\components\controllers\FrontController
             $model->attributes=$_POST['Offer'];
 
         $offersProvider = $model->search();
-        $offersProvider->model->published();
+        $offersProvider->model->published()->groupByGood();
 
         // категория товара
         if($cid) {
@@ -38,7 +38,6 @@ class OfferController extends yupe\components\controllers\FrontController
         $offersProvider->getCriteria()->mergeWith(array(
             'limit' => self::GOOD_PER_PAGE,
             'order' => 't.create_time DESC',
-            'group' => 't.good_id'
         ));
 
         $this->render('index', array(
@@ -60,7 +59,7 @@ class OfferController extends yupe\components\controllers\FrontController
 
         if ($model === null)
             throw new CHttpException(404, Yii::t('ShopModule.shop', 'Page was not found!'));
-        $this->render('good', array('offer' => $model));
+        $this->render('good', array('model' => $model));
     }
 
     protected function beforeAction()

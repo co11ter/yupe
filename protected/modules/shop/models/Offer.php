@@ -130,6 +130,9 @@ class Offer extends yupe\models\YModel implements IECartPosition
             ),
             'limitPrices' => array(
                 'select' => 'CEILING(MAX(t.price)) as maxPrice, FLOOR(MIN(t.price)) as minPrice'
+            ),
+            'groupByGood' => array(
+                'group' => 't.good_id'
             )
         );
     }
@@ -445,5 +448,21 @@ class Offer extends yupe\models\YModel implements IECartPosition
             )
         );
         return $this;
+    }
+
+    public function getRelationGoods()
+    {
+        $result = Offer::model()->published()->groupByGood();
+        /*$criteria = new CDbCriteria(array(
+            'condition' => 't.good_id in :good_id',
+            'params' => array(':good_id' => array_keys(CHtml::listData($this->good->relationGoods, 'relation_good_id', 'sort'))),
+        ));*/
+        $criteria = new CDbCriteria();
+        $criteria->compare(
+            't.good_id',
+            array_keys(CHtml::listData($this->good->relationGoods, 'relation_good_id', 'sort'))
+        );
+
+        return new CActiveDataProvider($result, array('criteria' => $criteria));
     }
 }

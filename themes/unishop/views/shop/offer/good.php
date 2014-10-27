@@ -1,7 +1,7 @@
 <?php
 /**
  * Страница товарного предложения
- * @var $model - Offer Data Provider
+ * @var Offer $model
  */
 $assetUrl = Yii::app()->getTheme()->getAssetsUrl();
 $this->pageTitle = $model->name;
@@ -39,33 +39,19 @@ $this->breadcrumbs = array(
             <div class="col-lg-6 col-md-6">
                 <div id="prod-gal" class="prod-gal master-slider">
                     <?php
-                    echo CHtml::tag('div', array('class' => 'ms-slide'),
-                        CHtml::image(
-                            $assetUrl . '/images/blank.gif',
-                            $model->name,
-                            array('data-src' => $model->getImageUrl())
-                        ).
-                        CHtml::image(
-                            $model->getImageThumbnail(),
-                            'thumb',
-                            array('class' => 'ms-thumb')
-                        )
-                    );
-                    if($model->gallery) {
-                        foreach ($model->gallery->images as $image) {
-                            echo CHtml::tag('div', array('class' => 'ms-slide'),
-                                CHtml::image(
-                                    $assetUrl . '/images/blank.gif',
-                                    $image->alt,
-                                    array('data-src' => $image->getRawUrl())
-                                ).
-                                CHtml::image(
-                                    $image->getUrl(137, 130),
-                                    'thumb',
-                                    array('class' => 'ms-thumb')
-                                )
-                            );
-                        }
+                    foreach ($model->getAllImages() as $image) {
+                        echo CHtml::tag('div', array('class' => 'ms-slide'),
+                            CHtml::image(
+                                $assetUrl . '/images/blank.gif',
+                                $image['name'],
+                                array('data-src' => $image['image'])
+                            ).
+                            CHtml::image(
+                                $image['thumb'],
+                                'thumb',
+                                array('class' => 'ms-thumb')
+                            )
+                        );
                     } ?>
                 </div>
             </div>

@@ -317,12 +317,19 @@ class Offer extends yupe\models\YModel implements IECartPosition
         );
     }
 
+    /**
+     * @return string
+     */
     public function getSpecial()
     {
         $data = $this->getSpecialList();
         return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('ShopModule.shop', '*unknown*');
     }
 
+    /**
+     * Получаем урл данного оффера
+     * @return string
+     */
     public function getUrl(){
         return '/shop/'.$this->good->category->alias.'/'.$this->alias;
     }
@@ -357,7 +364,6 @@ class Offer extends yupe\models\YModel implements IECartPosition
 
     /**
      * category link
-     *
      * @return string html caregory link
      **/
     public function getCategoryLink()
@@ -420,6 +426,11 @@ class Offer extends yupe\models\YModel implements IECartPosition
         $this->saveAttrs();
     }
 
+    /**
+     * Устанавливаем категорию оффера в критерии
+     * @param $alias
+     * @return $this
+     */
     public function applyCategory($alias)
     {
         $this->getDbCriteria()->mergeWith(
@@ -439,6 +450,11 @@ class Offer extends yupe\models\YModel implements IECartPosition
         return $this;
     }
 
+    /**
+     * Устанавливаем алиас оффера в критерии
+     * @param $alias
+     * @return $this
+     */
     public function applyOffer($alias)
     {
         $this->getDbCriteria()->mergeWith(
@@ -450,13 +466,13 @@ class Offer extends yupe\models\YModel implements IECartPosition
         return $this;
     }
 
+    /**
+     * Получаем набор связанных товаров
+     * @return CActiveDataProvider
+     */
     public function getRelationGoods()
     {
         $result = Offer::model()->published()->groupByGood();
-        /*$criteria = new CDbCriteria(array(
-            'condition' => 't.good_id in :good_id',
-            'params' => array(':good_id' => array_keys(CHtml::listData($this->good->relationGoods, 'relation_good_id', 'sort'))),
-        ));*/
         $criteria = new CDbCriteria();
         $criteria->compare(
             't.good_id',
@@ -464,5 +480,46 @@ class Offer extends yupe\models\YModel implements IECartPosition
         );
 
         return new CActiveDataProvider($result, array('criteria' => $criteria));
+    }
+
+    /**
+     * Формируем массив с картинками для указанного предложения
+     * @param Offer $offer
+     * @return array
+     */
+    public function getImages($offer)
+    {
+        $result[] = array(
+            'name'  => $offer->name,
+            'image' => $offer->getImageUrl(),
+            'thumb' => $offer->getImageThumbnail()
+        );
+        if($offer->gallery) {
+            foreach ($offer->gallery->images as $image) {
+                $result[] = array(
+                    'name'  => $image->alt,
+                    'image' => $image->getRawUrl(),
+                    'thumb' => $image->getUrl(137, 130, \Imagine\Image\ImageInterface::THUMBNAIL_INSET)
+                );
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Формируем массив с картинками для всех предложений связанных с оффером
+     * @return array
+     */
+    public function getAllImages()
+    {
+        $result = $this->getImages($this);
+        if($this->good->offers) {
+            foreach($this->good->offers as $offer) {
+                if($offer->id !== $this->id) {
+                    $result = array_merge($result, $this->getImages($offer));
+                }
+            }
+        }
+        return $result;
     }
 }

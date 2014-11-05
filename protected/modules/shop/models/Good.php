@@ -16,7 +16,6 @@
  * @property string $short_description
  * @property string $description
  * @property string $alias
- * @property integer $status
  * @property string $create_time
  * @property string $update_time
  * @property string $user_id
@@ -26,9 +25,6 @@
 
 class Good extends yupe\models\YModel
 {
-    const STATUS_ACTIVE     = 1;
-    const STATUS_ZERO       = 0;
-
     /**
      * Good Attributes id array
      * @var array
@@ -67,12 +63,11 @@ class Good extends yupe\models\YModel
         return array(
             array('name, category_id, description, alias', 'required', 'except' => 'search'),
             array('external_id', 'unique'),
-            array('status, category_id, user_id, change_user_id', 'numerical', 'integerOnly' => true),
-            array('status, category_id, user_id, change_user_id', 'length', 'max' => 11),
+            array('category_id, user_id, change_user_id', 'numerical', 'integerOnly' => true),
+            array('category_id, user_id, change_user_id', 'length', 'max' => 11),
             array('name', 'length', 'max' => 250),
             array('article', 'length', 'max' => 100),
             array('alias', 'length', 'max' => 150),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
             array(
                 'alias',
                 'yupe\components\validators\YSLugValidator',
@@ -84,12 +79,12 @@ class Good extends yupe\models\YModel
                 'filter' => 'trim'
             ),
             array(
-                'name, alias, article, status, meta_description, meta_keywords',
+                'name, alias, article, meta_description, meta_keywords',
                 'filter',
                 'filter' => array($obj = new CHtmlPurifier(), 'purify')
             ),
             array(
-                'id, name, meta_description, meta_keywords, external_id, category_id, alias, short_description, description, article, status, create_time, update_time, user_id, change_user_id',
+                'id, name, meta_description, meta_keywords, external_id, category_id, alias, short_description, description, article, create_time, update_time, user_id, change_user_id',
                 'safe',
                 'on' => 'search'
             )
@@ -126,7 +121,6 @@ class Good extends yupe\models\YModel
             'description'       => Yii::t('ShopModule.shop', 'Description'),
             'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
             'relationGoods'     => Yii::t('ShopModule.shop', 'Relation Goods'),
-            'status'            => Yii::t('ShopModule.shop', 'Status'),
         );
     }
 
@@ -147,7 +141,6 @@ class Good extends yupe\models\YModel
             'description'       => Yii::t('ShopModule.shop', 'Description'),
             'goodAttributes'    => Yii::t('ShopModule.shop', 'Attribute'),
             'relationGoods'     => Yii::t('ShopModule.shop', 'Relation Goods'),
-            'status'            => Yii::t('ShopModule.shop', 'Status'),
         );
     }
 
@@ -233,17 +226,18 @@ class Good extends yupe\models\YModel
 
     private function saveRelationGoods()
     {
-        GoodHasGood::model()->deleteAll('good_id = :good_id', array('good_id' => $this->id));
-        $relationIds = explode(',', $this->relationIds);
-        $step = $sort = ceil(900/count($relationIds));
-        foreach($relationIds as $id)
-        {
-            $GoodHasGood = new GoodHasGood();
-            $GoodHasGood->good_id = $this->id;
-            $GoodHasGood->relation_good_id = $id;
-            $GoodHasGood->sort = $sort;
-            $GoodHasGood->save();
-            $sort += $step;
+        if ($this->relationIds) {
+            GoodHasGood::model()->deleteAll('good_id = :good_id', array('good_id' => $this->id));
+            $relationIds = explode(',', $this->relationIds);
+            $step = $sort = ceil(900 / count($relationIds));
+            foreach ($relationIds as $id) {
+                $GoodHasGood = new GoodHasGood();
+                $GoodHasGood->good_id = $this->id;
+                $GoodHasGood->relation_good_id = $id;
+                $GoodHasGood->sort = $sort;
+                $GoodHasGood->save();
+                $sort += $step;
+            }
         }
     }
 
@@ -267,13 +261,5 @@ class Good extends yupe\models\YModel
         }
 
         return parent::beforeValidate();
-    }
-
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_ACTIVE     => Yii::t('ShopModule.shop', 'Active'),
-            self::STATUS_ZERO       => Yii::t('ShopModule.shop', 'Not available'),
-        );
     }
 }

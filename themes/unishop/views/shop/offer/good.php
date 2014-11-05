@@ -86,12 +86,23 @@ $this->breadcrumbs = array(
                 <?php echo CHtml::tag('div', array(), $model->description) ?>
                 <?php echo CHtml::tag('div', array(), $model->good->description) ?>
                 <div>
-                    <?php foreach($model->offerAttributes as $attr) {
-                        echo CHtml::tag('b', array(), CHtml::encode($attr->attribute->name)).': '.CHtml::encode($attr->value).'<br/>';
-                    }?>
-                    <?php foreach($model->good->goodAttributes as $attr) {
-                        echo CHtml::tag('b', array(), CHtml::encode($attr->attribute->name)).': '.CHtml::encode($attr->value).'<br/>';
-                    }?>
+                    <table class="items table table-striped table-bordered table-condensed">
+
+                        <tbody>
+                            <?php
+                            $i = 0;
+                            foreach($model->getAllAtributes() as $attr) {
+                                $i++;
+                                $class = $i | 1 ? 'odd' : 'even';
+                                echo CHtml::tag(
+                                    'tr',
+                                    array(),
+                                    CHtml::tag('td', array(), CHtml::encode($attr->attribute->name)).
+                                    CHtml::tag('td', array(), CHtml::encode($attr->value))
+                                );
+                            }?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

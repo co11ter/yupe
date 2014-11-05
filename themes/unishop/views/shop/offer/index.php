@@ -91,7 +91,7 @@ Yii::app()->clientScript->registerScript('search', "
                     </section>
 
                     <?php
-                    foreach($attributes as $attr) {
+                    foreach($offerAttrs as $attr) {
                         $fields = '';
                         if(Attribute::TYPE_MULTIPLE_LIST == $attr->attribute->type_id) {
                             foreach(explode(',', $attr->value) as $value) {

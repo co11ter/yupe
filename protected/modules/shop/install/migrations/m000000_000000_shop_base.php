@@ -27,7 +27,6 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
                 'short_description' => 'text',
                 'description' => 'text NOT NULL',
                 'article' => 'varchar(100) DEFAULT NULL',
-                'status' => "boolean NOT NULL DEFAULT '1'",
                 'create_time' => 'datetime NOT NULL',
                 'update_time' => 'datetime NOT NULL',
                 'user_id' => 'integer DEFAULT NULL',
@@ -85,7 +84,6 @@ class m000000_000000_shop_base extends yupe\components\DbMigration
 
         $this->createIndex("ux_{{shop_good}}_alias", '{{shop_good}}', "alias", true);
         $this->createIndex("ux_{{shop_good}}_external", '{{shop_good}}', "external_id", true);
-        $this->createIndex("ix_{{shop_good}}_status", '{{shop_good}}', "status", false);
         $this->createIndex("ix_{{shop_good}}_article", '{{shop_good}}', "article", false);
         $this->createIndex("ix_{{shop_good}}_category", '{{shop_good}}', "category_id", false);
 

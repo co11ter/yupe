@@ -72,8 +72,8 @@ class GoodHasAttribute extends yupe\models\YModel
     {
         return array(
             'createFilter' => array(
-                'select' => array('good_id', 'attribute_id', new CDbExpression('GROUP_CONCAT(distinct value) as value')),
-                'group' => 'attribute_id'
+                'select' => array('t.good_id', 't.attribute_id', new CDbExpression('GROUP_CONCAT(distinct t.value) as value')),
+                'group' => 't.attribute_id'
             ),
         );
     }

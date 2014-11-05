@@ -115,14 +115,8 @@ class Offer extends yupe\models\YModel implements IECartPosition
     {
         return array(
             'published' => array(
-                'condition' => 't.status = :ofstatus',
-                'params'    => array(':ofstatus' => self::STATUS_ACTIVE),
-                'with'      => array(
-                    'good' => array(
-                        'condition' => 'good.status = :gstatus',
-                        'params' => array(':gstatus' => Good::STATUS_ACTIVE),
-                    )
-                )
+                'condition' => 't.status = :status',
+                'params'    => array(':status' => self::STATUS_ACTIVE),
             ),
             'onHomePage' => array(
                 'condition' => 't.is_special = :is_special',
@@ -520,6 +514,13 @@ class Offer extends yupe\models\YModel implements IECartPosition
                 }
             }
         }
+        return $result;
+    }
+
+
+    public function getAllAtributes()
+    {
+        $result = array_merge((array)$this->offerAttributes, $this->good->goodAttributes);
         return $result;
     }
 }

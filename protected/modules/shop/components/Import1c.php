@@ -85,7 +85,7 @@ class Import1c extends CComponent
         }
 
         // Import products
-        if(isset($xml->{"Каталог"}->{"Товары"})/* && !$this->check(self::IMPORT_TYPE_GOODS)*/)
+        if(isset($xml->{"Каталог"}->{"Товары"}) && !$this->check(self::IMPORT_TYPE_GOODS))
         {
             if($this->importProducts($xml->{"Каталог"}->{"Товары"}))
                 Yii::app()->session[self::IMPORT_TYPE_GOODS] = true;
@@ -120,7 +120,6 @@ class Import1c extends CComponent
             if(!$model)
             {
                 $model              = new Good;
-                $model->status      = Good::STATUS_ZERO;
                 $model->external_id = (string)$product->{"Ид"};
             }
 
@@ -128,7 +127,6 @@ class Import1c extends CComponent
             $model->description = CHtml::tag('p', array(), Yii::t('ShopModule.shop', 'It unloaded from 1c'));
             $model->article     = (string)$product->{"Артикул"};
             $model->category_id = $category->id;
-
             $model->save();
         }
         return true;
@@ -184,7 +182,6 @@ class Import1c extends CComponent
             {
                 $model              = new Category;
                 $model->name        = (string)$category->{"Наименование"};
-                $model->alias       = yupe\helpers\YText::translit((string)$category->{"Наименование"});
                 $model->description = CHtml::tag('p', array(), Yii::t('ShopModule.shop', 'It unloaded from 1c'));
                 $model->lang        = Yii::app()->getLanguage();
                 $model->status      = Category::STATUS_MODERATION;

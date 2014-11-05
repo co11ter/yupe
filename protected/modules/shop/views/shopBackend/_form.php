@@ -159,24 +159,6 @@ $form = $this->beginWidget(
     <div class="col-sm-7">
         <?php echo $form->dropDownListGroup(
             $model,
-            'status',
-            array(
-                'widgetOptions' => array(
-                    'data' => $model->getStatusList(),
-                    'htmlOptions' => array(
-                        'class' => 'popover-help',
-                        'data-original-title' => $model->getAttributeLabel('status'),
-                        'data-content' => $model->getAttributeDescription('status')
-                    ),
-                ),
-            )
-        ); ?>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
-            $model,
             'category_id',
             array(
                 'widgetOptions' => array(

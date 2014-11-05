@@ -19,8 +19,6 @@ class OfferController extends yupe\components\controllers\FrontController
      */
     public function actionIndex($cid = '')
     {
-        $attrs = OfferHasAttribute::model()->createFilter()->findAll();
-
         $model = new Offer('search');
         $model->unsetAttributes();
 
@@ -43,7 +41,8 @@ class OfferController extends yupe\components\controllers\FrontController
         $this->render('index', array(
             'dataProvider' => $offersProvider,
             'model' => $model,
-            'attributes' => $attrs,
+            'offerAttrs' => OfferHasAttribute::model()->createFilter()->findAll(),
+            'goodAttrs' => GoodHasAttribute::model()->createFilter()->findAll(),
             'prices' => $model->published()->limitPrices()->find() // max и min цены
         ));
     }

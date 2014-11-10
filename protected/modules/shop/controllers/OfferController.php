@@ -22,8 +22,8 @@ class OfferController extends yupe\components\controllers\FrontController
         $model = new Offer('search');
         $model->unsetAttributes();
 
-        if(isset($_POST['Offer']))
-            $model->attributes=$_POST['Offer'];
+        if(isset($_REQUEST['Offer']))
+            $model->attributes = $_REQUEST['Offer'];
 
         $offersProvider = $model->search();
         $offersProvider->model->published()->groupByGood();
@@ -33,14 +33,15 @@ class OfferController extends yupe\components\controllers\FrontController
             $offersProvider->model->applyCategory($cid);
         }
 
-        $offersProvider->getCriteria()->mergeWith(array(
+        /*$offersProvider->model->getDbCriteria()->mergeWith(array(
             'limit' => self::GOOD_PER_PAGE,
             'order' => 't.create_time DESC',
-        ));
+        ));*/
+        $offersProvider->setPagination(array('pageSize' => self::GOOD_PER_PAGE));
 
         $this->render('index', array(
             'dataProvider' => $offersProvider,
-            'model' => $model,
+            'model' => $offersProvider->model,
             'offerAttrs' => OfferHasAttribute::model()->createFilter()->findAll(),
             'goodAttrs' => GoodHasAttribute::model()->createFilter()->findAll(),
             'prices' => $model->published()->limitPrices()->find() // max и min цены

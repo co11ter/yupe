@@ -17,6 +17,7 @@ return array(
     'import'    => array(
         'application.modules.shop.models.*',
         'application.modules.shop.components.*',
+        'application.modules.shop.helpers.*',
     ),
     'component' => array(
         'shoppingCart' => array(

@@ -48,6 +48,12 @@ class Offer extends yupe\models\YModel implements IECartPosition
     public $attributeIds = array();
 
     /**
+     * Свойство для проброса аттрибутов товара для поиска
+     * @var array
+     */
+    public $goodAttributes = array();
+
+    /**
      * Минимальная и максимальная цены выборки
      * @var int
      */
@@ -91,7 +97,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ShopModule.shop', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
             array('external_id', 'unique'),
-            array('id, name, price, short_description, description, alias, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, gallery_id, good_id, minPrice, maxPrice, external_id', 'safe', 'on' => 'search'),
+            array('id, name, price, short_description, description, alias, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, goodAttributes, gallery_id, good_id, minPrice, maxPrice, external_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -194,11 +200,11 @@ class Offer extends yupe\models\YModel implements IECartPosition
 
         $criteria = new CDbCriteria;
 
+        $criteria->select = 't.*';
         $criteria->compare('id', $this->id, false);
         $criteria->compare('good_id', $this->good_id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('price', $this->price);
-        $criteria->compare('image', $this->image, true);
         $criteria->compare('short_description', $this->short_description, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('alias', $this->alias, true);
@@ -216,13 +222,34 @@ class Offer extends yupe\models\YModel implements IECartPosition
             $criteria->compare('price', '<='.$this->maxPrice, true);
         }
 
-        foreach($this->offerAttributes as $id => $value) {
-            if($value) {
-                $criteria->mergeWith(array(
-                    'join'=>'JOIN '.OfferHasAttribute::model()->tableName().' attr'.$id.' ON attr'.$id.'.offer_id = t.id'
-                ));
-                $criteria->compare('attr'.$id.'.attribute_id', $id, false);
-                $criteria->addInCondition('attr'.$id.'.value', $value);
+        if($this->offerAttributes) {
+            foreach($this->offerAttributes as $id => $value) {
+                if($value) {
+                    $criteria->mergeWith(array(
+                        'join'=>'JOIN '.OfferHasAttribute::model()->tableName().' attr'.$id.' ON attr'.$id.'.offer_id = t.id'
+                    ));
+                    $criteria->compare('attr'.$id.'.attribute_id', $id, false);
+                    if(is_array($value)) {
+                        $criteria->addInCondition('attr'.$id.'.value', array_values($value));
+                    } else {
+                        $criteria->compare('attr'.$id.'.value', $value, false);
+                    }
+                }
+            }
+        }
+        if($this->goodAttributes) {
+            foreach($this->goodAttributes as $id => $value) {
+                if($value) {
+                    $criteria->mergeWith(array(
+                        'join'=>'JOIN '.GoodHasAttribute::model()->tableName().' gattr'.$id.' ON gattr'.$id.'.good_id = t.good_id'
+                    ));
+                    $criteria->compare('gattr'.$id.'.attribute_id', $id, false);
+                    if(is_array($value)) {
+                        $criteria->addInCondition('gattr'.$id.'.value', array_values($value));
+                    } else {
+                        $criteria->compare('gattr'.$id.'.value', $value, false);
+                    }
+                }
             }
         }
 

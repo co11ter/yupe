@@ -96,11 +96,13 @@ class Attribute extends yupe\models\YModel
         $criteria->compare('t.external_id', $this->external_id, true);
         $criteria->compare('t.name', $this->name, true);
 
-        $criteria->compare('category.id', $this->categoryIds, true);
-        $criteria->with = array(
-            'category'=>array('select'=>'category.id','together'=>true),
-            'values'=>array('together'=>true)
-        );
+        if($this->categoryIds) {
+            $criteria->compare('category.id', $this->categoryIds, true);
+            $criteria->with = array(
+                'category'=>array('select'=>'category.id','together'=>true),
+                'values'=>array('together'=>true)
+            );
+        }
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }

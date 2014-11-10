@@ -375,6 +375,16 @@ $(document).ready(function(e) {
 	$('.clearChecks').click(function(){
 		$(this).parent().find('.icheckbox').removeClass('checked');
 	});
+
+    //Clear Radio filters
+    $('.clearChecks').click(function(){
+        $(this).parent().find('.iradio').removeClass('checked');
+    });
+
+    //Clear Radio filters
+    $('.clearChecks').click(function(){
+        $(this).parent().find('input').val('');
+    });
 	
 	//Categories accordion
 	$subcatToggle.click(function(e){

@@ -452,11 +452,11 @@ $(document).ready(function(e) {
                         updateCartWidget(response);
                     }
 
-                    var price = $button.parent().parent().find(".price").html().replace(response.currency, '').trim();
-                    $button.parent().parent().find(".total").text(parseFloat(price)*newVal + ' ' + response.currency);
+                    var price = $button.parent().parent().find(".price").html().replace(response.ajaxCurrency, '').trim();
+                    $button.parent().parent().find(".total").text(parseFloat(price.replace('&nbsp;', ''))*newVal + ' ' + response.ajaxCurrency);
 
-                    $('.shopping-cart .cart-totals tr:first td:last').text(response.cost + ' ' + response.currency);
-                    $('.shopping-cart .cart-totals tr:last td:last').text(response.cost + ' ' + response.currency);
+                    $('.shopping-cart .cart-totals tr:first td:last').text(response.cost + ' ' + response.ajaxCurrency);
+                    $('.shopping-cart .cart-totals tr:last td:last').text(response.cost + ' ' + response.ajaxCurrency);
                 }
             );
         }
@@ -532,8 +532,8 @@ $(document).ready(function(e) {
                     updateCartWidget(response);
                 }
 
-                $('.shopping-cart .cart-totals tr:first td:last').text(response.cost + ' ' + response.currency);
-                $('.shopping-cart .cart-totals tr:last td:last').text(response.cost + ' ' + response.currency);
+                $('.shopping-cart .cart-totals tr:first td:last').text(response.cost + ' ' + response.ajaxCurrency);
+                $('.shopping-cart .cart-totals tr:last td:last').text(response.cost + ' ' + response.ajaxCurrency);
 
                 $target.hide(300, function(){
                     $.when($target.remove()).then( function(){

@@ -1,17 +1,5 @@
 <header data-stuck="250" data-offset-top="150" class=""><!--data-offset-top is when header converts to small variant and data-stuck when it becomes visible. Values in px represent position of scroll from top. Make sure there is at least 100px between those two values for smooth animation-->
 
-    <!--Search Form-->
-    <form autocomplete="off" role="form" method="get" class="search-form closed">
-        <div class="container">
-            <div class="close-search"><i class="icon-delete"></i></div>
-            <div class="form-group">
-                <label for="search-hd" class="sr-only">Search for procuct</label>
-                <input type="text" placeholder="Search for procuct" id="search-hd" name="search-hd" class="form-control">
-                <button type="submit"><i class="icon-magnifier"></i></button>
-            </div>
-        </div>
-    </form>
-
     <!--Split Background-->
     <div class="left-bg"></div>
     <div class="right-bg"></div>
@@ -49,18 +37,28 @@
         </nav>
 
         <!--Toolbar-->
-        <div class="toolbar group">
-            <button class="search-btn btn-outlined-invert"><i class="icon-magnifier"></i></button>
+        <div class="toolbar group search-bar">
             <div class="middle-btns">
-                <a href="wishlist.html" class="btn-outlined-invert"><i class="icon-heart"></i> <span>Wishlist</span></a>
-                <a data-target="#loginModal" data-toggle="modal" href="#" class="login-btn btn-outlined-invert"><i class="icon-profile"></i> <span>Login</span></a>
+                <a class="login-btn btn-outlined-invert" href="/backend"><i class="icon-profile"></i> <span>Войти</span></a>
             </div>
+
             <div class="cart-btn">
                 <?php
                 if (Yii::app()->hasModule('shop')) {
                     $this->widget('application.modules.shop.widgets.ShoppingCartWidget');
                 } ?>
             </div>
-        </div><!--Toolbar Close-->
+
+            <form class="search-btn btn-outlined-invert" method="get" role="form" autocomplete="off">
+                <input type="text" class="form-control" name="search-hd" id="search-hd">
+                <button type="submit"><i class="icon-magnifier"></i></button>
+            </form>
+
+            <div class="phone-label">
+                <i class="fa fa-phone"></i> (495) 989-16-39
+            </div>
+
+        </div>
+        <!--Toolbar Close-->
     </div>
 </header>

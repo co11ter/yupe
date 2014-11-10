@@ -59,15 +59,20 @@ $this->breadcrumbs = array(
             <!--Product Description-->
             <div class="col-lg-6 col-md-6">
 
-                <div>
                     <?php
-                    foreach($model->good->offers as $offer)
-                    {
-                        $option = $model->id===$offer->id ? array('class' => 'active') : array();
-                        echo CHtml::link($offer->name, '/shop/'.$model->good->category->alias.'/'.$offer->alias, $option).'<br/>';
-                    } ?>
+                    if(1<count($model->good->offers)) {
+                        $list = '';
+                        foreach($model->good->offers as $offer)
+                        {
+                            $option = $model->id===$offer->id ? array('class' => 'active') : array();
+                            $list .= CHtml::tag('li', array(),
+                                CHtml::link($offer->name, '/shop/'.$model->good->category->alias.'/'.$offer->alias, $option)
+                            );
+                        }
+                        echo CHtml::tag('ul', array('class' => 'colorlist'), $list);
+                    }
+                    ?>
                     <br/>
-                </div>
                 <div class="price">
                     <?php echo Yii::app()->getNumberFormatter()->formatCurrency($model->price, 'RUB');?>
                 </div>

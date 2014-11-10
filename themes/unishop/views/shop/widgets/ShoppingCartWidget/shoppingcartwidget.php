@@ -38,6 +38,7 @@ echo CHtml::link(
         'class' => 'btn btn-outlined-invert'
     )
 );?>
+
 <div class="cart-dropdown">
     <span></span><!--Small rectangle to overlap Cart button-->
     <div class="body">

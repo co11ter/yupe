@@ -4126,8 +4126,8 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     }
 
     .navbar-nav > li > a {
-        padding-top: 24.5px;
-        padding-bottom: 24.5px
+        padding-top: 24px;
+        padding-bottom: 24px
     }
 
     .navbar-nav.navbar-right:last-child {
@@ -4138,12 +4138,10 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 @media (min-width: 768px) {
     .navbar-left {
         float: left !important;
-        float: left
     }
 
     .navbar-right {
         float: right !important;
-        float: right
     }
 }
 
@@ -15155,7 +15153,7 @@ padding-top: 15px;
 
 .subscr-widget {
     color: #fff;
-    padding: 48px 0 33.599999999999994px 0;
+    padding: 48px 0 34px 0;
     background: #2ba8db
 }
 

@@ -139,5 +139,6 @@ return array (
     'Access token for 1C exchange' => '',
     'Allowed Ips for 1C exchange' => '',
     'General module settings' => '',
-    'Relation Goods' => ''
+    'Relation Goods' => '',
+    'Search' => ''
 );

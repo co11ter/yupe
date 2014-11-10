@@ -49,8 +49,15 @@
                 } ?>
             </div>
 
-            <form class="search-btn btn-outlined-invert" method="get" role="form" autocomplete="off">
-                <input type="text" class="form-control" name="search-hd" id="search-hd">
+            <form class="search-btn btn-outlined-invert" method="get" role="form" autocomplete="off" action="/shop/search">
+                <?php echo CHtml::textField(
+                    'search-hd',
+                    isset($_GET['search-hd']) ? $_GET['search-hd'] : '',
+                    array(
+                    'class' => 'form-control',
+                    'id'    => 'search-hd'
+                    )
+                ); ?>
                 <button type="submit"><i class="icon-magnifier"></i></button>
             </form>
 

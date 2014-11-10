@@ -26,10 +26,11 @@ return array(
     ),
     'rules' => array(
         '/shop/exchange/<key>' => 'shop/exchange/unloading',
+        '/shop/search' => 'shop/offer/search',
         '/shoppingcart/<action:\w+>' => 'shop/shoppingcart/<action>',
         '/shoppingcart' => 'shop/shoppingcart/index',
         '/shop/<cid>/<name>' => 'shop/offer/view',
         '/shop/<cid>' => 'shop/offer/index',
-        '/shop' => 'shop/offer/index'
+        '/shop' => 'shop/offer/index',
     ),
 );

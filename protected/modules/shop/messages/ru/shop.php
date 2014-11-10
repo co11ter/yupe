@@ -141,5 +141,6 @@ return array (
     'Access token for 1C exchange' => 'Токен доступа для обмена с 1С',
     'Allowed Ips for 1C exchange' => 'Разрешенные IP для обмена с 1С',
     'General module settings' => 'Основные настройки модуля',
-    'Relation Goods' => 'Похожие товары'
+    'Relation Goods' => 'Похожие товары',
+    'Search' => 'Поиск'
 );

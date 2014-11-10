@@ -62,6 +62,17 @@ class OfferController extends yupe\components\controllers\FrontController
         $this->render('good', array('model' => $model));
     }
 
+    public function actionSearch()
+    {
+        $term = Yii::app()->getRequest()->getQuery('search-hd', '');
+
+        $criteria = new CDbCriteria(array('with' => array('good')));
+        $criteria->compare('good.name', $term, true);
+        $dataProvider = new CActiveDataProvider(Offer::model()->groupByGood(), array('criteria' => $criteria));
+
+        $this->render('search', array('dataProvider' => $dataProvider));
+    }
+
     protected function beforeAction()
     {
         Yii::app()->getModule('attribute');

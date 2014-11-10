@@ -97,7 +97,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
             array('alias', 'yupe\components\validators\YSLugValidator', 'message' => Yii::t('ShopModule.shop', 'Illegal characters in {attribute}')),
             array('alias', 'unique'),
             array('external_id', 'unique'),
-            array('id, name, price, short_description, description, alias, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, goodAttributes, gallery_id, good_id, minPrice, maxPrice, external_id', 'safe', 'on' => 'search'),
+            array('id, name, price, short_description, description, alias, status, create_time, update_time, user_id, change_user_id, is_special, offerAttributes, goodAttributes, gallery_id, good_id, minPrice, maxPrice, external_id, goodName', 'safe', 'on' => 'search'),
         );
     }
 

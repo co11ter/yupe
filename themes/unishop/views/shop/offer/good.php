@@ -96,7 +96,7 @@ $this->breadcrumbs = array(
                         <tbody>
                             <?php
                             $i = 0;
-                            foreach($model->getAllAtributes() as $attr) {
+                            foreach($model->getAllAttributes() as $attr) {
                                 $i++;
                                 $class = $i | 1 ? 'odd' : 'even';
                                 echo CHtml::tag(

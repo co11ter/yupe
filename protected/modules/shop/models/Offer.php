@@ -545,7 +545,7 @@ class Offer extends yupe\models\YModel implements IECartPosition
     }
 
 
-    public function getAllAtributes()
+    public function getAllAttributes()
     {
         $result = array_merge((array)$this->offerAttributes, $this->good->goodAttributes);
         return $result;

@@ -15,10 +15,10 @@
 
         <?php // TODO преписать дальнейший говнокод ?>
         select.find('option[value="' + obj.id + '"]').remove();
-        select.parent().append('<label for="Good_goodAttributes_' + obj.id + '">' + obj.name + '</label>');
+        select.parent().append('<label class="control-label" for="Good_goodAttributes_' + obj.id + '">' + obj.name + '</label>');
         if(obj.type_id == <?php echo Attribute::TYPE_LIST;?>) {
             outer = $('<select>')
-                .addClass('span7 popover-help')
+                .addClass('span7 popover-help form-control')
                 .attr({
                     id: 'Good_goodAttributes_' + obj.id,
                     name: 'Good[goodAttributes][' + obj.id + ']',
@@ -44,7 +44,7 @@
                 label = $('<label>').addClass('checkbox');
                 outer.append(label);
                 label.append($('<input>')
-                    .addClass('span7 popover-help')
+                    .addClass('span7 popover-help form-control')
                     .attr({
 //                        id: 'Good_goodAttributes_' + obj.id,
                         name: 'Good[goodAttributes][' + obj.id + '][]',
@@ -56,7 +56,7 @@
             });
         } else {
             select.parent().append($('<input>')
-                .addClass('span7 popover-help')
+                .addClass('span7 popover-help form-control')
                 .attr({
                     id: 'Good_goodAttributes_' + obj.id,
                     name: 'Good[goodAttributes][' + obj.id + ']',

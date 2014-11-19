@@ -73,7 +73,7 @@ class OfferController extends yupe\components\controllers\FrontController
         $this->render('search', array('dataProvider' => $dataProvider));
     }
 
-    protected function beforeAction()
+    protected function beforeAction($action)
     {
         Yii::app()->getModule('attribute');
         Yii::app()->getModule('gallery');

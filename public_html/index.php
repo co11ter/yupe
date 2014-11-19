@@ -21,9 +21,10 @@ if (!ini_get('mbstring.internal_encoding')) {
 
 define('YII_APP_TYPE', 'web');
 
-// две строки закомментировать на продакшн сервере
-define('YII_DEBUG', true);
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
+if(getenv('EMFY_APP_DEBUG')) {
+    define('YII_DEBUG', true);
+    defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
+}
 
 require dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
 

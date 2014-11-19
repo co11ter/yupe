@@ -91,7 +91,7 @@ return array(
         'debug'         => array(
             'class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
             'internalUrls' => false,
-            'allowedIPs' => array('192.168.5.123')
+            'allowedIPs' => array('192.168.44.1')
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:

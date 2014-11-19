@@ -44,7 +44,7 @@
 
             <div class="cart-btn">
                 <?php
-                if (Yii::app()->hasModule('shop')) {
+                if (Yii::app()->hasModule('shop') && Yii::app()->getModule('shop')) {
                     $this->widget('application.modules.shop.widgets.ShoppingCartWidget');
                 } ?>
             </div>

@@ -23,14 +23,18 @@ return array(
         'shoppingCart' => array(
             'class' => 'application.modules.shop.components.EShoppingCart',
         ),
+        'ymlGenerator' => array(
+            'class' => 'application.modules.shop.components.MyYmlGenerator'
+        )
     ),
     'rules' => array(
-        '/shop/exchange/<key>' => 'shop/exchange/unloading',
-        '/shop/search' => 'shop/offer/search',
-        '/shoppingcart/<action:\w+>' => 'shop/shoppingcart/<action>',
-        '/shoppingcart' => 'shop/shoppingcart/index',
-        '/shop/<cid>/<name>' => 'shop/offer/view',
-        '/shop/<cid>' => 'shop/offer/index',
-        '/shop' => 'shop/offer/index',
+        '/shop/exchange/<key>'          => 'shop/exchange/unloading',
+        '/shop/search'                  => 'shop/offer/search',
+        '/shop/yml'                     => 'shop/offer/yml',
+        '/shop/<cid>/<name>'            => 'shop/offer/view',
+        '/shop/<cid>'                   => 'shop/offer/index',
+        '/shop'                         => 'shop/offer/index',
+        '/shoppingcart/<action:\w+>'    => 'shop/shoppingcart/<action>',
+        '/shoppingcart'                 => 'shop/shoppingcart/index',
     ),
 );

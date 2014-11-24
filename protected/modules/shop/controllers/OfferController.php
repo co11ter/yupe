@@ -73,6 +73,14 @@ class OfferController extends yupe\components\controllers\FrontController
         $this->render('search', array('dataProvider' => $dataProvider));
     }
 
+    public function actionYml()
+    {
+        $generator = Yii::app()->ymlGenerator;
+        $generator->encoding = Yii::app()->charset;
+        header('Content-Type: text/xml; charset='.strtolower(Yii::app()->charset));
+        $generator->run();
+    }
+
     protected function beforeAction($action)
     {
         Yii::app()->getModule('attribute');
